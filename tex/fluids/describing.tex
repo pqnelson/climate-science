@@ -1,4 +1,4 @@
-% 17
+% 18
 \section{Describing Fluids}
 
 \begin{node}\label{fluids:describing-0000}%
@@ -231,6 +231,18 @@ parcel is constant (which means its volume can vary, otherwise density
 is constant). I'm not sure if this is standard or not? If so, I suppose
 we could conceptually think of the number of molecules in a parcel is
 fixed\dots but this may be ``chalk and cheese''.
+\end{node}
+
+\begin{node}[Empirical considerations]\label{fluids:describing-000H}%
+Howard Brenner~\cite{brenner2005kinematics,brenner2005navier,brenner2006fluid} has proposed a modification to this classical picture of
+a fluid as a continuum of point particles. The basic alternative has two
+different notions of velocity, a ``kinematical'' velocity
+$\vec{u}_{\text{kin}}$ used for the conservation of mass, and a
+``dynamical'' velocity $\vec{u}_{\text{dyn}}$ used in the equations
+of motion. The two are related by some dispersion relation like
+$\vec{u}_{\text{dyn}}-\vec{u}_{\text{kin}}=K\grad\ln(p)$ where $K$ is a
+constant that depends on the fluid. This turns out to have nicer
+mathematical properties; see, e.g., Feireisl and Vasseur~\cite{feireisl2010new}.
 \end{node}
 \end{node}
 

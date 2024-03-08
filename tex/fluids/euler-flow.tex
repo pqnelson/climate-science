@@ -1,4 +1,4 @@
-% 6
+% 15
 \section{Euler Fluids}
 
 \begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
@@ -130,5 +130,230 @@ force $\vec{F}$ as
 \end{equation*}
 where $\sigma$ is the stress tensor, and describes surface force
 interactions. For most fluids, $\sigma=\diag(-p,-p,-p)$ where $p$ is pressure.
+In this case, the Euler flow equations become
+\begin{equation}
+\rho\frac{\materialD\vec{u}}{\materialD t}=\vec{f}-\grad p,
+\end{equation}
+where $\vec{f}$ are the body forces acting on the fluid.
+\end{node}
+
+\begin{node}[Lagrangian description]\label{fluids:euler-flow-0006}%
+Using Lagrangian description of fluids, we would have the Euler
+equations become
+\begin{equation}
+\left.\frac{\partial^{2}\vec{X}(\vec{a},t)}{\partial t^{2}}\right|_{\vec{a}}
+=\frac{-1}{\rho}J^{-1}\grad_{\vec{a}}p+\vec{f},
+\end{equation}
+where $J^{-1}$ is the inverse of the Jacobian matrix,
+$\grad_{\vec{x}}p=J^{-1}\grad_{\vec{a}}p$, and $\vec{f}$ are the body
+forces acting on the fluid.
+\end{node}
+\end{node}
+
+\begin{node}[Hydrostatics]\label{fluids:euler-flow-0007}%
+Hydrostatics is concerned with fluids at rest (specifically $\vec{u}=\vec{0}$),
+usually in the presence of gravity. Euler's equations of motion then
+have the left-hand side vanish, so
+\begin{equation}
+\vec{0}=\frac{-1}{\rho}\grad p + \vec{g}\implies\grad p =\rho\vec{g}.
+\end{equation}
+If there is no external force (e.g., if we ``turned off'' gravity), then
+we would have $\grad p=\vec{0}$ which implies $p$ is constant.
+
+If $\vec{g}=-g\widehat{\vec{z}}$ and $\rho$ is constant, then we have
+\[\partial_{x}p=\partial_{y}p=0,\qquad\partial_{z}p=-\rho g.\]
+We can solve this as
+\[p=-\rho gz+\mbox{constant}.\]
+If the fluid at rest has a free surface at height $h$, where the
+pressure is uniformly equal to $p_{0}$, then this surface must be the
+horizontal plane $z=h$. From these initial conditions $p=p_{0}$ for
+$z=h$, we find the constant of integration
+\begin{equation}\label{eq:fluids:euler-flow:hydrostatic}
+p=p_{0}+\rho g(h-z).
+\end{equation}
+
+
+\begin{node}[For large bodies]\label{fluids:euler-flow-0008}%
+When we have large masses of a liquid (or a gas) the density $\rho$
+cannot be assumed to be constant. This applies especially for gases
+(e.g., the atmosphere). If we suppose the fluid is in mechanical
+equilibrium and thermal equilibrium, then the temperature is the same at
+every point. We may use the familiar thermodynamics relation
+\begin{subequations}
+\begin{equation}
+\D G=-s\,\D T + V\,\D p 
+\end{equation}
+where $G$ is the Gibbs free energy function, $V$ is the specific
+volume, $s$ is the entropy per unit mass. For constant temperature, this
+becomes
+\begin{equation}
+\D G=V\,\D p=\D p/\rho.
+\end{equation}
+Then $(\grad p)/\rho$ in this particular case is equal to $\grad G$, so
+the equation becomes
+\begin{equation}
+\grad G=\vec{g}\implies\grad(G+gz)=0,
+\end{equation}
+hence
+\begin{equation}
+G+gz=\mbox{constant}.
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}[Atmosphere]\label{fluids:euler-flow-0009}%
+Another consequence of Eq~\eqref{eq:fluids:euler-flow:hydrostatic},
+if a fluid (like the atmosphere) is in mechanical equilibrium in a
+gravitational field, then the pressure in it can be a function only of
+the altitude $z$. Otherwise if the pressure were different at different
+points with the same altitude, motion would occur. It then follows from 
+Eq~\eqref{eq:fluids:euler-flow:hydrostatic} that the density
+\begin{equation}\label{eq:fluids:euler-flow:hydrostatic:atmosphere}
+\rho=\frac{-1}{g}\frac{\D p}{\D z}
+\end{equation}
+is a function of $z$ only. The pressure and density together determine
+the temperature (which is a function of $z$ only).
+
+Using the ideal gas law, we can write
+\begin{equation*}
+\rho = \frac{Mp}{RT}
+\end{equation*}
+where $M$ is the mean molecular mass of the gas, $R$ is the gas constant.
+When we plug this into Eq~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere},
+separation of variables gives us
+\begin{equation}\label{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq}
+\frac{\D p}{p}=\frac{-\D z}{RT/(Mg)}=\frac{-\D z}{k_{B}T/(mg)}.
+\end{equation}
+If $T$ is constant, then $H=k_{B}T/(mg)$ is constant, and the general
+solution looks like
+\begin{equation}
+p=p_{0}\exp(-z/H)
+\end{equation}
+where $p_{0}$ is the pressure at height $z=0$. For Earth's atmosphere
+$p_{0}=\qty{1.01e5}{\pascal}$, the mean molecular mass of dry air has
+$m=\qty{4.808e-26}{\kilo\gram}$. Therefore $H/T=\qty{29.26}{\meter\per\kelvin}$.
+For $T=\qty{290}{\kelvin}$, we have $H=\qty{8500}{\meter}$.
+
+\begin{node}[Linear temperature]\label{fluids:euler-flow-000B}%
+When $T(z)=T_{0}+T_{1}z$, we solve the differential Equation~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq},
+\begin{equation}
+p(z) = p_{0}\left(1 - \frac{z T_{1}}{T_{0}}\right)^{gm/k_{B}T_{1}}.
+\end{equation}
+Observe as $T_{1}\to0$, this recovers the previous case. However, if we
+try to solve for the altitude $z$ for which $p(z)=p_{0}\exp(-1)$ (which
+is the equivalent condition for $p(H)=p_{0}\exp(-1)$ when temperature
+was constant with respect to altitude), setting $h=H/T_{0}$, we find
+\begin{equation*}
+\left(1 - \frac{z T_{1}}{T_{0}}\right)^{1/hT_{1}}=\exp(-1).
+\end{equation*}
+Solving for $z$, we end up with
+\begin{equation*}
+  \exp(-hT_{1})=1 - \frac{z T_{1}}{T_{0}}
+  \implies
+  z = (1-\E^{-hT_{1}})\frac{T_{0}}{T_{1}}.
+\end{equation*}
+The limit as $T_{1}\to 0$ gives us $z=H$ as expected. In fact, we can
+series expand $z(T_{1})$ about $T_{1}\approx0$ to find
+\begin{equation}
+z\approx hT_{0}-\frac{1}{2}h^{2}T_{0}T_{1}+\frac{1}{3!}h^{3}T_{0}T_{1}^{2}-\frac{1}{24}h^{4}T_{0}T_{1}^{3}+\bigO(T_{1}^{4}).
+\end{equation}
+Since for Earth $T_{1}\sim-10^{-4}\unit{\kelvin\per\meter}$ and
+$h\sim10^{3/2}\unit{\meter\per\kelvin}$, we'd have $hT_{1}\sim10^{-5/2}$,
+so even to quadratic order in $hT_{1}$ we'd have corrections of order $10^{-5}$.
+So we could keep a linear approximation in $T_{1}$ and still have a
+decent approximation.
+
+If we take $T_{0}=\qty{290}{\kelvin}$ and
+$T_{1}=\qty{-9e-4}{\kelvin\per\meter}$ (which will match the temperature
+at the Kalman line),
+then $H_{\text{lin}}\approx\qty{8598.11}{\meter}$.
+If we match the temperature at the stratopause,
+$T_{1}=\qty{-4e-4}{\kelvin\per\meter}$,
+then $H_{\text{lin}}\approx\qty{8535.25}{\meter}$. 
+\end{node}
+
+\begin{node}[Quadratic temperature]\label{fluids:euler-flow-000C}%
+When the temperature is quadratic in the altitude $T(z)=T_{0}+T_{1}z+T_{2}z^{2}$,
+we solve the differential Equation~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq}
+with initial condition $p(0)=p_{0}$ for
+\begin{equation}
+p(z) = p_{0}\exp \left(\frac{2 g m \left(\arctan\left(\frac{T_{1}}{\sqrt{4
+    T_{0} T_{2}-T_{1}^{2}}}\right)-\arctan\left(\frac{T_{1}+2 T_{2} z}{\sqrt{4 T_{0}
+    T_{2}-T_{1}^{2}}}\right)\right)}{k_{B} \sqrt{4 T_{0} T_{2}-T_{1}^{2}}}\right)
+\end{equation}
+We suppose $T_{1}<0$ and $T_{2}>0$. Then $T'(z_{\text{cr}})=T_{1}+2z_{\text{cr}}T_{2}=0$ for $z_{\text{cr}}=\frac{-1}{2}T_{1}/T_{2}\approx\qty{10}{\kilo\meter}$.
+We see $T(z_{\text{cr}})=T_{0}+\frac{1}{2}T_{1}z_{\text{cr}}\approx\qty{215}{\kelvin}$
+and $T_{0}\approx\qty{285}{\kelvin}$ implies $T_{1}\approx\qty{-1.4e-2}{\kelvin\per\meter}$
+and therefore $T_{2}=\qty{7e-7}{\kelvin\per\meter\squared}$. Using these
+values, solving $p(H_{\text{quad}})=p_{0}\exp(-1)$ for $H_{\text{quad}}$
+gives us for Earth
+\begin{equation}
+  \begin{split}
+H_{\text{quad},\text{Earth}}&=\qty{10}{\kilo\meter}+\qty{5}{\kilo\meter}\sqrt{86/7}\tan\left(\frac{\sqrt{301}k_{B}}{1000\sqrt{2}mg}-\arctan\sqrt{\frac{14}{43}}\right)\\
+&\approx\qty{7179.62}{\meter}.
+  \end{split}
+\end{equation}
+For $T_{0}=\qty{290}{\kelvin}$, $T_{1}=\qty{-1.5e-2}{\kelvin\per\meter}$,
+$T_{2}=\qty{7.5e-7}{\kelvin\per\meter\squared}$,
+and then 
+\begin{equation}
+\begin{split}
+H_{\text{quad},\text{Earth}}'&= \qty{2}{\kilo\meter}\sqrt{\frac{5}{129}}(\sqrt{645}-43\tan\left(\arctan\sqrt{15/43}-\frac{188727}{20000\sqrt{645}}\right)\\
+&\approx\qty{7233.91}{\meter}
+\end{split}
+\end{equation}
+As a quick sanity check, we see that this is the same order-of-magnitude
+as the constant temperature scenario.
+\end{node}
+\end{node}
+
+\begin{node}[Steady flow]\label{fluids:euler-flow-000D}%
+The notion of a steady flow is specifically when
+$\partial_{t}\vec{u}=\vec{0}$ in the Eulerian description.
+
+\begin{theorem}[Bernoulli]\label{fluids:euler-flow-000E}%
+The steady flow for an ideal fluid of constant density has the Bernoulli
+function $H:=\rho^{-1}p+\Phi+\frac{1}{2}\|\vec{u}\|^{2}$ be constant on
+streamlines, where the body force satisfies $\vec{f}=-\rho\grad\Phi$.
+\end{theorem}
+
+\begin{proof}
+We see that the Euler equations for steady flow satisfy
+\begin{equation*}
+\vec{u}\cdot\grad\vec{u}+\rho^{-1}\grad p+\grad\Phi=0.
+\end{equation*}
+We use the identity from vector calculus,
+\begin{equation*}
+\grad(\vec{A}\cdot\vec{B})=(\vec{A}\cdot\grad)\vec{B}+(\vec{B}\cdot\grad)\vec{A}+\vec{A}\times(\grad\times\vec{B})+\vec{B}\times(\grad\times\vec{A}),
+\end{equation*}
+applied to $\vec{A}=\vec{B}=\vec{u}$ gives us
+\begin{equation*}
+\grad(\vec{u}\cdot\vec{u})=2(\vec{u}\cdot\grad)\vec{u}+2\vec{u}\times(\grad\times\vec{u}),
+\end{equation*}
+so
+\begin{equation*}
+\vec{u}\cdot\grad\vec{u}=\frac{1}{2}\vec\|\vec{u}\|^{2}-\vec{u}\times(\grad\times\vec{u}).
+\end{equation*}
+Then the Euler flow becomes
+\begin{equation}
+\grad(\rho^{-1}p+\Phi+\frac{1}{2}\|\vec{u}\|^{2})=\vec{u}\times(\grad\times\vec{u}).
+\end{equation}
+Taking the dot product with $\vec{u}$ on both sides yields
+\begin{equation}
+\vec{u}\cdot\grad(\rho^{-1}p+\Phi+\frac{1}{2}\|\vec{u}\|^{2})=0.
+\end{equation}
+Consequently
+\begin{equation}
+\frac{\materialD}{\materialD t}(\rho^{-1}p+\Phi+\frac{1}{2}\|\vec{u}\|^{2})
+=\vec{u}\cdot\grad(\rho^{-1}p+\Phi+\frac{1}{2}\|\vec{u}\|^{2})
+=0.
+\end{equation}
+Hence the result.
+\end{proof}
+\end{node}
+
+\begin{node}[References]\label{fluids:euler-flow-000A}%
+See Landau and Lifshitz~\cite[\S3]{landau1987fluids}, Chapter 2 of
+Childress~\cite{childress2009introduction}. 
 \end{node}
 \end{node}
