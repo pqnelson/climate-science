@@ -1,0 +1,49 @@
+\chapter*{Preface}
+
+This is an attempt to collect and collate my thoughts, notes, readings
+on physics, chemistry, biology, climate science, and the related
+mathematics needed to understand them. It would be nice to have a
+``self-contained text'' which starts with elementary algebra, builds a
+computer algebra system (CAS) to formalize what has been learned,
+applies the CAS to physics, and so on. But this would be a pipe-dream, a
+bridge too far.
+
+\section*{Stylistic Choices}
+
+\subsection*{Programming} There will be numerical analysis done in these
+notes. I am deliberating what language (or languages) should be
+used. \FORTRAN\ has become tolerable since 1990, when it began to
+imitate Pascal. But still, I am a Lisper at heart, and the heart wants
+what the heart wants.
+
+However, the use of code is to show the \emph{intent} of something, not
+to actually code it up.
+
+
+\subsection*{Calculations} I am going to use Dijkstra's ``structured
+derivations'' for performing calculations. It is a beautiful thing. The
+basic structure looks like
+\begin{calculation}
+  A
+  \step{hint why $A=B$}
+  B
+  \step{hint why $B=C$}
+  C
+\end{calculation}
+We can change the relational operator, for example
+\begin{calculation}
+  A
+  \step[\leq]{hint why $A\leq B$}
+  B
+  \step{hint why $B=C$}
+  C
+\end{calculation}
+Or we may work with sequences of equations
+\begin{calculation}
+  A=B
+  \step[\equiv]{hint why $B=B'$, $A=A'$}
+  A'=B'
+  \step[\equiv]{hint why $B'=C$}
+  A'=C.
+\end{calculation}
+It's a wonderful thing.

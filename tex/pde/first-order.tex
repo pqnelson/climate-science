@@ -1,0 +1,146 @@
+
+\section{First-order equations}
+
+% https://www.ucl.ac.uk/~ucahhwi/LTCC/sectionA-firstorder.pdf
+
+\begin{node}\label{pde-0002}%
+A linear first-order partial differential equation in, say, two
+variables $x$ and $y$ looks like
+\[a(x,y)\partial_{x}u+b(x,y)\partial_{y}u+c(x,y)u=f(x,y).\]
+Let us consider this more carefully in the homogeneous and inhomogeneous
+cases.
+
+\begin{node}[Homogeneous]\label{pde-0003}%
+We begin with
+\[a(x,y)\partial_{x}u+b(x,y)\partial_{y}u=0.\]
+If we supposed that we had a trajectory $(x(t),y(t))$ and considered
+\[\frac{\D}{\D t}u(x(t),y(t))=\frac{\D x}{\D t}\partial_{x}u+\frac{\D y}{\D t}\partial_{y}u\]
+we can identify the coefficients of $\partial_{x}u$ as equal (and
+similarly for $\partial_{y}u$) giving us the equations
+\[\frac{\D x}{\D t}=a(x(t),y(t)),\quad\mbox{and}\quad\frac{\D y}{\D t}=b(x(t),y(t)).\]
+
+\begin{example}\label{pde-0005}%
+Consider the wave moving at constant velocity $c$:
+\[\partial_{t}u+c\partial_{x}u=0.\]
+We can easily change variables to
+\[\xi=x+ct,\quad\mbox{and}\quad\eta=x-ct.\]
+Then we find (thanks to our beloved chain rule)
+\[\partial_{x}=\partial_{x}\xi\partial_{\xi}+\partial_{x}\eta\partial_{\eta}=\partial_{\xi}+\partial_{\eta},\]
+and similarly
+\[\partial_{t}=\partial_{t}\xi\partial_{\xi}+\partial_{t}\eta\partial_{\eta}=c\partial_{\xi}-c\partial_{\eta}.\]
+Then we find our wave equation simplifies to
+\[2c\partial_{\xi}u=0.\]
+Integration yields the solution $u=f(\eta)$ for any $C^{1}$ function $f$.
+
+How did we determine the change of coordinates? Well, one way to view it
+is that we parametrized $x=x(s)$ and $t=t(s)$, if we moved along the
+line formed by $x-ct=\mbox{constant}$, then we would have that the
+$s$ derivative of $u(x(s),t(s))$ be constant,
+\[\frac{\D u(x(s),t(s))}{\D s}=0.\]
+This is the principle underpinning the method of characteristics.
+\end{example}
+
+\begin{example}\label{pde-0006}%
+If we have variable speed,
+\[\partial_{t}u+c(x,t)\partial_{x}u=0.\]
+Now we want to find curves along which $u$ is constant. We begin by
+supposing we have a curve $x=x(s)$ and $t=t(s)$. Then, using the chain
+rule, we have
+\[\frac{\D u(x(s),t(s))}{\D s}=\partial_{t}u\frac{\D t(s)}{\D s} + \partial_{x}u\frac{\D x(s)}{\D s}.\]
+Matching the coefficients of partial derivatives of $u$ with those in
+the original partial differential equation
+\[\partial_{t}u\frac{\D t(s)}{\D s} + \partial_{x}u\frac{\D x(s)}{\D s} =\partial_{t}u+c(x,t)\partial_{x}u.\]
+We have
+\[\frac{\D t(s)}{\D s}=1,\quad\mbox{and}\quad\frac{\D x(s)}{\D s}=c(x(s),s).\]
+We can solve these equations (and, indeed, implicitly did so in setting
+up $\D x/\D s$).
+\end{example}
+
+\begin{example}\label{pde-0004}%
+Consider the partial differential equation
+\[\frac{2\sin^{2}(\theta)}{\cos(\theta)}\partial_{\theta}u-\frac{\sin(2\phi)}{\cos(2\phi)}\partial_{\phi}u=0.\]
+We have the parametrization $(\theta(t),\phi(t))$ give us the
+differential equations
+\[\frac{\D\theta}{\D t}=\frac{2\sin^{2}(\theta)}{\cos(\theta)},\quad\mbox{and}\quad\frac{\D\phi}{\D t}=-\frac{\sin(2\phi)}{\cos(2\phi)}.\]
+We can solve these equations
+\[\int\frac{\cos(\theta)}{\sin^{2}(\theta)}\D\theta=2\int\D t\]
+which is
+\[\frac{-1}{\sin(\theta)}+\frac{1}{\sin(\theta_{0})}=2t-2t_{0}.\]
+Similarly,
+\[-\int\frac{\cos(2\phi)}{\sin(2\phi)}\D\phi=\int\D t,\]
+which is (changing variables to $u=\sin(2\phi)$, $\D u=2\cos(2\phi)\,\D\phi$,
+so $\cos(2\phi)\,\D\phi=\frac{1}{2}\D u$),
+\[\ln(\sin(2\phi)/\sin(2\phi_{0}))=2t_{0}-2t \implies\sin(2\phi)=\sin(2\phi_{0})\exp(2t_{0}-2t).\]
+We want to isolate the constants of integration on one side of these
+results.
+
+Now taking $t-t_{0}$ from our first solution and plugging it into our
+second yields
+\[\sin(2\phi)=\sin(2\phi_{0})\exp\left(\frac{1}{\sin(\theta)}-\frac{1}{\sin(\theta_{0})}\right).\]
+By direct calculation
+\begin{calculation}
+\sin(2\phi)=\sin(2\phi_{0})\exp\left(\frac{1}{\sin(\theta)}-\frac{1}{\sin(\theta_{0})}\right)
+\step[\equiv]{take log of both sides}
+\ln(\sin(2\phi))=\ln(\sin(2\phi_{0}))+\frac{1}{\sin(\theta)}-\frac{1}{\sin(\theta_{0})}
+\step[\equiv]{subtracting $1/2\sin(\theta)$ from both sides}
+\ln(\sin(2\phi))-\frac{1}{\sin(\theta)}=\ln(\sin(2\phi_{0}))-\frac{1}{\sin(\theta_{0})}
+\end{calculation}
+Observe the right-hand side is a constant, so if we then write
+\[u=F\left(\ln(\sin(2\phi))-\frac{1}{\sin(\theta)}\right)\]
+for any arbitrary $C^{1}$ function $F$, then we have obtained a generic
+solution to our differential equation.
+\end{example}
+
+\begin{node}\label{pde-0007}%
+Generalizing to more than 2 dimensions is straightforward, so I'm going
+to skip it.
+\end{node}
+\end{node} % homogeneous
+
+\begin{node}[Inhomogeneous]\label{pde-0008}%
+
+\begin{example}\label{pde-0009}%
+Consider the partial differential equation
+\[\partial_{t}u + 2xt\partial_{x}u=u,\]
+with initial condition $u(x,t=0)=x$. We find the characteristics,
+\[\frac{\D t(s)}{\D s}=1\implies t=s-s_{0},\]
+and
+\begin{calculation}
+  \frac{\D x(s)}{\D s}=2x\cdot(s-s_{0})
+\step[\equiv]{algebra}
+  \frac{1}{2x(s)}\frac{\D x(s)}{\D s}=s-s_{0}
+\step[\equiv]{integrate both sides from $t=0$, i.e., $s=s_{0}$}
+  \frac{1}{2}\ln(x/x_{0})=\frac{1}{2}s^{2}-s_{0}s+\frac{1}{2}s_{0}^{2}=\frac{1}{2}(s-s_{0})^{2}
+\step[\equiv]{multiply both sides by 2, then exponentiating both sides}
+  x=x_{0}\exp\bigl((s-s_{0})^{2}\bigr)
+\end{calculation}
+Now we have
+\[\frac{\D u(x(s),t(s))}{\D s}=\partial_{t}u+\frac{\D x(s)}{\D s}\partial_{x}u=u\implies u=F(x_{0})\E^{s}.\]
+Since $x=x_{0}\exp(t^{2})$ or equivalently $x_{0}=x\exp(-t^{2})$, we
+have (up to some irrelevant multiplicative constant which can be
+absorbed into $F$) obtained $u=F(x_{0})\E^{t}$, and therefore
+\[u=F(x\E^{-t^{2}})\exp(t).\]
+When we apply the initial conditions that at $t=0$ we have
+$u(x(0),t=0)=x_{0}$ and $u=F(x_{0})$ which means
+$F(x_{0})=x_{0}$. Therefore we find
+\[u(x,t)=x\exp(t-t^{2}).\]
+\end{example}
+\end{node} % inhomogeneous
+\end{node} % linear first-order
+
+\begin{node}[Nonlinear first-order]\label{pde-000A}%
+Nonlinear first-order partial differential equations come in a variety
+of degrees of ``nonlinear-ness''. For example, a \define{Semilinear}
+first-order PDE has linear coefficients but a nonlinear inhomogeneous
+term
+\begin{equation}
+a(x,y)\partial_{x}u+b(x,y)\partial_{y}u=f(x,y,u).
+\end{equation}
+A \define{Quasilinear} first-order PDE would look like
+\begin{equation}
+a(x,y,u)\partial_{x}u+b(x,y,u)\partial_{y}u=f(x,y,u).
+\end{equation}
+The difficulty that we encounter with nonlinear first-order PDEs is that
+the method of characteristics produces an implicit equation for $u$
+rather than an explicit one.
+\end{node}

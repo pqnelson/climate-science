@@ -1,0 +1,134 @@
+% 6
+\section{Euler Fluids}
+
+\begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
+Suppose we have some physical quantity $f$ of the fluid which can be
+``attached'' to a fluid parcel (e.g., temperature or pressure or density).
+For the sake of discussion, suppose as the fluid parcel moves, this
+property is invariant in time (``conserved''). We can express this by
+the equation
+\begin{equation}
+\left.\frac{\partial f}{\partial t}\right|_{\vec{a}}=0,
+\end{equation}
+since this means the time derivative is taken with the ``particle label''
+$\vec{a}$ fixed (i.e., is taken as we move with the fluid parcel).
+
+How do we express this in the Eulerian description? Well, we select a
+point $\vec{x}$ and seek to express the invariance in terms of
+properties of the fluid \emph{at this point}. Since the fluid is
+generally moving at the point, we need to bring in velocity. The way we
+do this is to differentiate $f(\vec{x}(\vec{a},t),t)$ using the chain
+rule and recalling how to relate Euler and Lagrange pictures \zref{fluids:describing-0006},
+\begin{calculation}
+  \left.\frac{\partial f(\phi_{t}(\vec{a}),t)}{\partial t}\right|_{\vec{a}}
+\step{using the chain rule with fixed $\vec{a}$}
+  \frac{\partial f(\vec{x},t)}{\partial t} +
+  \left.\frac{\partial\phi_{t}(\vec{a})}{\partial t}
+  \frac{\partial f(\phi_{t}(\vec{a}),t)}{\partial t}\right|_{\vec{a}}
+\step{rewriting using Euler description}
+  \partial_{t}f(\vec{x},t)+(\vec{u}(\vec{x},t)\cdot\grad) f(\vec{x},t).
+\end{calculation}
+which must vanish (since it's conserved). Stokes introduced the notation
+\begin{equation}
+\frac{\materialD}{\materialD t}=\partial_{t}+\vec{u}\cdot\grad
+\end{equation}
+for the \define{Material Derivative} with respect to the fluid. This
+describes the flow of some quantity with respect to time in the Eulerian
+picture. 
+\end{node}
+
+\begin{node}[Incompressible fluids]\label{fluids:euler-flow-0003}%
+When the fluid parcel's volume is preserved (i.e., constant with respect
+to time), then we say the fluid is \define{Incompressible}. This happens
+most often with liquids. We can express this condition by writing the
+Jacobian for the fluid parcel labeled $\vec{a}$,
+\begin{equation}
+J_{ij}=\left.\frac{\partial x_{i}}{\partial a_{j}}\right|_{t},
+\end{equation}
+and observing that when $\D a_{1}\cdots\D a_{N}$ is the volume of the
+fluid parcel at time $t=t_{0}$, then $\det(J)\D a_{1}\cdots\D a_{N}$ is
+the volume of that parcel at time $t$. For these two volumes to be
+equal, this forces the condition
+\begin{equation}
+\det(J)=1.
+\end{equation}
+
+\begin{theorem}\label{fluids:euler-flow-0004}%
+A fluid is incompressible if and only if $\divergence\vec{u}=0$.
+\end{theorem}
+\begin{proof}
+We can express incompressibility using the material derivative as
+\begin{equation}
+\frac{\materialD}{\materialD t}\det(J)=0.
+\end{equation}
+We can prove by induction on the number of spatial dimensions $n$ that
+\begin{equation}
+\frac{\materialD}{\materialD t}\det(J)=(\divergence\vec{u})\det{J}.
+\end{equation}
+But this means either $\det(J)=0$ or $\divergence\vec{u}=0$. Since
+$\det{J}\neq0$, this gives us the result.
+\end{proof}
+\end{node}
+
+
+\begin{node}[Continuity equation]\label{fluids:euler-flow-0002}%
+We see that mass conservation gives us the equation
+\begin{subequations}
+\begin{equation}
+\partial_{t}\rho+\divergence(\rho\vec{u})=0.
+\end{equation}
+This is the \define{Continuity Equation}. We can rewrite it as
+\begin{equation}
+\frac{\materialD\rho}{\materialD t}+\rho\divergence\vec{u}=0.
+\end{equation}
+\end{subequations}
+For incompressible fluids, Theorem~\ref{fluids:euler-flow-0004} gives us 
+$\materialD\rho/\materialD t=0$.
+\end{node}
+
+\begin{node}[Equations of motion]\label{fluids:euler-flow-0001}%
+We can recall that Newton's equations of motion are precisely
+$\D(m\vec{v})/\D t = \vec{F}$. Although it is tempting to just replace
+mass $m$ by density $\rho$, what we should do is consider the integral
+over the volume of the fluid parcel
+\begin{equation}
+\frac{\D}{\D t}\int_{\mathcal{B}_{t}}\rho\vec{u}\,\D^{n}x = \vec{F}.
+\end{equation}
+Then we can expand the left-hand side more generally as
+\begin{equation}
+\frac{\D}{\D t}\int_{\mathcal{B}_{t}}\rho f\,\D^{n}x = 
+\int_{\mathcal{B}_{t}}\left[\partial_{t}(\rho f)+\divergence(\rho f\vec{u})\right]\D^{n}x
+\end{equation}
+We see that $\divergence(\rho
+f\vec{u})=f\divergence(\rho\vec{u})+\rho\vec{u}\cdot\grad f$, so the
+integrand splits into a part which vanishes by the conservation of mass,
+and the produce of density with the material derivative of $f$
+\begin{equation}
+\frac{\D}{\D t}\int_{\mathcal{B}_{t}}\rho f\,\D^{n}x = 
+\int_{\mathcal{B}_{t}}\rho\frac{\materialD f}{\materialD t}\D^{n}x.
+\end{equation}
+Then we return to our original equation, replacing $f$ with the
+components of the velocity vector $u_{j}\widehat{\vec{e}}_{j}$
+and sum over the components to obtain
+\begin{equation}
+\int_{\mathcal{B}_{t}}\rho\frac{\materialD\vec{u}}{\materialD t}\D^{n}x = \vec{F}.
+\end{equation}
+Then we have obtained the Euler equations of motion, perhaps better
+named the conservation of mass,
+\begin{equation}
+\boxed{\rho\frac{\materialD\vec{u}}{\materialD t}=\vec{f}}
+\end{equation}
+where $\vec{f}$ is the force acting on the fluid, per unit volume.
+
+\begin{node}[Pressure gradient force]\label{fluids:euler-flow-0005}%
+In particular, all fluids will have the pressure gradient force as part
+of the force density. This is literally $\nabla p$. Really, we are
+sweeping subtleties under the rug here, because we should write the
+force $\vec{F}$ as
+\begin{equation*}
+\vec{F}=\int_{\mathcal{B}_{t}}\vec{f}_{\text{body}}\,\D^{n}x+\oint_{\partial\mathcal{B}_{t}}\sigma\cdot\mathcal{N}\,\D\Sigma
+\end{equation*}
+where $\sigma$ is the stress tensor, and describes surface force
+interactions. For most fluids, $\sigma=\diag(-p,-p,-p)$ where $p$ is pressure.
+\end{node}
+\end{node}

@@ -1,0 +1,10 @@
+*~
+refs/
+*.aux
+*.log
+*.pdf
+*.toc
+*.out
+# bibtex related
+*.bbl
+*.blg

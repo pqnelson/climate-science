@@ -1,0 +1,102 @@
+\newcommand\bigO{\mathcal{O}}
+\def\inferTabSkip{\qquad}
+\newcommand\define[1]{\textbf{``#1''}}
+
+\RequirePackage{bm}
+
+% calculus
+\newcommand\D{\mathrm{d}}
+\newcommand\E{\mathrm{e}}
+\newcommand\I{\mathrm{i}}
+\DeclareMathOperator{\atan2}{atan2}
+
+
+\let\oldvec\vec
+\let\vec\bm
+
+\newcommand\grad{\vec{\nabla}}
+\newcommand\divergence{\grad\cdot}
+
+% linear algebra
+\DeclareMathOperator\diag{diag}
+\DeclareMathOperator\tr{tr}
+\DeclareMathOperator{\spec}{spec} % spectrum of a matrix
+\newcommand\condition{\kappa}
+% Apparently, the ISO 80000-2:2013 suggests using $\mathsf{T}$ for
+% matrix transpose, so who am I to argue?
+\newcommand\transpose[1]{#1^{\mathsf{T}}}
+
+
+% Fluid Mechanics
+\newcommand\materialD{\mathrm{D}}
+% 
+\newcommand\Kn{\mathrm{Kn}} % Wikipedia
+
+% lambda calculus and type theory
+\DeclareMathOperator\Sub{Sub}
+\newcommand\fresh[1]{#1^{\sharp}}
+\newcommand\betareduce{\Longrightarrow_{\beta}}
+\newcommand\multistep[1]{#1^{*}}
+\newcommand\emptylist{\varnothing}
+
+% sets
+\let\onto\twoheadrightarrow
+\def\properclass#1{\mathbf{#1}}
+\DeclareMathOperator{\dom}{dom}
+\newcommand\powerset{\mathcal{P}}
+\let\union\bigcup
+\let\nsubset\nsubseteq
+\let\og@subset\subset
+\let\propersubset\subset
+\let\subset\subseteq
+\let\equipotent\approx
+\newcommand\schematicvar[1]{\mathcal{#1}}
+
+\def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% from Knuth's TAOCPMAC
+\def\hair{\kern.05em\relax} % teeny tiny space
+\def\Hex#1{\hbox{$^{\scriptscriptstyle\#}\tt#1$\hair}} % hexadecimal constant
+
+% logic
+\newcommand\verum{\mathtt{T}}
+\newcommand\falsum{\mathtt{F}}
+
+% SML
+\newcommand\Char[1]{$^{\scriptscriptstyle\#}$\texttt{"}#1\texttt{"}\hair}
+\newcommand\Reduces[1]{\ifx#1\relax\Longrightarrow\else\stackrel{#1}{\Longrightarrow}\fi}
+\newcommand\evalto{\hookrightarrow}
+\newcommand\judgement[1]{\mathsf{#1}}
+\newcommand\Value{\judgement{Value}}
+\newcommand\exteq{\cong}
+\newcommand\esti{\mathbin{:}}
+\newcommand\quasiquote[1]{\ulcorner #1\urcorner}
+\newcommand\Rule[1]{\mbox{\textsc{#1}}}
+\newcommand\Raise[1]{\judgement{Raise}~#1}
+\newcommand\appendstr{\wedge}
+
+% category theory
+\let\hom\relax
+\DeclareMathOperator\hom{Hom}
+\DeclareMathOperator\id{id}
+\DeclareMathOperator\Id{Id}
+\DeclareMathOperator\ob{Ob}
+\let\iso\cong
+\newcommand\natTo{\Rightarrow}
+
+\newcommand\cat[1]{\mathbf{#1}}
+\newcommand\Set{\cat{Set}}
+\newcommand\Grp{\cat{Grp}}
+\newcommand\Top{\cat{Top}}
+\newcommand\Vect[1]{#1\textrm{-}\cat{Vect}}
+\newcommand\sVect[1]{#1\textrm{-}\cat{sVect}} % super vector spaces
+\newcommand\Mfld{\cat{Mfld}}
+\newcommand\sMfld{\cat{s}\Mfld}
+
+
+\endinput

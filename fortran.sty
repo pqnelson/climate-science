@@ -1,0 +1,122 @@
+\ProvidesPackage{fortran}[2021/06/05 Fortran Highlighting Package]
+% For the most part, I am emulating Github's syntax highlighting
+% choices. This has guided the choice of colors below. Feel free to
+% overwrite whichever \defaultX choices you dislike.
+
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+
+\definecolor{ghCommentOld}{RGB}{36, 41, 47} % old
+\definecolor{ghComment}{RGB}{106,115,125} % 6a737d
+\definecolor{ghBlue}{RGB}{5, 80, 174}
+% constant, entity.name.constant, variable.other.constant, variable.language, support, meta.property-name, support.constant, support.variable, meta.module-reference, markup.raw, meta.diff.header, meta.output
+\definecolor{ghBlue2}{RGB}{0,92,197}    % 005cc5
+\definecolor{ghPurple}{RGB}{111,66,193} % 6f42c1 entity.name
+\definecolor{ghPurple2}{RGB}{102,57,186}
+\definecolor{ghGreen}{RGB}{34,134,58}   % 22863a entity.name.tag, markup.quote
+\definecolor{ghRed}{RGB}{215,58,73}     % d73a49 keyword, storage, storage.type
+\definecolor{ghDarkBlue}{RGB}{3,47,98}  % 032f62 string
+\definecolor{ghOrange}{RGB}{227,98,9}   % e36209 variable
+\definecolor{ghDarkRed}{RGB}{179,29,40} % b31d28
+\definecolor{ghBrown}{RGB}{115,92,15}   % 735c0f
+\definecolor{ghkeyword}{RGB}{207, 34, 46}
+\definecolor{ghstring}{RGB}{10, 48, 105}
+
+\def\githubCommentStyle{\color{ghComment}}
+
+\def\fortranCommentStyle{\color{ghComment}}
+\def\fortranInstructionStyle{\color{ghkeyword}} % keyword[1] are opcodes
+\def\fortranDirectiveStyle{\color{ghkeyword}} % kw[2] are directives
+\def\fortranRegisterStyle{\color{ghkeyword}} % keyword[3] are registers
+\def\fortranStringStyle{\color{ghstring}}
+\def\fortranBooleanStyle{\color{ghBlue}}
+
+\lstdefinelanguage{fortran18}%
+{
+  %alsoletter={.\%},
+  alsoletter={\%},
+  morekeywords={
+    ALL, BLOCK, CODIMENSION, CONCURRENT, CONTIGUOUS, CRITICAL,%
+    ERROR, LOCK, SUBMODULE, SYNC, UNLOCK,%
+    ABSTRACT, ASSOCIATE, ASYNCHRONOUS, BIND, CLASS, DEFERRED,%
+    ENUM, ENUMERATOR, EXTENDS, FINAL, FLUSH, GENERIC, IMPORT,%
+    NON_OVERRIDABLE, NOPASS, PASS, PROTECTED, VALUE, VOLATILE, WAIT,%
+    ALLOCATABLE, ALLOCATE, ASSIGNMENT, CASE, CONTAINS, CYCLE,%
+    DEALLOCATE, DEFAULT, EXIT, INCLUDE, IN, NONE, OUT, INTENT, INTERFACE,%
+    MODULE, NAMELIST, NULLIFY, ONLY, OPERATOR, OPTIONAL, OUT, POINTER,%
+    PRIVATE, PUBLIC, RECURSIVE, RESULT, SELECT, SEQUENCE, TARGET, USE,%
+    WHERE, WHILE, BLOCKDATA, DOUBLEPRECISION, ENDBLOCKDATA, ENDFILE,%
+    ENDFUNCTION, ENDINTERFACE, ENDMODULE, ENDPROGRAM, ENDSELECT,%
+    ENDSUBROUTINE, ENDTYPE, ENDWHERE, INOUT, SELECTCASE,%
+    ELEMENTAL, ELSEWHERE, FORALL, PURE,%
+    PROCEDURE, ASSIGN, BACKSPACE, CALL, CHARACTER, %
+    CLOSE, COMMON, COMPLEX, CONTINUE, DATA, DIMENSION, DO, DOUBLE, %
+    ELSE, ELSEIF, END, ENDIF, ENDDO, ENTRY, EQUIVALENCE, EXTERNAL, %
+    FILE, FORMAT, FUNCTION, GO, TO, GOTO, IF, IMPLICIT, %
+    INQUIRE, INTEGER, INTRINSIC, LOGICAL, %
+    OPEN, PARAMETER, PAUSE, PRECISION, PRINT, PROGRAM, READ, REAL, %
+    RETURN, REWIND, STOP, SUBROUTINE, THEN, %
+    WRITE},%
+  morekeywords=[2]{
+    DECIMAL, ENCODING, IOMSG, ROUND,%
+    ACTION, ADVANCE, DELIM, IOLENGTH, LEN, NAME, NML, PAD,%
+    POSITION, READWRITE, SIZE, STAT,
+    ACCESS, BLANK, BLOCK, DIRECT, EOF, ERR, EXIST,%
+    FMT, FORM, FORMATTED, IOSTAT, NAMED, NEXTREC, NUMBER, OPENED,%
+    REC, RECL, SEQUENTIAL, STATUS, TYPE, UNFORMATTED, UNIT},%
+  morekeywords=[3]{
+    ACOSH, ASINH, ATANH, ATOMIC_DEFINE, ATOMIC_REF,%
+    BESSEL_J0, BESSEL_J1, BESSEL_JN, BESSEL_Y0, BESSEL_Y1, BESSEL_YN,%
+    BGE, BGT, BLE, BLT, C_SIZEOF, COMPILER_OPTIONS, COMPILER_VERSION,%
+    DSHIFTL, DSHIFTR, ERF, ERFC, ERFC_SCALED, EXECUTE_COMMAND_LINE,%
+    FINDLOC, GAMMA, HYPOT, IALL, IANY, IMAGE_INDEX, IPARITY, LCOBOUND,%
+    LEADZ, LOG_GAMMA, MASKL, MASKR, MERGE_BITS, NORM2, NUM_IMAGES,%
+    PARITY, POPCNT, POPPAR, SHIFTA, SHIFTL, SHIFTR, STORAGE_SIZE,%
+    THIS_IMAGE, TRAILZ, UCOBOUND,%
+    C_ASSOCIATED, C_F_POINTER, C_F_PROCPOINTER, C_FUNLOC,%
+    C_LOC, COMMAND_ARGUMENT_COUNT, EXTENDS_TYPE_OF, GET_COMMAND,%
+    GET_COMMAND_ARGUMENT, GET_ENVIRONMENT_VARIABLE, IS_IOSTAT_END,%
+    MOVE_ALLOC,NEW_LINE,SAME_TYPE_AS, SELECTED_CHAR_KIND,%
+    ACHAR, ADJUSTL, ADJUSTR, ALL, ALLOCATED, ANY, ASSOCIATED,%
+    BIT_SIZE, BTEST, CEILING, COUNT, CPU_TIME, CSHIFT, DATE_AND_TIME, DIGITS,%
+    DOT_PRODUCT, EOSHIFT, EPSILON, EXPONENT, FLOOR, FRACTION, HUGE, IACHAR,%
+    IAND, IBCLR, IBITS, IBSET, ICHAR, IEOR, IOR, ISHFT, ISHFTC, KIND, LBOUND,%
+    LEN_TRIM,% left out LOGICAL
+    MATMUL, MAXEXPONENT, MAXLOC, MAXVAL, MERGE, MINEXPONENT, MINLOC, MINVAL,%
+    MODULO, MVBITS, NEAREST, NOT, NULL, PACK, PRECISION, PRESENT, PRODUCT,%
+    RADIX, RANDOM_NUMBER, RANDOM_SEED, RANGE, RANK, REPEAT, RESHAPE,%
+    RRSPACING, SCALE, SCAN, SELECTED_INT_KIND, SELECTED_REAL_KIND,%
+    SET_EXPONENT, SHAPE, SINH, SIZE, SPACING, SPREAD, SUM, SYSTEM_CLOCK,%
+    TINY, TRANSFER, TRANSPOSE, TRIM, UBOUND, UNPACK, VERIFY,
+    INT, DBLE, CMPLX, ICHAR, CHAR, AINT, ANINT,% left out real
+    NINT, ABS, MOD, SIGN, DIM, DPROD, MAX, MIN, AIMAG, CONJG, SQRT,%
+    EXP, LOG, LOG10, SIN, COS, TAN, ASIN, ACOS, ATAN, ATAN2, SINH,%
+    COSH, TANH, LGE, LGT, LLE, LLT, LEN, INDEX},%
+  morekeywords=[4]{%.AND., .EQ., .EQV., .FALSE., .GE., .GT., .OR.,%
+    %.LE., .LT., .NE., .NEQV.,%
+    %.NOT., .TRUE.,
+    AND, EQ, EQV, FALSE, GE, GT, OR, LE, LT, NE, NEQV,%
+    NOT, TRUE},%
+   sensitive=f,%% not Fortran-77 standard, but allowed in Fortran-95 %%
+   morestring=[d]",%% not Fortran-77 standard, but allowed in Fortran-95 %%
+   morestring=[d]',%
+   morecomment=[l]!,
+   basicstyle=\ttfamily,
+   keywordstyle=\fortranInstructionStyle,
+   keywordstyle=[2]\fortranDirectiveStyle,
+   keywordstyle=[3]\fortranRegisterStyle,
+   keywordstyle=[4]\fortranBooleanStyle,
+   commentstyle=\fortranCommentStyle,
+   stringstyle=\fortranStringStyle,
+   columns=flexible,
+   basewidth={0.5em,0.5em},
+   upquote=true
+}
+
+\lstnewenvironment{fortran}[1][]%
+                  {\lstset{%language=[08]Fortran,
+                      language=fortran18,
+                      basicstyle=\ttfamily,
+                      columns=fixed,
+                      upquote=true}}
+                  {}

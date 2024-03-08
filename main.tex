@@ -1,0 +1,37 @@
+\documentclass[dvipsnames,HTML]{amsbook}
+\usepackage[T1]{fontenc}
+%\usepackage{tikz-cd}
+%\usepackage{mathrsfs}
+%\usepackage{mathpazo}
+%\linespread{1.05}
+\usepackage{macros}
+\usepackage{deriv}
+\usepackage{fortran}
+\usepackage{notation}
+\input{logos}
+\title{Science Zettelkasten}
+\author{Alex Nelson}
+\date{March 6, 2024}
+\begin{document}
+\frontmatter
+\maketitle
+\include{tex/preface}
+\tableofcontents
+% \listofpuzzles
+
+\mainmatter
+\vfill\eject
+\include{tex/calculus}
+\include{tex/pde}
+\include{tex/fluids}
+
+\backmatter
+\part*{Backmatter}
+%% \appendix
+
+%% \unappendix
+\nocite{*}
+\bibliographystyle{elements}
+\bibliography{zk}
+\end{document}
+

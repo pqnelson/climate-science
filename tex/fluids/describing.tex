@@ -1,0 +1,297 @@
+% 17
+\section{Describing Fluids}
+
+\begin{node}\label{fluids:describing-0000}%
+Consider some fluid, which has its initial position in some region, say
+$\mathcal{B}_{0}\subset\RR^{3}$ (for some ``body'' at time $t_{0}$). We
+take $\mathcal{B}_{0}$ to be an open subset, and we may also generalize
+the number of spatial dimensions to $n>0$.
+\end{node}
+
+\begin{node}\label{fluids:describing-0001}%
+As the fluid moves, its constituent particles also move, occupying a
+(potentially different) region $\mathcal{B}_{t}$ at time $t$. We could
+introduce a \define{Time Evolution Operator}
+\begin{equation*}
+\mathcal{M}_{t}\colon\mathcal{B}_{0}\to\mathcal{B}_{t}
+\end{equation*}
+which is parametrized by some time $t$ and transforms the initial body
+to the body at the specified time.
+\end{node}
+
+\begin{node}[Lagrangian coordinates]\label{fluids:describing-0002}%
+Suppose $\vec{a}$ is a point in the initial body $\vec{a}\in\mathcal{B}_{0}$.
+We can parametrize the position of a fluid particle at time $t$ by $\vec{a}$,
+\begin{equation*}
+\vec{x}=\vec{X}(\vec{a},t)
+\end{equation*}
+which is such that $\vec{a}=\vec{X}(\vec{a},t_{0})$. This is the
+Lagrangian coordinates for the fluid particle identified by initial
+position $\vec{a}$. That is to say, $\vec{X}(\vec{a},t)$ is the position
+at time $t$ of a \emph{particular fluid parcel} described by the
+parameter $\vec{a}$.
+
+\begin{node}\label{fluids:describing-0003}%
+We could actually choose any arbitrary parametrization of the
+particle. That is to say, we don't need $\vec{a}$ to be the initial
+position of the fluid. We could have chosen $\vec{a}$ to be the position
+at some other particular moment, or we could choose a completely
+different scheme (provided the labeling was unique).
+
+But in praactice, it's usually the case that $\vec{a}$ is the initial
+position of a fluid particle. Take care when reading the literature,
+because someone may have a brilliant new idea which requires a
+particularly idiosyncratic choice for $\vec{a}$.
+\end{node}
+
+\begin{node}\label{fluids:describing-0004}%
+The Lagrangian picture resembles that in analytical mechanics: we care
+about the history of each particle. (It's also coincidentally the
+starting point for the Hamiltonian/``Canonical'' formalism in fluid
+dynamics, just as it's the starting point for the Hamiltonian formalism
+in analytical mechanics.) Although mathematically and physically
+intuitive, elegant, and appealing\dots it has the disadvantage that, when
+we do measurements in the lab, it's at a specific point in time (not
+over the history of the particle). 
+\end{node}
+\end{node}
+
+\begin{node}[Eulerian description]\label{fluids:describing-0005}%
+We could take the opposite point of view, starting with a fixed point
+$\vec{x}$ inside the fluid $\vec{x}\in\mathcal{B}_{t}$. Then we take the
+quantities of interest as functions $f(\vec{x},t)$. This is the
+\emph{Eulerian description} of the fluid. Convention compels us to then
+examine the velocity vector field $\vec{u}(\vec{x},t)$ at each point in
+the fluid\dots although there's nothing to stop us from extending
+$\vec{u}$ to $\RR^{n}$ in general, provided we demand $\vec{u}=\vec{0}$
+outside the fluid.
+\end{node}
+
+\begin{node}[Relating the two pictures]\label{fluids:describing-0006}%
+The velocity vector field relates to the Lagrangian description by
+taking the time derivative of the Lagrange coordinates:
+\begin{equation}
+\left.\frac{\partial\vec{X}(\vec{a},t)}{\partial t}\right|_{\vec{a}}=\vec{u}(\vec{X}(\vec{a},t),t).
+\end{equation}
+This gives us a system of first-order ordinary differential equations
+we'd need to solve.
+
+
+Another way to view this is that we can describe the position at time
+$t$ for the fluid parcel which has initial position $\vec{a}$ at time
+$t=t_{0}$ by the function $\vec{X}(\vec{a},t)$. Its time-evolution may
+be described by the function
+\begin{equation}
+\vec{X}(\vec{a},t)=\phi_{t}(\vec{a})
+\end{equation}
+such that (locally) $\phi_{t}$ is invertible. That is to say, we can
+write the Lagrange parameter as a function of position, simply by
+``tracing backwards in time'' the trajectory the parcel at $\vec{X}$
+took until we arrive at its position $\vec{a}$ at time $t_{0}$,
+\begin{equation}
+\vec{a}(\vec{X},t) = \phi_{t}^{-1}\bigl(\vec{X}(\vec{a},t)\bigr).
+\end{equation}
+Now we may introduce the \emph{fluid velocity} in the Lagrangian
+description as
+\begin{equation}
+\vec{v}_{\text{L}}=\frac{\partial\vec{X}(\vec{a},t)}{\partial t}.
+\end{equation}
+Then, using these equations, the Eulerian picture may be obtained by writing:
+\begin{equation}
+\vec{u}(\vec{x},t) = \vec{v}_{\text{L}}(\vec{a}(\vec{x},t),t)
+=\left.\frac{\partial\vec{X}(\vec{a},t)}{\partial t}\right|_{\vec{a}=\phi_{t}^{-1}(\vec{x})}.
+\end{equation}
+
+
+\begin{node}[Caution with notation]\label{fluids:describing-0007}%
+Here I must stress the warning which Sussman and Wisdom give in
+\textit{The Structure and Interpretation of Classical Mechanics}~\cite{sicm}
+about ambiguity with notation. Some authors (especially from physics)
+write the partial derivative with respect to, say, time to mean:
+\begin{equation}
+  \frac{\partial}{\partial t}f(\vec{x}(t), t)
+  = \left.\frac{\partial f(\vec{q}, t)}{\partial t}\right|_{\vec{q}=\vec{x}(t)}.
+\end{equation}
+Undergraduates and mathematicians are understandably confounded by this
+choice of notation (what ever happened to the ``chain rule''?). Well,
+that's handled by the total derivative with respect to time:
+\begin{equation}
+\frac{\D}{\D t}f(\vec{x}(t), t)
+= \left.\frac{\partial f(\vec{q}, t)}{\partial t}
+  + \sum_{j}\frac{\partial f(\vec{q},t)}{\partial q_{j}}\frac{\D x_{j}(t)}{\D t}\right|_{\vec{q}=\vec{x}(t)}.
+\end{equation}
+This notation has been ``grandfathered in'', and there's nothing we can
+do to change it. I'm so, so sorry.
+\end{node}
+\begin{node}\label{fluids:describing-0008}%
+Also note, if we wanted to be ``completely general'', we would need to
+consider derivatives with respect to the Lagrange parameter
+$\vec{a}$---the curious reader may consult with pleasure Lamb's \textit{Hydrodynamics}~\cite[\S\S13--14]{lamb1945hydrodynamics}
+\end{node}
+\end{node}
+
+\begin{example}[{Acheson~\cite{acheson1990elementary}}]
+Consider a 2-dimensional fluid with
+\begin{equation*}
+\vec{u}=(u(x,y,t), v(x,y,t))=(-\Omega y,\Omega x)
+\end{equation*}
+where $\Omega>0$ is a constant angular speed. We have two differential
+equations
+\begin{subequations}
+\begin{equation}
+\partial_{t}x = -\Omega y(t),\qquad x(0)=a,
+\end{equation}
+and
+\begin{equation}
+\partial_{t}y = \Omega x(t),\qquad y(0)=b.
+\end{equation}
+\end{subequations}
+Then we see (by differentiating with respect to time again, in both
+equations) that 
+\begin{equation*}
+\partial_{t}^{2}x = -\Omega^{2}x,\quad\mbox{and}\quad\partial_{t}^{2}y=-\Omega^{2}y
+\end{equation*}
+which have general solutions of the form
+\begin{equation}
+(x(t),y(t)) = (a\cos(\Omega t)-b\sin(\Omega t), b\cos(\Omega t) + a\sin(\Omega t)).
+\end{equation}
+\end{example}
+
+\begin{example}[{Childress~\cite{childress2009introduction}}]
+Consider \define{Steady Flow} in 2-dimensions. We have
+\begin{equation*}
+\vec{u}=(u(x,y,t), v(x,y,t))=(x,-y).
+\end{equation*}
+Using the Lagrangian description, we'd have
+\begin{subequations}
+\begin{equation}
+\partial_{t}x = x,\qquad x(0)=a
+\end{equation}
+and
+\begin{equation}
+\partial_{t}y=-y,\qquad y(0)=b.
+\end{equation}
+\end{subequations}
+This has its general solution be
+\begin{equation}
+\vec{X}(\vec{a},t)=(a\E^{t},b\E^{-t}).
+\end{equation}
+\end{example}
+
+\begin{example}[{Acheson~\cite{acheson1990elementary}}]
+Consider now the Rankine Vortex in two dimensions. In polar coordinates,
+it's defined as  
+\begin{equation}
+\dot{\theta} = \begin{cases} \Omega & r\leq R\\
+\Omega(R/r)^{2} & r\geq R
+\end{cases}
+\end{equation}
+and $\dot{r}=0$, where $\Omega>0$ is some fixed angular speed, $R>0$ is
+the width of the vortex. We see then that $r=r_{0}$ is constant, and
+\begin{equation}
+\theta(t) = \theta_{0} + \begin{cases} \Omega t & r\leq R\\
+\Omega t (R/r)^{2} & r\geq R
+\end{cases}
+\end{equation}
+where $\theta_{0}$ is the initial angle at time zero. We can change
+coordinates to see
+\begin{equation}
+x(t) = r\cos(\theta(t)),\quad y(t)=r\sin(\theta(t)).
+\end{equation}
+This lets us determine $r$ and $\theta_{0}$ in terms of $x(0)=a$ and
+$y(0)=b$. So $r^{2}=a^{2}+b^{2}$ and $\theta_{0}=\atan2(b,a)$ (recall
+\zref{calculus-0017} the definition of $\atan2$). Also
+note there is a singularity when $a=b=0$ since $\theta_{0}$ is not
+well-defined. 
+\end{example}
+
+\begin{node}[Parcel, Particles, and the Continuum]\label{fluids:describing-0009}%
+Historically, fluid mechanics really began in earnest with Euler and
+Lagrange's works on fluids in the 1740s. This is where the equations of
+motion for fluids were first formalized using the tools of calculus. But
+it predates the atomic theory, so the intuitive picture was a literal
+continuum of point particles.
+
+The intuition seems to jump around from a continuum of point-particles,
+to working with densities (an ``infinitesimal region'' of the fluid,
+called a ``fluid parcel''), rather freely.
+
+We could meaningfully ask about the validity of describing fluids as a
+continuum of point-particles.
+
+\begin{node}[Continuum Hypothesis]\label{fluids:describing-000A}%
+A fluid parcel may be described like a point-particle, and has the
+physical characteristics of the bulk (e.g., velocity, pressure, density,
+etc.). In particular, any small finite volume of a fluid contains a
+great number of molecules.
+
+\begin{node}[Remark]\label{fluids:describing-000B}%
+I have seen the literature argue the ``amount of matter'' in a fluid
+parcel is constant (which means its volume can vary, otherwise density
+is constant). I'm not sure if this is standard or not? If so, I suppose
+we could conceptually think of the number of molecules in a parcel is
+fixed\dots but this may be ``chalk and cheese''.
+\end{node}
+\end{node}
+
+\begin{definition}\label{fluids:describing-000C}%
+The \define{Knudsen number} for a body is
+\begin{equation}
+\Kn := \lambda/L
+\end{equation}
+where $L$ is the length scale of the body, and $\lambda$ is the mean
+free path of its constituent particles. Observe this is a dimensionless
+quantity, and a positive real number.
+
+\begin{example}[Knudsen number of air]\label{fluids:describing-000E}%
+Air at 1013 hPa has a mean free path of approximately 68 nm (see
+Jennings~\cite{jennings1988air}). For geophysical models, the length
+scale would be on the order of the scale atmospere height $8.5$
+kilometers. Therefore the knudsen number for air would be
+\begin{equation}
+\Kn\approx\frac{68\times 10^{-9}}{8.5\times 10^{3}}\approx8\times 10^{-12}\sim10^{-11}.
+\end{equation}
+Hence fluid mechanics would be a good approximation at this scale.
+\end{example}
+
+\begin{example}[Cup of water]\label{fluids:describing-000G}%
+Water can be estimated to have a mean free path of
+$\lambda\approx2.5\times10^{-10}~\mathrm{m}$. For a cup of water, which
+holds 1 cup (approximately 236588 cubic millimeters), its scale would be
+the cuberoot of this number $L\approx 62\times10^{-3}~\mathrm{m}$.
+Therefore, the Knudsen number for a cup of water is approximately
+\begin{equation}
+\Kn\approx\frac{2.5\times10^{-10}}{62\times10^{-3}}\approx4\times10^{-9}.
+\end{equation}
+Fluid mechanics describes a cup of water very well, as we would expect.
+\end{example}
+\end{definition}
+
+\begin{node}\label{fluids:describing-000D}%
+The heuristic is: we may apply fluid mechanics if $\Kn\ll1$. If
+$\Kn<0.01$, there's no problem. If $0.01<\Kn<0.1$, then it's
+doable but slipping occurs. For $0.1<\Kn<10$ things gets dicey. The
+cutoff is rather fuzzy, but larger values require resorting to
+statistical mechanics. In the cases we normally think of with fluid
+mechanics, we find $\Kn\ll0.01$ (as demonstrated by the examples above).
+\end{node}
+
+\begin{node}[Hill--Mandel principle]\label{fluids:describing-000F}%
+More generally, in the field of continuum mechanics (which describes
+fluids \emph{and} elastic bodies), the criterion used for determining
+the appropriateness of applicability is the Hill--Mandel principle. If
+$F$ is the deformation gradient and $P$ is the stress tensor in
+equilibrium, then
+\begin{equation}
+\langle P : F\rangle = \langle P \rangle : \langle F \rangle
+\end{equation}
+where the brackets indicate microscopic averaging, and
+\begin{equation*}
+A : B = \tr(A\transpose{B}) = \sum_{i,j}(A)_{ij}(B)_{ij}.
+\end{equation*}
+For more about the Hill--Mandel condition, see, e.g., Liu and
+Reina~\cite{liu2016discrete}. I have not, however, seen any discussion
+relating the Hill--Mandel condition to the continuum hypothesis for
+fluid mechanics.
+\end{node}
+\end{node}

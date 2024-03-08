@@ -1,0 +1,136 @@
+\RequirePackage{listings}
+\RequirePackage{mdframed}
+
+
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
+\usepackage{sourcecodepro}
+
+
+% Egreg saves my bacon again https://tex.stackexchange.com/a/142409/14751
+\newlength{\eightytt}
+\newcommand{\testthewidth}{%
+  \fontsize{\dimen0}{0}\selectfont
+  \sbox0{x\global\dimen1=0.6em}% ASSUME: columns=fixed
+  \ifdim 84\dimen1>\textwidth % 84, not 80, for extra padding/precaution
+    \advance\dimen0 by -.1pt
+    \expandafter\testthewidth
+  \else
+    \global\eightytt\dimen0
+  \fi
+}
+
+\AtBeginDocument{%
+  \dimen0=\csname f@size\endcsname pt
+  \begingroup
+  \ttfamily
+  \testthewidth
+  \endgroup
+  \gdef\lisp@normalstyle{\edef\ttdefault{SourceCodePro-T\sourcecodepro@figurestyle}\color{ghDefaultColor}\fontsize{\eightytt}{1.2\eightytt}\ttfamily}
+  \lstset{
+    columns=fixed,
+    basicstyle=\lisp@normalstyle
+  }%
+  \renewcommand{\ttdefault}{cmtt}%
+}
+
+
+%% I decided to copy github's syntax highlighting style for common lisp,
+%% because it looked appealing
+\definecolor{ghComment}{HTML}{6e7781}
+\definecolor{ghBlue}{HTML}{0550ae}
+\definecolor{ghkeyword}{HTML}{cf222e}
+\definecolor{ghstring}{HTML}{0a3069}
+\definecolor{ghViolet}{HTML}{8250df}
+\definecolor{ghConstant}{HTML}{0550ae}
+\definecolor{ghDefaultColor}{HTML}{24292f}
+\def\defaultCommentStyle{\color{ghComment}}
+\def\defaultKWStyle{\color{ghkeyword}}
+\def\defaultStringStyle{\color{ghstring}}
+\def\defaultBooleanStyle{\color{ghBlue}}
+
+
+% Ugly hack to make quotes, keywords, etc., highlighted properly
+% https://tex.stackexchange.com/a/448823
+\def\makeGhBlue#1{\textcolor{ghBlue}{#1}}
+
+\usepackage{expl3}
+
+\def\lisp@normalstyle{\color{ghDefaultColor}\small\ttfamily}
+
+\def\noprint#1{}
+
+\ExplSyntaxOn
+\newcommand\lispprefixes
+{
+  \tl_set:No \l_demo_tl {\the\use:c{lst@token}}
+  \regex_replace_all:nnN { ([\c{lst@um'}\c{lst@um\#}\:]+[^\s\h]+) } { \c{makeGhBlue}\cB{ \1 \cE} } \l_demo_tl
+ % \regex_replace_all:nnN { ([\c{lst@um'}\c{lst@um\#}\:]+[\-\.a-zA-Z0-9?!]+) } { \c{makeGhBlue}\cB{ \1 \cE} } \l_demo_tl
+  \tl_use:N \l_demo_tl
+  \noprint
+}
+\ExplSyntaxOff
+
+
+\lstdefinelanguage{lisp}
+{morekeywords={and,
+    case,ccase,ctypecase,
+    defclass,defconstant,defgeneric,defmacro,defmethod,defparameter,defstruct,defun,defvar,do,dolist,dotimes,
+    ecase,eq,etypecase,
+    flet,
+    if,
+    labels,let,loop,
+    not,
+    or,
+    typecase,
+    unless,
+    when},
+   morekeywords=[2]{append,car,cdr,cond,cons,eval,format,lambda,list,listp,load,memberp,nil,null,progn,quote,setf,setq,t},
+   morekeywords=[3]{function,functionp,next-method-p,slot-boundp,slot-value},
+   morecomment=[l];,%
+   alsoletter={-\-.':\#?!},
+   basicstyle=\lisp@normalstyle,%\footnotesize\ttfamily,
+   keywordstyle=\defaultKWStyle,
+   keywordstyle=[2]\color{ghConstant},
+   commentstyle=\defaultCommentStyle,
+   stringstyle=\defaultStringStyle,
+   identifierstyle=\lispprefixes,
+   morestring=[b]"%
+}
+
+% -3pt seems to give a comfortable margin between the frame and the code
+\mdfdefinestyle{codestyle}{%
+  innertopmargin=-3pt,
+  innerbottommargin=-3pt}
+
+% https://tex.stackexchange.com/questions/95036/continue-line-numbers-in-listings-package
+% For, you know, *actual* code.
+\lstnewenvironment{code}[1][]
+{\mdframed[style=codestyle]%
+ \lstset{%
+   #1,
+   language=lisp,
+   numbers=left,
+   numberstyle=\tiny,
+   stepnumber=2,
+   showstringspaces=false,
+   xleftmargin=-5pt,
+   upquote=true}%
+ \csname\@lst @SetFirstNumber\endcsname%
+}
+{\csname \@lst @SaveFirstNumber\endcsname%
+\endmdframed}
+
+% For snippets showing how to use the code
+\lstnewenvironment{lisp-example}[1][]
+{\def\lstlistingname{Example}\lstset{%
+   #1,
+   language=lisp,
+   numbers=left,
+   numberstyle=\tiny,
+   stepnumber=2,
+   showstringspaces=false,
+   xleftmargin=-5pt,
+   upquote=true}%
+ \mdframed[style=codestyle]\ignorespaces}
+{\endmdframed\ignorespaces}

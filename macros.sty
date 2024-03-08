@@ -1,0 +1,227 @@
+%\usepackage[top=1in,bottom=1in,inner=1in,outer=1in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{stmaryrd} % double brackets
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{iso2145}
+\usepackage{proof} %lkproof, for \infer
+\usepackage{tikz-cd}
+\usetikzlibrary{fit}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{microtype}
+\RequirePackage{hyperref}
+% eTeX uses this color for links, it's better than BrickRed imho
+\definecolor{linkRed}{cmyk}{0.28, 1, 1, 0.35}
+\hypersetup{colorlinks=true,
+    linkcolor=linkRed,
+    citecolor=linkRed,
+    filecolor=linkRed,
+    urlcolor=linkRed,
+    breaklinks
+}
+
+% Example of iso2145 theorem environments:
+\newtheorem{theorem}{Theorem}{\it}
+\newtheorem{lemma}{Lemma}{\it}
+\newtheorem{proposition}{Proposition}{\it}
+\newtheorem{corollary}{Corollary}{\it}
+\newtheorem{definition}{Definition}{}
+\newtheorem{example}{Example}{}
+
+%%%%
+% Sectioning commands
+%%%%
+\def\resetParagraphChunks{
+  \gdef\secprefix{}
+  \global\sectionDepth=0
+  \setSection{0}
+}
+\DeclareRobustCommand\chunk@start@section{\resetParagraphChunks%
+  \gdef\theHchunk{\thesection\secprefix\arabic{chunk}.}%
+  \gdef\nodeprefix{\thesection}}
+\DeclareRobustCommand\chunk@start@subsection{\resetParagraphChunks%
+  \gdef\theHchunk{\thesubsection.\secprefix\arabic{chunk}.}%
+  \gdef\nodeprefix{\thesubsection}}
+\DeclareRobustCommand\chunk@start@subsubsection{\resetParagraphChunks%
+  \gdef\theHchunk{\thesubsubsection.\secprefix\arabic{chunk}.}%
+  \gdef\nodeprefix{\thesubsubsection}}
+
+\let\og@section\section
+\let\og@subsection\subsection
+\let\og@subsubsection\subsubsection
+\def\section{\chunk@start@section\og@section}
+\def\subsection{\chunk@start@subsection\og@subsection}
+\def\subsubsection{\chunk@start@subsubsection\og@subsubsection}
+
+\ifdefined\chapter
+\numberwithin{equation}{chapter}
+\else
+\numberwithin{equation}{section}
+\fi
+
+\@ifclassloaded{amsbook}{\setcounter{tocdepth}{3}}{}
+
+\@ifclassloaded{amsbook}{\renewcommand\thesection{\thechapter.\arabic{section}}}{}
+
+% hack the ToC to include itself
+\@ifclassloaded{amsbook}{
+\def\@starttoc#1#2{%
+  \begingroup
+  \setTrue{#1}%
+  \let\secdef\@gobbletwo \chapter
+  \let\@secnumber\@empty % for \@tocwrite and \chaptermark
+  \phantomsection\@tocwrite{chapter}{#2} % DIFF: write to the TOC always
+  \typeout{#2}\@xp\chaptermark\@xp{#2}%
+  \@makeschapterhead{#2}\@afterheading
+  \parskip\z@skip
+  \makeatletter
+  \@input{\jobname.#1}%
+  \if@filesw
+    \@xp\newwrite\csname tf@#1\endcsname
+    \immediate\@xp\openout\csname tf@#1\endcsname \jobname.#1\relax
+  \fi
+  \global\@nobreakfalse \endgroup
+  \newpage
+}
+\let\og@chaptername\chaptername
+\def\unappendix{\par
+  \c@chapter\z@ \c@section\z@
+  \xdef\chaptername{\og@chaptername}
+  \def\thechapter{\arabic{chapter}}}
+}{}
+
+\ifdefined\chapter
+% If you don't want to have nodes numbered "<chapter>.0.<node>"
+% just change \nodeprefix to:
+% \gdef\nodeprefix{\thechapter}
+\DeclareRobustCommand\chunk@start@chapter{\resetParagraphChunks%
+  \gdef\theHchunk{\thechapter.\secprefix\arabic{chunk}.}%
+  \gdef\nodeprefix{\thechapter.\arabic{section}}}
+\DeclareRobustCommand\chunk@start@chapter@nonumber{\resetParagraphChunks%
+  \gdef\theHchunk{\thechapter.\secprefix\arabic{chunk}.}%
+  \gdef\nodeprefix{\thechapter}}
+\let\og@chapter\@chapter
+\let\og@schapter\@schapter
+\def\@schapter{\chunk@start@chapter@nonumber\og@schapter}
+\def\@chapter{\chunk@start@chapter\og@chapter}
+\fi
+
+
+%%%%%%
+% ArXiV links
+\def\arXiv{\@ifnextchar[{\@arXivWith}{\@arXivWithout}}
+\def\@arXivWith[#1]#2{\texttt{\href{http://arxiv.org/abs/#2}{arXiv:#2} [#1]}}
+\def\@arXivWithout#1{\texttt{\href{http://arxiv.org/abs/#1}{arXiv:#1}}}
+
+% page numbering should never reset
+\def\pagenumbering#1{%
+  \gdef\thepage{\csname @#1\endcsname
+   \c@page}}
+
+\@ifclassloaded{report}{%
+  \if@compatibility
+  \renewenvironment{titlepage}
+    {%
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+        \@restonecolfalse\newpage
+      \fi
+      \thispagestyle{empty}
+    }%
+    {\if@restonecol\twocolumn \else \newpage \fi
+    }
+    \else
+  \renewenvironment{titlepage}
+    {%
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+        \@restonecolfalse\newpage
+      \fi
+      \thispagestyle{empty}%
+      \setcounter{page}\@ne
+    }%
+    {\if@restonecol\twocolumn \else \newpage \fi
+    }
+  \fi}{%
+}
+
+% puzzles
+\newcounter{puzzle}
+\def\listofpuzzles{\@starttoc{puzzle}{List of Puzzles}}
+\newenvironment{puzzle}[1][\relax]{\medbreak\noindent\refstepcounter{puzzle}\phantomsection\addcontentsline{puzzle}{chapter}{Puzzle~\thepuzzle\ifx\relax#1\else:~#1\fi}\textbf{Puzzle~\thepuzzle}\ifx\relax#1\else~(#1)\fi\textbf{.\enspace}\ignorespaces}{\medbreak}
+
+% Transclude % sigh, what a pretentious word
+\def\transclude#1{\input{\CurrentFilePath/#1}}
+
+\long\def\zref#1{\textup{\tagform@{\S\ref {#1}}}}
+
+
+
+% Measure the width of mathematical symbols, thank you GuM!
+% https://tex.stackexchange.com/a/363939
+
+\def\do#1{\@ifdefinable#1{\newdimen#1}}
+\do\@TempWidthOne
+\do\@TempWidthTwo
+\newcommand*\WidthInMathUnitsOf[2]{%
+    \settowidth\@TempWidthOne{$\m@th #1#2$}%
+    \settowidth\@TempWidthTwo{$\m@th #1\mspace{1mu}$}%
+    \strip@pt \dimexpr \@TempWidthOne*\p@/\@TempWidthTwo \relax
+}
+\newcommand*\SetToWidthInMathUnits[3]{%
+    \settowidth\@TempWidthOne{$\m@th #2#3$}%
+    \settowidth\@TempWidthTwo{$\m@th #2\mspace{1mu}$}%
+    \edef #1{%
+        \strip@pt \dimexpr \@TempWidthOne*\p@/\@TempWidthTwo \relax
+    }%
+}
+\newcommand*\ExtractHexDigitOfFamilyOfSymbol[1]{%
+    \expandafter\@ExtractHexDigitOfFamily \meaning #1% must be a cs token
+}
+\@ifdefinable\@ExtractHexDigitOfFamily{
+    \def\@ExtractHexDigitOfFamily#1"#2#3#4#5{#3}
+}
+
+\newcommand*{\ReportWidthsOf}[1]{%
+    \par
+    \begingroup
+        \setlength{\abovedisplayskip}{\smallskipamount}%
+        \indent
+        Width of $#1$
+        (\texttt{\string #1}, \emph{i.e.}, \texttt{\meaning #1})
+        in:%
+        \begin{align*}%
+            % \ReportWidthFor\displaystyle     {#1}\\%
+            \ReportWidthFor\textstyle        {#1}\\%
+            \ReportWidthFor\scriptstyle      {#1}\\%
+            \ReportWidthFor\scriptscriptstyle{#1}%
+        \end{align*}%
+    \endgroup
+}
+\newcommand*{\ReportWidthFor}[2]{%
+    \texttt{\string #1}&=
+        \texttt{\WidthInMathUnitsOf #1{#2}mu}%
+}
+\newcommand*{\ReportValueOfOneEm}[1]{%
+    &\text{in #1 size,}%
+        &\quad\texttt{1em}%
+            &=\texttt{\the \fontdimen 6 \csname #1font\endcsname 2}%
+        &&\qquad\text{(from \texttt{\fontname \csname #1font\endcsname 2})}%
+}
+\newcommand*{\ReportSizeOfFontOfSymbol}[2]{%
+    &\texttt{\pdffontsize\csname #2font\endcsname
+                "\ExtractHexDigitOfFamilyOfSymbol{#1}}%
+        &&\quad\text{in #2 size}%
+        &\qquad(\texttt{\string\fontname}%
+            &=\texttt{\fontname\csname #2font\endcsname
+                "\ExtractHexDigitOfFamilyOfSymbol{#1}})%
+}
+\newcommand*{\ReportSizeOfMSAMFont}{%
+    \ReportSizeOfFontOfSymbol{\vartriangleright}%
+}
+
+\newcommand*{\mytemp}{} % just declare the name
+
+\endinput
