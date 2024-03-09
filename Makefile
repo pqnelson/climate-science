@@ -16,3 +16,6 @@ bib:
 preamble:
 	$(TEX) -ini -jobname="preamble" "&pdflatex preamble.tex\dump"
 
+.PHONY: img
+img:
+	cd img && make
