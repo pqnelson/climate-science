@@ -8,3 +8,8 @@ refs/
 # bibtex related
 *.bbl
 *.blg
+
+# metapost related
+img/img.mpx
+mpxerr.*
+*.mps

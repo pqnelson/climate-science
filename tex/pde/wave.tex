@@ -1,0 +1,56 @@
+% 2
+\section{Wave Equation}
+
+\begin{node}[Derivation]\label{pde:wave-0000}%
+There are multiple derivations of the wave equation in 1 spatial
+dimension.
+
+\begin{node}[Springs]\label{pde:wave-0001}%
+Consider an infinite system of point masses (of mass $m$) connected by
+identical massless springs (with spring constant $k$) such that they
+form a line. We would have (writing $x_{i}(t)$ for the position of the
+$i^{\text{th}}$ point-mass),
+\begin{center}
+  \includegraphics{img/wave-equation-0.mps}
+\end{center}
+Then using Hooke's law, the force acting on the $i^{\text{th}}$
+point-mass $m$ whose position is $x_{i}(t)$ will be,
+\begin{subequations}
+\begin{equation}
+\begin{split}
+F_{\text{Hooke}} &= F_{i+1}-F_{i-1}\\
+&=k\bigl(x_{i+1}(t)-x_{i}(t)\bigr)-k\bigl(x_{i}(t)-x_{i-1}(t)\bigr).
+\end{split}
+\end{equation}
+Then Newton's laws of motion gives us for the point-mass with
+position $x_{i}$,
+\begin{equation}
+\frac{\D^{2}}{\D t^{2}}x_{i}(t) = \frac{k}{m}\bigl(x_{i+1}(t)-2x_{i}(t)+x_{i-1}(t)\bigr).
+\end{equation}
+If our system of $N$ point masses spaced evenly over the length
+$L=N\Delta x$ of total mass $M=Nm$, and the spring constant of the array
+$K=k/N$, we then have:
+\begin{equation}
+\frac{\D^{2}}{\D t^{2}}x_{i}(t) = 
+\frac{KL^{2}}{M}\left(\frac{x_{i+1}(t)-2x_{i}(t)+x_{i-1}(t)}{(\Delta x)^{2}}\right).
+\end{equation}
+Note that we could equally as well work with the \emph{displacement from equilibrium}
+$u_{i}(x_{i,\text{eq}},t)$ instead of the current position of the $i^{\text{th}}$
+point-mass $x_{i}(t)$ by observing $u_{i}(x_{i,\text{eq}},t)=x_{i}(t)-x_{i,\text{eq}}$.
+Since the point-masses being in equilibrium would not experience Hooke's
+law, their contribution would subtract out from Hooke's force law, and
+we'd end up with
+\begin{equation}
+\partial_{t}^{2}u_{i}(x_{i,\text{eq}},t) = 
+\frac{KL^{2}}{M}\left(\frac{u_{i+1}(x_{i+1,\text{eq}},t)-2u_{i}(x_{i,\text{eq}},t)+u_{i-1}(x_{i-1,\text{eq}},t)}{(\Delta x)^{2}}\right).
+\end{equation}
+Taking the continuum limit $N\to\infty$, $\Delta x\to0$ transforms
+$x_{i}(t)\to u(x,t)$ since each point become the equilibrium position
+for some point-mass, and the equations of motion become:
+\begin{equation}
+\boxed{\partial_{t}^{2}u(x,t)=\frac{KL^{2}}{M}\partial_{x}^{2}u(x,t).}
+\end{equation}
+\end{subequations}
+This is the wave equation, and $KL^{2}/M$ is the speed of propagation.
+\end{node}
+\end{node}

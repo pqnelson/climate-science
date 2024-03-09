@@ -1,4 +1,4 @@
-% 12
+% 14
 \chapter{Partial Differential Equations}
 
 \begin{node}\label{pde-0000}%
@@ -18,11 +18,38 @@ connected subset $U\subset\RR^{n}$.
 More generally, we can speak of domains in topological space.
 \end{definition}
 
+\begin{definition}\label{pde-000D}%
+A \define{Partial Differential Equation} consists of
+\begin{enumerate}
+\item a domain $\Omega\subset\RR^{n}$ containing a subdomain
+  $\Omega_{0}\subset\Omega$ (for the initial data);
+\item a degree $k$ differential operator $P\colon C^{k}(\Omega)\to C^{0}(\Omega)$;
+\item some initial data $u_{0}\in C^{j}(\Omega_{0})$ for some suitable
+  $j\in\NN_{0}\cup\{\infty,\omega\}$.
+\end{enumerate}
+A \define{classical solution} to such a PDE consists of a function $u\in C^{k}(\Omega)$
+such that $P(u)=0$ and $u|_{\Omega_{0}}=u_{0}$.
+\end{definition}
+
+\begin{node}\label{pde-000C}%
+The questions that we want to answer include:
+\begin{enumerate}
+\item Does a solution exist?
+\item Is the solution unique?
+\item Does the solution change continuously as we change the initial data?
+\end{enumerate}
+When a partial differential equation has a unique solution which varies
+continuously with respect to changes in the initial data, we say the
+partial differential equation is \define{Well-posed}.
+
+But there's also the important problem of \emph{how do we even find solutions?}
 \begin{node}\label{pde-000B}%
 Morally, there is some intuition that we ``build solutions'' out of
 ``wave equations''. There is some degree of truth to this, but it gets
 us only so far in life.
 \end{node}
+\end{node}
 
 \transclude{pde/first-order}
 \transclude{pde/heat}
+\transclude{pde/wave}
