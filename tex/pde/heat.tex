@@ -1,0 +1,82 @@
+% 3
+\section{Heat Equation}
+
+\begin{node}[Derivation]\label{pde:heat-0000}%
+Let $\temperature(\vec{x},t)$ be the temperature at a point $\vec{x}$ in
+a continuous medium and at time $t$. Let $H(t)$ be the amount of heat
+(e.g., in calories) contained in a region $V$. Then
+\begin{equation*}
+H(t)=\int_{V}c\rho\temperature\,\D^{n}x,
+\end{equation*}
+where $c$ is the specific heat of the medium, and $\rho$ is its mass
+density. The change in heat is
+\begin{equation*}
+\frac{\D H(t)}{\D t}=\int_{V}c\rho\partial_{t}\temperature\,\D^{n}x.
+\end{equation*}
+Fourier's law says heat flows from hot regions to cold regions
+proportionately to the temperature gradient. The only way heat can
+change in the region $V$ is by flowing into or out of the region across
+its boundary (this is the conservation of energy). Therefore, the change
+of heat in $V$ also equals the heat flux across the boundary,
+\begin{equation*}
+\frac{\D H(t)}{\D t}=\oint_{\bdry V}k\widehat{\vec{n}}\cdot\grad\temperature\,\D A,
+\end{equation*}
+where $k$ is the thermal conductivity of the material (describing how
+easily heat spreads through the medium). By the divergence theorem \zref{vector-calc-0000},
+and setting these quantities equal to each other, we find:
+\begin{equation}
+\int_{V}c\rho\partial_{t}\temperature\,\D^{n}x=\int_{V}\divergence(k\grad\temperature)\,\D^{n}x.
+\end{equation}
+This is the heat equation. Since the choice of region $V$ was arbitrary,
+we therefore must have the integrands be equal
+\begin{equation}\label{eq:pde:heat:heat-equation}
+\partial_{t}\temperature=\frac{1}{c\rho}\divergence(k\grad\temperature)
+\end{equation}
+which is how most people recognize the heat equation these days.
+
+Observe, if we pretend $k\grad\temperature$ is a ``flux quantity'', then
+we obtain something which resembles a conservation law \zref{pde:first-order-0002}.
+
+\begin{node}[Diffusion]\label{pde:heat-0002}%
+If we consider a motionless fluid in a 1-dimensional tube, and we
+release dye (or some chemical substance) which is diffusing through the
+liquid. We can characterize diffusion using conservation laws, letting
+$\rho(t,x)$ be the mass density of the dye at position $x$ of the pipe
+at time $t$.
+
+Then the mass of dye in the section of the pipe from $a$ to $b$ is
+\begin{subequations}
+\begin{equation}
+M_{a,b}(t)=\int^{b}_{a}\rho(t,x)\,\D x\quad\mbox{then}\quad%
+\frac{\D M_{a,b}(t)}{\D t}=\int^{b}_{a}\partial_{t}\rho(t,x)\,\D x.
+\end{equation}
+The only way the mass of dye in this section of pipe can change is by
+flowing in or out from its endpoints. By Fick's law
+\begin{equation}
+\frac{\D M_{a,b}(t)}{\D t}=\begin{pmatrix}\mbox{flow}\\\mbox{in}
+\end{pmatrix}-\begin{pmatrix}\mbox{flow}\\\mbox{out}
+\end{pmatrix}=k\partial_{x}\rho(t,b)-k\partial_{x}\rho(t,a)
+\end{equation}
+where $k$ is a proportionality constant. Equating these two descriptions
+for the rate of change of dye,
+\begin{equation}
+\int^{b}_{a}\partial_{t}\rho(x,t)\,\D x=k\partial_{x}\rho(t,b)-k\partial_{x}\rho(t,a).
+\end{equation}
+Differentiating with respect to $b$ gives us the differential equation
+\begin{equation}
+\partial_{t}\rho=k\partial_{x}^{2}\rho.
+\end{equation}
+When working in $n>1$ spatial dimensions, we would have
+\begin{equation}
+\int_{V}\partial_{t}\rho\,\D^{n}x=\oint_{\bdry V}k(\widehat{n}\cdot\grad\rho)\,\D A,
+\end{equation}
+where $V$ is some compact region and $\bdry V$ is its boundary
+surface. Then the divergence theorem \zref{vector-calc-0000} gives us
+\begin{equation}
+\partial_{t}\rho=\divergence(k\grad\rho).
+\end{equation}
+Observe this is identical in form as the heat equation we found in
+Eq~\eqref{eq:pde:heat:heat-equation}.
+\end{subequations}
+\end{node}
+\end{node}

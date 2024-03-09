@@ -1,4 +1,4 @@
-
+% 3
 \section{First-order equations}
 
 % https://www.ucl.ac.uk/~ucahhwi/LTCC/sectionA-firstorder.pdf
@@ -143,4 +143,71 @@ a(x,y,u)\partial_{x}u+b(x,y,u)\partial_{y}u=f(x,y,u).
 The difficulty that we encounter with nonlinear first-order PDEs is that
 the method of characteristics produces an implicit equation for $u$
 rather than an explicit one.
+\end{node}
+
+
+\begin{node}[Conservation Laws]\label{pde:first-order-0000}%
+\begin{node}[Example: mass]\label{pde:first-order-0001}%
+Let $\rho(t,x)$ represent mass density for a one-dimensional continuous
+body (a fluid, say). At time $t$, the total mass lying in the interval
+$a\leq x\leq b$ is calculated by
+\begin{subequations}\label{eq:pde:first-order:conservation:mass-example}
+\begin{equation}
+M_{a,b}(t)=\int^{b}_{a}\rho(t,x)\,\D x.
+\end{equation}
+This assumes that mass is not created or destroyed in this region (we
+can model that later).
+
+There may be mass flowing into the region, and mass flowing out of the
+region. This is described by the \define{Flux} $j(t,x)$ and we would
+have $j(t,a)$ describe the amount flowing into the region, $-j(t,b)$ the
+amount flowing out of the region, so this combines to give us
+\begin{equation}
+\frac{\D}{\D t}M_{a,b}(t)=j(t,a)-j(t,b)=\int^{b}_{a}-\partial_{x}j(t,x)\,\D x
+\end{equation}
+The total change over time of mass in this region
+would be
+\begin{calculation}
+  \frac{\D}{\D t} M_{a,b}(t)
+\step{using Eq~\eqref{eq:pde:first-order:conservation:mass-example}}
+\frac{\D}{\D t}\int^{b}_{a}\rho(t,x)\,\D x
+\step{since the boundaries are fixed with respect to time}
+\int^{b}_{a}\partial_{t}\rho(t,x)\,\D x
+\step{using Eq~\eqref{eq:pde:first-order:conservation:mass-example}}
+\int^{b}_{a}-\partial_{x}j(x,t)\,\D x
+\end{calculation}
+Then rearranging these last two results gives us
+\begin{equation}
+\int^{b}_{a}\partial_{t}\rho(t,x)-\partial_{x}j(t,x)\,\D x=0.
+\end{equation}
+Since this is for any arbitrary interval $[a,b]$, this means the
+integrand must vanish, which is precisely the one-dimensional
+differential form of the conservation of mass
+\begin{equation}
+\partial_{t}\rho(t,x)-\partial_{x}j(t,x)=0.
+\end{equation}
+This is generalized to higher dimensions by turning $\vec{j}(t,\vec{x})$
+into a vector field, the flow into and out of the region is precisely
+the integral of $\vec{j}\cdot\widehat{\vec{n}}$ (where
+$\widehat{\vec{n}}$ is the outward-facing unit normal vector on the
+boundary of the region), then the divergence theorem \zref{vector-calc-0000}
+gives us the direct generalization to the 1-dimensional conservation law:
+\begin{equation}
+\partial_{t}\rho(t,x)-\divergence\vec{j}(t,\vec{x})=0.
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}[In general]\label{pde:first-order-0002}%
+We generalize from mass to an arbitrary quantity $q=q(t,\vec{x})$ which
+varies in space and time, which has its volume density be
+$\rho(t,\vec{x})$. The flow of this quantity is described the the
+\define{Flux vector} $\vec{j}(t,\vec{x})$. By the exact same arguments
+as given with mass, we can obtain the differential form of the
+conservation of $q$
+\begin{equation*}
+\partial_{t}\rho(t,\vec{x})-\divergence\vec{j}(t,\vec{x})=f(t,\vec{x})
+\end{equation*}
+where $f(t,\vec{x})$ are any external sources or sinks of $q$.
+\end{node}
 \end{node}
