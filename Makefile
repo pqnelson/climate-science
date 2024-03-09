@@ -1,13 +1,18 @@
 TEX=pdflatex
 BIB=bibtex
 FILE=main
+TEXFLAGS=-interaction=batchmode
 
 all:
-	$(TEX) $(FILE)
-	$(TEX) $(FILE)
+	$(TEX) -draftmode $(TEXFLAGS) $(FILE)
+	$(TEX) $(TEXFLAGS) $(FILE)
 
 bib:
-	$(TEX) $(FILE)
+	$(TEX) -draftmode $(TEXFLAGS) $(FILE)
 	$(BIB) $(FILE)
-	$(TEX) $(FILE)
-	$(TEX) $(FILE)
+	$(TEX) -draftmode $(TEXFLAGS) $(FILE)
+	$(TEX) $(TEXFLAGS) $(FILE)
+
+preamble:
+	$(TEX) -ini -jobname="preamble" "&pdflatex preamble.tex\dump"
+
