@@ -1,0 +1,128 @@
+% 16
+\section{Integral Calculus}
+
+\begin{definition}\label{calculus:integral-0000}%
+Let $f$ be a continuous function. We define the \define{Antiderivative}
+of $f$ to be a differentiable function $F$ such that $F'(x)=f(x)$.
+
+Determining the antiderivative of a function is highly nontrivial, and
+amounts to a sort of masochistic sudoku.
+
+\begin{example}\label{calculus:integral-0001}%
+Let $f(x)=x^{n}$ be a monomial. Then $F(x)=c+x^{n+1}/(n+1)$ is its
+antiderivative, which can be verified thanks to the power rule.
+\end{example}
+\end{definition}
+
+\begin{node}[Riemann integration]\label{calculus:integral-0003}%
+
+\begin{definition}\label{calculus:integral-0004}%
+Let $[a,b]=\{x\in\RR\mid a\leq x\leq b\}$ be a closed interval.
+We define a \define{Partition} of $[a,b]$ to be a finite number of
+points $a=x_{0}<x_{1}<\dots<x_{j}<\dots<x_{n}=b$. The \define{Norm} (or
+\emph{mesh}) of the partition is $\max_{0\leq j\leq n-1}(x_{j+1}-x_{j})$
+the largest length among the subintervals $[x_{j}, x_{j+1}]$ whose
+endpoints are consecutive members of the partition.
+\end{definition}
+
+\begin{definition}\label{calculus:integral-0005}%
+Let $[a,b]$ be a closed interval.
+We define a \define{Tagged Partition} of $[a,b]$ to consist of a
+partition $a=x_{0}<x_{1}<\dots<x_{n}=b$ together with numbers $t_{0}$,
+\dots, $t_{n-1}$ such that $t_{j}\in[x_{j},x_{j+1}]$ for each $j=1,\dots,n-1$.
+\end{definition}
+
+\begin{definition}\label{calculus:integral-0002}%
+Let $f\colon[a,b]\to\RR$ be a continuous function. Let
+$P=(x, t)$ be a tagged partition of $[a,b]$. We define 
+\define{Riemann Sum} of $f$ on $P$ to be the real number equal to
+\[\sum^{n-1}_{j=0}f(t_{j})(x_{j+1}-x_{j}).\]
+We can define the \define{Lower Riemann Sum} of $f$ on the partition
+$P=x_{0}<\dots<x_{n}$ to be
+\[L(f,P) =\sum^{n-1}_{j=0}\inf_{t\in[x_{j},x_{j+1}]}f(t)(x_{j+1}-x_{j}),\]
+and similarly the \define{Upper Riemann Sum} of $f$ on $P$ to be
+\[U(f,P) =\sum^{n-1}_{j=0}\sup_{t\in[x_{j},x_{j+1}]}f(t)(x_{j+1}-x_{j}).\]
+\end{definition}
+
+\begin{definition}\label{calculus:integral-0006}%
+Let $f\colon[a,b]\to\RR$ be continuous. We define the \define{Riemann Integral}
+of $f$ to be the real number $s\in\RR$ such that for each
+$\varepsilon>0$ there exists a corresponding $\delta>0$ such that for
+any tagged partition $x_{0}<x_{1}<\dots<x_{n}$ with tags $t_{0}$, \dots, $t_{n-1}$
+whose mesh is less than $\delta$, we have
+\[\left|\left(\sum^{n-1}_{j=0}f(t_{j})(x_{j+1}-x_{j})\right)-s\right|<\varepsilon.\]
+When $s$ exists, we use the notation $\int^{b}_{a}f(x)\,\D x$ instead of $s$.
+\end{definition}
+
+\begin{definition}\label{calculus:integral-000B}%
+If $f\colon(a,b)\to\RR$ is continuous and when restricted to the
+subinterval $[a_{1},b_{1}]\subseteq(a,b)$ its Riemann integral exists,
+then we say $f$ is \define{(Riemann) integrable} on $[a_{1},b_{1}]$.
+\end{definition}
+
+\begin{node}[On continuity]\label{calculus:integral-0007}%
+We actually can weaken all these definitions from demanding $f$ be
+continuous to merely ``piecewise continuous'', i.e., allowing countably
+many discontinuities in $f$. The definitions generalize by working on
+the subdomains where $f$ is continuous, then adding up all the results.
+\end{node}
+\end{node}
+
+\begin{node}[Fundamental theorems of calculus]\label{calculus:integral-0008}%
+
+\begin{theorem}\label{calculus:integral-0009}%
+Let $f\colon[a,b]\to\RR$ be continuous. Define
+\[F(x)=\int^{x}_{a}f(t)\,\D t.\]
+Then $F$ is continuous on $[a,b]$ and differentiable on $(a,b)$ and
+for each $x\in(a,b)$ we have $F'(x)=f(x)$.
+\end{theorem}
+
+\begin{theorem}\label{calculus:integral-000A}%
+Let $f\colon[a,b]\to\RR$ be a function, let $F$ be its antiderivative
+defined on $[a,b]$ and satisfy $f(x)=F'(x)$. If $f$ is integrable on
+$[a,b]$, then
+\[\int^{b}_{a}f(x)\,\D x=F(b)-F(a).\]
+\end{theorem}
+\end{node}
+
+\begin{node}[Integration by parts]\label{calculus:integral-000C}%
+\begin{node}[Indefinite version]\label{calculus:integral-000D}%
+Let $u,v\colon\RR\to\RR$ be differentiable functions. Then
+\[\int u(x)v'(x)\,\D x=u(x)v(x)-\int u'(x)v(x)\,\D x.\]
+\begin{proof}
+By direct calculation
+\begin{calculation}
+\int\frac{\D}{\D x}(u(x)v(x))\,\D x = u(x)v(x)
+\step[\equiv]{apply product rule to integrand}
+\int(u(x)v'(x)+u'(x)v(x))\,\D x = u(x)v(x)
+\step[\equiv]{subtracting $\int u'(x)v(x)\,\D x$ from both sides}
+\int u(x)v'(x)\,\D x = u(x)v(x) - \int u'(x)v(x)\,\D x.
+\end{calculation}
+Hence the result.
+\end{proof}
+\end{node}
+
+\begin{node}[Definite version]\label{calculus:integral-000E}%
+Let $u,v\colon[a,b]\to\RR$ be differentiable functions. Then
+\[\int^{b}_{a} u(x)v'(x)\,\D x=u(b)v(b)-u(a)v(a)-\int^{b}_{a} u'(x)v(x)\,\D x.\]
+\begin{proof}
+Apply the fundamental theorem of calculus to the indefinite version, and
+we get the result.
+\end{proof}
+\end{node}
+
+\begin{example}\label{calculus:integral-000F}%
+Consider the indefinite integral of $\ln(x)/x^{2}$. We see
+\begin{calculation}
+\int\frac{\ln(x)}{x^{2}}\,\D x
+\step{let $u=\ln(x)$, $v=-1/x$}
+-\frac{\ln(x)}{x}-\int\left(\frac{\D\ln(x)}{x}\right)\left(\frac{-1}{x}\right)\D x
+\step{by $\D\ln(x)/\D x=1/x$}
+-\frac{\ln(x)}{x}+\int\left(\frac{1}{x^{2}}\right)\D x
+\step{performing the integral}
+-\frac{\ln(x)}{x}-\frac{1}{x}.
+\end{calculation}
+Hence the result.
+\end{example}
+
+\end{node} % integration by parts

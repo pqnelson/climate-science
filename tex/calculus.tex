@@ -1,4 +1,4 @@
-% 44
+% 48
 
 \chapter{Calculus}
 
@@ -31,6 +31,35 @@ $\varepsilon^{2}=0$. But infinitesimals confuse people, apparently.
 We could also introduce ``big O'' notation to make infinitesimal
 reasoning more rigorous, which is what Knuth recommends.
 \end{node}
+
+\begin{definition}\label{calculus-0018}%
+Let $x_{0}\in(a,b)$ --- i.e., $a<x_{0}<b$ --- and let
+$f\colon(a,b)\to\RR$. We define the \define{Limit of $f$ at $x_{0}$}
+to be the real number $L\in\RR$ such that: for each $\varepsilon>0$
+there exists a corresponding $\delta>0$ such that for all $x\in(a,b)$ we
+have $|x-x_{0}|<\delta$ implies $|f(x)-L|<\varepsilon$. We often write
+\[\lim_{x\to x_{0}}f(x)=L\]
+for the limit as $x\to x_{0}$ of $f(x)$. If the limit is equal to
+$f(x_{0})$, then we say $f$ is \define{Continuous at $x_{0}$}. If $f$ is
+continuous at each $x\in(a,b)$, then we just say $f$ is a
+\define{Continuous Function}.
+
+The intuition is that in any neighborhood of a value $f(x_{0})$, it
+contains the image of a neighborhood $(x_{0}-\delta,x_{0}+\delta)$ under
+$f$. 
+
+\begin{example}\label{calculus-0019}%
+Let $f(x)=x^{n}$ for any [fixed] $n\in\NN$. Then
+\[\lim_{x\to x_{0}}f(x)=x_{0}^{n}.\]
+Therefore $f(x)$ is continuous at $x_{0}$ for every $x_{0}\in\RR$.
+\end{example}
+
+\begin{theorem}
+Let $f$, $g\colon(a,b)\to\RR$. Assume $f$ and $g$ are continuous at
+$x_{0}\in(a,b)$. Then $f(x)+g(x)$ and $f(x)\cdot g(x)$ are continuous at
+$x_{0}$.
+\end{theorem}
+\end{definition}
 
 \begin{definition}\label{calculus-0001}%
 We say $f(x)=\bigO(g(x))$ as $x\to a$ if there exists a constant $M$
@@ -152,6 +181,35 @@ f'(x) = a_{1} + 2a_{2}x+\dots+na_{n}x^{n-1}.
 \end{equation*}
 This follows from linearity and the power rule.
 \end{example}
+
+\begin{node}[Inverse function theorem]\label{calculus-001A}%
+Let $f\colon(a,b)\to\RR$ be a function with an inverse function
+$f^{-1}\colon f((a,b))\to(a,b)$. So if $y=f(x)$, then $f^{-1}(y)=x$.
+Then we have
+\begin{calculation}
+  \frac{\D x}{\D x} = 1
+\step{since $x=f^{-1}(y)$}
+  \frac{\D}{\D x}f^{-1}(y)
+\step{chain rule}
+  \frac{\D f^{-1}(y)}{\D y}\frac{\D y}{\D x}
+\step{since $y=f(x)$}
+  \frac{\D f^{-1}(y)}{\D y}\frac{\D f(x)}{\D x}
+\end{calculation}
+we can divide through by $f'(x)$ to obtain
+\[\frac{\D f^{-1}(y)}{\D y}=\frac{1}{f'(x)}=\frac{1}{f'(f^{-1}(y))}.\]
+This is the inverse function theorem, relating the derivative of the
+inverse function $f^{-1}$ to the derivative of $f(x)$.
+
+\begin{example}\label{calculus-001B}%
+Consider $f(x)=x^{2}$ as defined on the positive real numbers. Then
+$f^{-1}(y)=\sqrt{y}$. Further we find
+\[\frac{\D\sqrt{y}}{\D y}=\frac{1}{2}y^{-1/2}.\]
+This follows from direct calculation $f'(x)=2x$ and so
+\[\frac{1}{f'(f^{-1}(y))}=\frac{1}{2\sqrt{y}}.\]
+This is a good consistency check since the power rule suggests
+this result.
+\end{example}
+\end{node}
 \end{definition}
 
 \begin{definition}\label{calculus-000D}%
@@ -537,3 +595,6 @@ We define the 2-argument arctangent function
 \end{definition}
 
 \end{node} % trig functions
+
+
+\transclude{calculus/integral}
