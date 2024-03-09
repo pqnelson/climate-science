@@ -1,4 +1,4 @@
-% 14
+% 16
 \chapter{Partial Differential Equations}
 
 \begin{node}\label{pde-0000}%
@@ -24,19 +24,50 @@ A \define{Partial Differential Equation} consists of
 \item a domain $\Omega\subset\RR^{n}$ containing a subdomain
   $\Omega_{0}\subset\Omega$ (for the initial data);
 \item a degree $k$ differential operator $P\colon C^{k}(\Omega)\to C^{0}(\Omega)$;
-\item some initial data $u_{0}\in C^{j}(\Omega_{0})$ for some suitable
+\item some initial data $u_{0},u_{1},\dots,u_{k-1}\in C^{j}(\Omega_{0})$ for some suitable
   $j\in\NN_{0}\cup\{\infty,\omega\}$.
 \end{enumerate}
 A \define{classical solution} to such a PDE consists of a function $u\in C^{k}(\Omega)$
-such that $P(u)=0$ and $u|_{\Omega_{0}}=u_{0}$.
+such that $P(u)=0$ and $u|_{\Omega_{0}}=u_{0}$, $\partial_{t}u|_{\Omega_{0}}=u_{1}$,
+\dots, $\partial_{t}^{k-1}u|_{\Omega_{0}}=u_{k-1}$.
+
+\begin{node}[Lack of definition]\label{pde-000F}%
+Note that most people informally refer to just the equation $P(u)=0$ as the
+partial differential equation, but this is not quite correct. We need to
+specify the domain, we need to specify the initial data or boundary
+conditions. Only then will we have a partial differential equation.
+Otherwise, there is no unique solution, and usually we end up with a
+large space of solutions.
+
+In fact, the jet comonad over $\Omega$ and the category of partial
+differential equations with variables in $\Omega$ are equivalent
+categories, as Marvan~\cite{marvan1986note} proved. But this abstract
+nonsense forced us to realize we needed to include the domain $\Omega$
+in the definition of a partial differential equation. For a review of
+this treatment of PDEs, see Pugliese, Sparano, and
+Vitagliano~\cite{pugliese2023vinogradovs}. 
+\end{node}
+
+\begin{node}[Boundary conditions]\label{pde-000E}%
+It's not uncommon to work with boundary conditions instead of initial
+data, when $\Omega$ has a boundary.
+Some common ones are:
+\begin{enumerate}
+\item Dirichlet condition: $u$ is specified on $\bdry\Omega$;
+\item Neumann condition: the normal derivative $\partial u/\partial n$ 
+  is specified on $\bdry\Omega$;
+\item Robin condition: $au+\partial u/\partial n$ is specified on $\bdry\Omega$.
+\end{enumerate}
+\end{node}
 \end{definition}
 
 \begin{node}\label{pde-000C}%
-The questions that we want to answer include:
+The questions that we want to answer about a partial differential
+equation are generally:
 \begin{enumerate}
-\item Does a solution exist?
-\item Is the solution unique?
-\item Does the solution change continuously as we change the initial data?
+\item Existence: Does a solution exist?
+\item Uniqueness: Is the solution unique?
+\item Stability: Does the solution change continuously as we change the initial data?
 \end{enumerate}
 When a partial differential equation has a unique solution which varies
 continuously with respect to changes in the initial data, we say the
