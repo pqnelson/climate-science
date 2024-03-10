@@ -1,4 +1,4 @@
-% 2
+% 17
 \section{Wave Equation}
 
 \begin{node}[Derivation]\label{pde:wave-0000}%
@@ -51,6 +51,359 @@ for some point-mass, and the equations of motion become:
 \boxed{\partial_{t}^{2}u(x,t)=\frac{KL^{2}}{M}\partial_{x}^{2}u(x,t).}
 \end{equation}
 \end{subequations}
-This is the wave equation, and $KL^{2}/M$ is the speed of propagation.
+This is the wave equation, and $c=[KL^{2}/M]^{1/2}$ is the speed of propagation.
+\end{node}
+
+\begin{node}[Problematic derivations]\label{pde:wave-0002}%
+There are a number of issues with the standard derivation of the wave
+equation for a vibrating string. Yong~\cite{yong2006strings} gives a
+derivation starting from physically correct first principles, and
+reviews the literature behind it.
+\end{node}
+
+\begin{node}[Waves in general]\label{pde:wave-0003}%
+Broadly speaking, ``wave motion'' describes the form of a
+\emph{solution} rather than a generic \emph{problem}. There are two
+types of waves: \emph{hyperbolic} waves (which is the kind described by
+the equation $\partial_{t}^{2}u-\laplacian u=f$) and \emph{dispersive}
+waves which are described by solutions of the form $u=a\cos(\omega t-\vec{k}\cdot\vec{x})$
+where $\omega$ and $\vec{k}$ may be functions of space and time.
+For more on wave motion in general, see Whitham~\cite{whitham1974waves}.
+\end{node}
+\end{node}
+
+\begin{node}[In one spatial-dimension]\label{pde:wave-0007}%
+We will study the wave equation in one spatial-dimension, since many of
+its properties hold in $n>1$ spatial dimensions, and it avoids needless
+complexities.
+
+\begin{node}[General Solution]\label{pde:wave-0004}%
+We see that we can, for constant speed of propagation $c$, write
+\begin{equation}
+(\partial_{t}^{2}-c^{2}\partial_{x}^{2})u=(\partial_{t}-c\partial_{x})
+(\partial_{t}+c\partial_{x})u=0.
+\end{equation}
+Then the general solution looks like
+\begin{equation}
+u(x,t) = f(x-ct) + g(x+ct)
+\end{equation}
+for any $f,g\in C^{1}(\RR)$ since $(\partial_{t}+c\partial_{x})f(x-ct)=0$ and
+$(\partial_{t}-c\partial_{x})g(x+ct)=0$ identically.
+
+Observe that $f(x+ct)$ is moving to the left at speed $c$, and $g(x-ct)$
+is moving to the right with speed $c$. This can be understood by looking
+at the characteristic curves $x\pm ct=C_{0}$ where $C_{0}$ is constant,
+then $ct=C_{0}\mp x$, so as we move forward in time we must move to the
+left or right according to the sign of $\mp x$.
+\end{node} % general solution
+
+\begin{node}[Initial value problem]\label{pde:wave-0005}%
+If we consider the initial value problem for the one-dimensional wave,
+we need to give the initial condition
+\begin{equation}
+u(x,0)=\phi(x),\quad\mbox{and}\quad\partial_{t}u(x,0)=\psi(x),
+\end{equation}
+where it is understood $\partial_{t}u(x,0)=\partial_{t}u(x,t)|_{t=0}$.
+In this situation, there exists exactly one solution to the wave
+equation satisfying the initial condition.
+
+We can find it by first setting $t=0$, which gives us
+\begin{subequations}
+\begin{equation}
+\phi(x)=f(x)+g(x).
+\end{equation}
+Then we can differentiate the general solution with respect to $t$, and
+at $t=0$ find
+\begin{equation}
+\psi(x)=cf'(x)-cg'(x).
+\end{equation}
+This is a system of two equations in two unknowns. We can differentiate
+the first equation
+\begin{equation}
+\phi'(x)=f'(x)+g'(x),
+\end{equation}
+and then simple algebra gives us
+\begin{equation}
+f'(x)=\frac{\phi'(x)+c^{-1}\psi(x)}{2},
+\end{equation}
+and
+\begin{equation}
+g'(x)=\frac{\phi'(x)-c^{-1}\psi(x)}{2}.
+\end{equation}
+Integration gives us
+\begin{equation}
+f(s)=\frac{1}{2}\phi(s)+\frac{1}{2c}\int^{s}_{0}\psi(v)\,\D v + C_{1}
+\end{equation}
+and
+\begin{equation}
+g(s)=\frac{1}{2}\phi(s)-\frac{1}{2c}\int^{s}_{0}\psi(v)\,\D v + C_{2}
+\end{equation}
+where $C_{1}$, $C_{2}$ are constants of integration which, since
+$\phi(x+ct)=f(x+ct)+g(x-ct)$, must sum to zero $C_{1}+C_{2}=0$.
+\end{subequations}
+Therefore we obtain the solution to the initial value problem,
+\begin{equation}\label{eq:pde:wave:one-dim:initial-value-problem:soln}
+\boxed{u(x,t)=\frac{\phi(x+ct)+\phi(x-ct)}{2}+\frac{1}{2c}\int^{x+ct}_{x-ct}\psi(s)\,\D s.}
+\end{equation}
+We see when $t=0$ this reduces to
+$u(x,0)=\phi(x)+\int^{x}_{x}\psi(s)\,\D s=\phi(x)$ as desired, and
+similarly the time derivative of $u(x,t)$ evaluated at $t=0$ is equal to
+$\psi(x)$.
+
+\begin{node}[Example: piano]\label{pde:wave-000F}%
+When $\phi=0$ and $\psi\neq0$, this models what happens when you press a
+piano key: a ``hammer'' hits a chord with a certain velocity when the
+chord is at rest.
+\end{node}
+
+\begin{node}\label{pde:wave-000E}%
+If we had a forcing term to our wave equation,
+\begin{equation}
+\partial_{t}^{2}u=c^{2}\partial_{x}^{2}u + F(x,t),
+\end{equation}
+then the solution to the initial value problem with $u(x,0)=\phi(x)$ and
+$\partial_{t}u(x,0)=\psi(x)$ is
+\begin{equation}\label{eq:pde:wave:1-d:ivp:forcing}
+\begin{split}
+u(x,t)&=\frac{\phi(x+ct)-\phi(x-ct)}{2}+\frac{1}{2c}\int^{x+ct}_{x-ct}\psi(y)\,\D y\\
+&\qquad+\frac{1}{2c}\int^{t}_{0}\int^{x+c(t-s)}_{x-c(t-s)}F(y,s)\,\D y\, \D s.
+\end{split}
+\end{equation}
+\begin{proof}[Proof sketch]
+Taking advantage of linearity, we can consider the initial value problem
+\begin{subequations}
+\begin{equation}
+\partial_{t}^{2}v=c^{2}\partial_{x}^{2}v+F(x,t)
+\end{equation}
+where $v(x,0)=0$ and $\partial_{t}v(x,0)=0$, then add this to the
+unforced solution to the initial value problem
+$\partial_{t}^{2}u_{\text{free}}=c^{2}\partial_{x}^{2}u_{\text{free}}$ with $u_{\text{free}}(x,0)=\phi(x)$ and
+$\partial_{t}u_{\text{free}}(x,0)=\psi(x)$. That is,
+$u(x,t)=u_{\text{free}}(x,t)+v(x,t)$ by linearity, and we know
+$u_{\text{free}}(x,t)$, so we just need to find $v(x,t)$.
+
+Changing coordinates to $\xi=x-ct$ and $\eta=x+ct$, we have
+$\partial_{t}^{2}-c^{2}\partial_{x}^{2}=-4c^{2}\partial_{\xi}\partial_{\eta}$.
+This gives us
+\begin{equation}
+\partial_{\xi}\partial_{\eta}=\frac{-1}{4c^{2}}F\left(\frac{\eta+\xi}{2},\frac{\eta-\xi}{2c}\right).
+\end{equation}
+Integrate both sides with respect to $\eta$ on the interval $[\xi,\eta]$
+\begin{equation}
+\partial_{\xi}v(\xi,\eta)-\partial_{\xi}v(\xi,\xi)
+=\frac{-1}{4c^{2}}\int^{\eta}_{\xi}F\left(\frac{z+\xi}{2},\frac{z-\xi}{2c}\right)
+\D z.
+\end{equation}
+But $\partial_{\xi}v(\xi,\xi)$ is just a linear combination of the
+initial conditions, which means it vanishes:
+\begin{equation}
+\partial_{\xi}v(\xi,\xi)=\frac{1}{2c}\partial_{t}v(\xi,0)+\frac{1}{2}\partial_{x}v(\xi,0)=0+0=0.
+\end{equation}
+Therefore we need to solve:
+\begin{equation}
+\partial_{\xi}v(\xi,\eta)
+=\frac{-1}{4c^{2}}\int^{\eta}_{\xi}F\left(\frac{z+\xi}{2},\frac{z-\xi}{2c}\right)
+\D z.
+\end{equation}
+Integrating for $\xi$ over the interval $[\xi,\eta]$ gives us
+\begin{equation}
+\int^{\eta}_{\xi}\partial_{w}v(w,\eta)\,\D w
+=\frac{-1}{4c^{2}}\int^{\eta}_{\xi}\int^{\eta}_{\xi}F\left(\frac{z+w}{2},\frac{z-w}{2c}\right)
+\D z\,\D w
+\end{equation}
+The left-hand side of this reduces to (since $v(\eta,\eta)=0$)
+\begin{equation}
+-v(\xi,\eta)
+=\frac{-1}{4c^{2}}\int^{\eta}_{\xi}\int^{\eta}_{\xi}F\left(\frac{z+w}{2},\frac{z-w}{2c}\right)
+\D z\,\D w.
+\end{equation}
+Now we do a change of coordinates $w=y-cs$ and $z=y+cs$, and the domain
+of integration is precisely $x-ct\leq y-cs\leq y+cs\leq x+ct$, the
+Jacobian determinant is $2c$, and the result follows by returning to our
+original coordinates.
+\end{subequations}
+\end{proof}
+\end{node} % forcing term
+
+\begin{example}[{Resonance~\cite[2.19]{olver2016intro}}]
+Consider the initial value problem
+\begin{equation*}
+\partial_{t}^{2}u=c^{2}\partial_{x}^{2}+\frac{c^{2}}{\ell}\sin(\omega t)\sin(xk),
+\end{equation*}
+with $u(x,0)=0$ and $\partial_{t}u(x,0)=0$, $k$ is some constant of
+dimensions ``per unit length'' (for dimensionality reasons), and
+$\omega>0$ is a fixed frequency. The general solution is then
+\begin{calculation}
+  u(x,t)
+\step{using Eq~\eqref{eq:pde:wave:1-d:ivp:forcing}}
+  \frac{1}{2c}\int^{t}_{0}\int^{x+c(t-s)}_{x-c(t-s)}\sin(\omega s)\sin(k y)\,\D y\,\D s
+\step{since $\int\sin(y)\D y=-\cos(y)$}
+  \frac{1}{2c}\frac{1}{k}\frac{-c}{\omega}\int^{t}_{0}\sin(\omega s)\bigl(\cos(c^{-1}\omega x-\omega t+\omega s)-\cos(c^{-1}\omega x+\omega t-\omega s)\bigr)\,\D s
+\end{calculation}
+Then depending on if $k\omega=c$ or not, we have two different possible
+solutions
+\begin{equation}
+u(x,t)
+= \begin{cases}\displaystyle\frac{c}{\omega^{2}}(\sin(t\omega)-t\omega\cos(t\omega))\sin(\omega x/c)
+&\mbox{if } k\omega=c\\[2ex]
+\displaystyle\frac{2}{k}\frac{ck\sin(t\omega)-\omega\sin(ckt)}{c^{2}k^{2}-\omega^{2}}\sin(kx)
+&\mbox{if } 0<k\omega\neq c
+\end{cases}
+\end{equation}
+Observe that if $k\omega=c$, then $u(x,t)\sim -t\omega\cos(t\omega)\sin(\omega x/c)$
+plus bounded terms, which means that $u(x,t)$ grows without bound over
+time. In this case, $\omega$ is a \define{Resonant Frequency}.
+
+However, if $\omega k\neq c$, then $u(x,t)$ \emph{is bounded}. In this
+case, the solution is periodic if $\omega k/c$ is rational, and
+\emph{quasiperiodic} if $\omega k/c$ is irrational (meaning it will
+never repeat itself).
+\end{example}
+\end{node} % initial value problem
+
+
+
+
+\begin{node}[Energy]\label{pde:wave-0009}%
+The energy
+\begin{equation}
+E = \int\frac{\rho}{2}(\partial_{t}u)^{2}+\frac{c^{2}\rho^{2}}{2}(\partial_{x}u)^{2}\,\D
+x
+\end{equation}
+is a constant with respect to time.
+
+\begin{proof}
+Let $\rho$ be the mass density for the wave, and suppose it is a constant.
+We have the kinetic energy be obtained by integrating
+$\frac{1}{2}\rho(\partial_{t}u)^{2}$ at each point in the wave
+\begin{subequations}
+\begin{equation}
+K = \int\frac{\rho}{2}(\partial_{t}u)^{2}\,\D x.
+\end{equation}
+We compute its time derivative,
+\begin{calculation}
+\frac{\D K}{\D t}
+\step{unfolding the definition of $K$}
+\int\rho(\partial_{t}u)(\partial_{t}^{2}u)\,\D x
+\step{using $\partial_{t}^{2}u=c^{2}\partial_{x}^{2}u$}
+\int\rho(\partial_{t}u)(c^{2}\partial_{x}^{2}u)\,\D x
+\step{integrate by parts, $f=\partial_{t}u$, $g=\partial_{x}u$}
+\left.\rho c^{2}(\partial_{t}u)(\partial_{x}u)\right|^{x=+\infty}_{x=-\infty}
+-\int\rho(\partial_{x}\partial_{t}u)(c^{2}\partial_{x}u)\,\D x
+\step{boundary terms vanish}
+-\int\rho(\partial_{x}\partial_{t}u)(c^{2}\partial_{x}u)\,\D x
+\step{using product rule}
+-\int\partial_{t}\left(\frac{1}{2}c^{2}\rho(\partial_{x}u)^{2}\right)\D x
+\step{pulling out the time derivative}
+-\frac{\D}{\D t}\int\left(\frac{1}{2}c^{2}\rho(\partial_{x}u)^{2}\right)\D x.
+\end{calculation}
+If we identify the potential energy $V$ as
+\begin{equation}\label{eq:pde:wave:energy:identify-potential-energy}
+V := \int\left(\frac{1}{2}c^{2}\rho(\partial_{x}u)^{2}\right)\D x,
+\end{equation}
+then $E=K+V$ has its time derivative equal to zero identically, which
+implies the result.
+\end{subequations}
+\end{proof}
+
+\begin{node}[Potential energy]\label{pde:wave-000C}%
+Note that the potential energy in
+Eq~\eqref{eq:pde:wave:energy:identify-potential-energy} seems \textit{ad hoc},
+as if it were chosen for convenience to prove the claim. But if we
+examine the derivation~\zref{pde:wave-0001} of the wave equation using a
+system of springs, and if we examine the continuum limit of the
+Lagrangian mechanics for the system, then we will obtain Eq~\eqref{eq:pde:wave:energy:identify-potential-energy}
+as the potential energy for the system. So it's not completely unjustified.
+
+But finding nontrivial constants with respect to time is valuable, so
+even if we had some \textit{ad hoc} manipulations (which we didn't),
+then the result is worth keeping.
+\end{node}
+
+\begin{node}[In higher dimensions]\label{pde:wave-000D}%
+The energy in higher dimensions may be generalized for scalar wave equations to
+\begin{equation*}
+E = \frac{1}{2}\int((\partial_{t}u)^{2}+c^{2}|\grad u|^{2})\,\D^{n}x.
+\end{equation*}
+The exact same arguement as in 1-spatial dimension works to show that it
+is a constant with respect to time (i.e., energy is conserved).
+\end{node}
+\end{node} % Energy
+
+\end{node} % in one spatial dimensions
+
+
+\begin{node}[In three spatial-dimensions]\label{pde:wave-0008}%
+There are two ways to even pose the generalization to three
+spatial-dimensions: we could work with a scalar wave $u(\vec{x},t)$ or a
+vector wave $\vec{u}(\vec{x},t)$.
+
+\begin{node}[Scalar wave]\label{pde:wave-000A}%
+The trick is to realize the wave now has a velocity of propagation
+vector $\vec{c}$. Assuming that $\vec{c}$ is a constant vector, we
+factorize the wave equation similarly as:
+\begin{subequations}
+\begin{equation}
+(\partial_{t}^{2}-\vec{c}\cdot\vec{c}\laplacian)u
+=(\partial_{t}-\vec{c}\cdot\grad)(\partial_{t}+\vec{c}\cdot\grad)u=0.
+\end{equation}
+The initial value problem
+\begin{equation}
+u(\vec{x},0)=\phi(\vec{x}),\quad\mbox{and}\quad\partial_{t}u(\vec{x},0)=\psi(\vec{x})
+\end{equation}
+has its solution look like
+\begin{equation}
+u(\vec{x},t) = \frac{1}{4\pi c^{2}t}\oint_{\bdry B_{ct}(\vec{x})}\psi(\vec{y})\,\D A
++\frac{\partial}{\partial t}\left(\frac{1}{4\pi c^{2}t}\oint_{\bdry B_{ct}(\vec{x})}\phi(\vec{y})\,\D A\right)
+\end{equation}
+where $B_{r}(\vec{x})$ is the ball of radius $r>0$ centered at $\vec{x}$
+(so $\bdry B_{r}(\vec{x})$ is the sphere of radius $r$ centered at $\vec{x}$),
+which is known as \define{Kirchoff's Formula} (despite Poisson finding
+it first).
+\end{subequations}
+\end{node} % Scalar wave
+
+\begin{node}[Vector wave]\label{pde:wave-000B}%
+The vector wave equation would require using the vector Laplacian,
+$\laplacian\vec{u}:=\grad(\divergence\vec{u})-\grad\times(\grad\times\vec{u})$.
+In Cartesian coordinates, this coincides with taking the Laplacian of
+the components of $\vec{u}$. Then the wave equation looks like
+\begin{subequations}
+\begin{equation}
+\partial_{t}^{2}\vec{u}-c^{2}\laplacian\vec{u}=\vec{0},
+\end{equation}
+where $c^{2}=\vec{c}\cdot\vec{c}$ is the speed of propagation obtained
+from the velocity vector $\vec{c}$ for the wave. We again factorize
+\begin{equation}
+(\partial_{t}^{2}-\vec{c}\cdot\vec{c}\laplacian)u
+=(\partial_{t}-\vec{c}\cdot\grad)(\partial_{t}+\vec{c}\cdot\grad)u=0,
+\end{equation}
+but a general solution for this problem is too much to hope for. We
+typically use the plane-wave solution
+$\exp(\pm\I\vec{k}\cdot\vec{x}-\I\omega t)$ where $\omega$ and $\vec{k}$
+are constants, then use a linear combination of plane-waves as needed.
+\end{subequations}
+\end{node} % Vector wave
+\end{node} % In three spatial-dimensions
+
+\begin{node}[Causality]\label{pde:wave-0006}%
+We can observe that in one-dimension, no part of the wave travels faster
+than the speed of propagation. The principle is true in $n>1$ spatial
+dimensions, but is obfuscated by distracting calculations.
+
+Observe that if there is an $R>0$ such that for $|x|>R$ we have $\phi=0$
+and $\psi=0$, then necessarily $u(x,t)=0$ for $|x|>R+ct$. Really? Well,
+all we have to do is look at Eq~\eqref{eq:pde:wave:one-dim:initial-value-problem:soln}
+and we see that $\phi(x\pm ct)=0$ for $|x|>R + ct$ and similarly for
+$\psi(x\pm ct)=0$. Then $u(x,t)=0$ for $|x|>R+ct$.
+
+\begin{node}\label{pde:wave-000G}%
+In particular, if we had a ``time delayed forcing term'', i.e., when we
+have $F(x,t)=0$ for $|x|>R$ and $t<t_{1}$, 
+so conceptually this would be some ``time delayed perturbation'' to the
+region $|x|<R$ starting at time $t_{1}$, then this propagates out no
+faster than the speed of propagation (hence the name ``speed of propagation'').
+We can verify this by examining the general solution to this problem
+\zref{pde:wave-000E}. 
 \end{node}
 \end{node}
