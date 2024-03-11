@@ -1,4 +1,4 @@
-% 3
+% 25
 \section{Heat Equation}
 
 \begin{node}[Derivation]\label{pde:heat-0000}%
@@ -19,7 +19,7 @@ change in the region $V$ is by flowing into or out of the region across
 its boundary (this is the conservation of energy). Therefore, the change
 of heat in $V$ also equals the heat flux across the boundary,
 \begin{equation*}
-\frac{\D H(t)}{\D t}=\oint_{\bdry V}k\widehat{\vec{n}}\cdot\grad\temperature\,\D A,
+\frac{\D H(t)}{\D t}=\oint_{\bdry V}k\unitnormal\cdot\grad\temperature\,\D A,
 \end{equation*}
 where $k$ is the thermal conductivity of the material (describing how
 easily heat spreads through the medium). By the divergence theorem \zref{vector-calc-0000},
@@ -81,3 +81,423 @@ Eq~\eqref{eq:pde:heat:heat-equation}.
 \end{subequations}
 \end{node}
 \end{node}
+
+\begin{node}[One-dimensional diffusion over an interval]\label{pde:heat-0006}%
+
+\begin{theorem}[Maximum principle]\label{pde:heat-0003}%
+If $u(x,t)$ satisfies the heat equation in a rectangle $0\leq x\leq\ell$,
+$0\leq t\leq t_{\text{max}}$ in space-time,  then the maximum value of
+$u(x,t)$ must be at either $t=0$ or $x\in\{0,\ell\}$.
+\end{theorem}
+
+\begin{node}[Dirichlet problem]\label{pde:heat-0004}%
+The Dirichlet problem for the heat equation in one-dimension is:
+\begin{equation}
+\begin{split}
+\partial_{t}u - k\partial_{x}^{2}u &=f(x,t)\\
+u(x,0) &= \phi(x)\\
+u(0,t)&=g(t)\\
+u(\ell,t) &= h(t),
+\end{split}
+\end{equation}
+where $0<x<\ell$ and $t>0$, and $f$, $g$, $h$, and $\phi$ are given
+functions.
+
+\begin{theorem}[Uniqueness]\label{pde:heat-0005}%
+If a solution exists for the Dirichlet problem for the heat equation,
+then it is unique.
+\end{theorem}
+
+\begin{proof}[Proof (Uniqueness via maximum principle)]
+Let $u_{1}(x,t)$ and $u_{2}(x,t)$ be two solutions. Let $w=u_{1}-u_{2}$.
+Then $\partial_{t}w-k\partial_{x}^{2}w=0$, $w(x,0)=0$, $w(0,t)=0$,
+$w(\ell,t)=0$. Let $t_{\text{max}}>0$ be arbitrary.
+
+If $w(x,t)$ has its maximum on the rectangle, then it must be on the
+sides (where it vanishes). So $w(x,t)\leq0$. The same argument for the
+minimum shows $w(x,t)\geq0$. Therefore $w(x,t)=0$ identically, and this
+implies $u_{1}=u_{2}$ for all $t>0$.
+\end{proof}
+
+\begin{proof}[Proof 2 (Uniqueness via energy method)]
+Let $u_{1}(x,t)$ and $u_{2}(x,t)$ be two solutions. Let $w=u_{1}-u_{2}$.
+We have
+\begin{calculation}
+  0
+\step{zero times anything is zero}
+  0\cdot w
+\step{since $\partial_{t}w-k\partial_{x}^{2}w=0$}
+  (\partial_{t}w-k\partial_{x}^{2}w)\cdot(w)
+\step{using power rule for differentiation}
+  \partial_{t}(w^{2}/2) + \partial_{x}(-kw\partial_{x}w)+k(\partial_{x}w)^{2},
+\end{calculation}
+then integrating over the integral $0<x<\ell$ gives us
+\begin{equation*}
+0 = \left.\int^{\ell}_{0}\partial_{t}(w^{2}/2)\,\D x - kw\partial_{x}w\right|^{x=\ell}_{x=0}+k\int^{\ell}_{0}(\partial_{x}w)^{2}\,\D x.
+\end{equation*}
+Now the first term we can rewrite, using the boundary conditions $w=0$
+at $x=0$ and also at $x=\ell$,
+\begin{equation*}
+\frac{\D}{\D t}\int^{\ell}_{0}\frac{1}{2}[w(x,t)]^{2}\,\D x
+=-k\int^{\ell}_{0}[\partial_{x}w(x,t)]^{2}\,\D x\leq0.
+\end{equation*}
+But this means $\int w^{2}\D x$ is decreasing over time, which means
+\begin{equation}
+\int^{\ell}_{0}[w(x,t)]^{2}\,\D x\leq\int\int^{\ell}_{0}[w(x,0)]^{2}\,\D x,
+\end{equation}
+for all $t\geq0$. The right-hand side vanishes because the initial
+conditions for $u_{1}$ and $u_{2}$ are identical, so $\int[w(x,t)]^{2}\D x=0$
+for all $t>0$. Therefore $w=0$, hence $u_{1}=u_{2}$ for all $t\geq0$.  
+\end{proof}
+\end{node} % Dirichlet problem
+\end{node} % One-dimensional diffusion over an interval
+
+\begin{node}[Diffusion on real line]\label{pde:heat-0007}%
+Consider now the problem
+\begin{subequations}\label{eq:pde:heat:diffusion-on-real-line}
+\begin{align}
+\partial_{t}u &= k\partial_{x}^{2}u\\
+u(x,0) &= \phi(x),
+\end{align}
+\end{subequations}
+where $-\infty<x<+\infty$ and $0<t<\infty$.
+
+\begin{node}[Invariance properties]\label{pde:heat-0008}%
+We can observe:
+\begin{enumerate}
+\item If $u(x,t)$ is a solution and $y$ is a fixed real number, then
+  $u(x-y,t)$ is another solution;
+\item If $u(x,t)$ is a solution, then any derivative of $u$ is a solution;
+\item Any linear combination of solutions are another solution;
+\item An integral of solutions is a solution and so is
+\begin{equation*}
+v(x,t)=\int^{\infty}_{-\infty}u(x-y,t)g(y)\,\D y
+\end{equation*}
+for any function $g(y)$ (as long as the integral is defined and converges);
+\item Dilation property: If $u(x,t)$ is a solution, then so is $u(\sqrt{\lambda}x,\lambda t)$
+  for any real constant $\lambda>0$ --- this can be obtained by the
+  chain rule, setting $v(x,t)=u(\sqrt{\lambda}x,\lambda t)$ and so
+  $\partial_{t}v=[\partial_{t}(\lambda t)]\partial_{t}u=\lambda\partial_{t}u$
+  and
+  $\partial_{x}v=[\partial_{x}(\sqrt{\lambda}x)]\partial_{x}u=\sqrt{\lambda}\partial_{x}u$
+  and so $\partial_{x}^{2}v=\lambda\partial_{x}^{2}u$.
+\end{enumerate}
+\end{node} % Invariance properties
+
+\begin{node}[Solution]\label{pde:heat-0009}%
+We can now find a solution satisfying the particular initial condition
+$W(x,0)=1$ for $x>0$, and $W(x,0)=0$ for $x<0$. This can be done in
+several steps.
+
+\begin{node}[Step 1]\label{pde:heat-000A}%
+We expect, by the dilation property of a solution to the heat equation
+on the real line, that it is reasonable to look for $W(x,t)$ of the form
+\begin{equation}
+W(x,t) = g(s)\quad\mbox{where}\quad s=\frac{x}{\sqrt{4kt}},
+\end{equation}
+and $g$ is a function of a single variable.
+
+The dilation takes $x/\sqrt{t}$ to $(\sqrt{\lambda}x)/\sqrt{\lambda t}=x/\sqrt{t}$.
+Therefore it makes sense to let $s\propto x/\sqrt{t}$ up to some nonzero
+positive constant.
+\end{node} % step 1
+
+\begin{node}[Step 2]\label{pde:heat-000B}%
+Now we compute the derivatives of $W(x,t)$ in terms of $g(s)$:
+\begin{equation*}
+\partial_{t}W=g'(s)\partial_{t}s=\frac{-1}{2t}\frac{x}{\sqrt{4kt}}g'(s)
+\end{equation*}
+\begin{equation*}
+\partial_{x}W=g'(s)\partial_{x}s=\frac{1}{\sqrt{4kt}}g'(s)
+\end{equation*}
+\begin{equation*}
+\partial_{x}^{2}W=\frac{1}{4kt}g'(s)
+\end{equation*}
+Then combining this all together,
+\begin{equation*}
+0 = \partial_{t}W-k\partial_{x}^{2}W=\frac{1}{t}\left(\frac{-1}{2}sg'(s)-\frac{1}{4}g''(s)\right).
+\end{equation*}
+Thus we obtain
+\begin{equation}
+g''(s) + 2sg'(s)=0.
+\end{equation}
+This can be integrated (multiply through by $\exp(s^{2})$) to find
+$g'(s)=c_{1}\exp(-s^{2})$, and we can integrate again to obtain:
+\begin{equation}
+W(x,t)=g(s)=c_{1}\int\E^{-s^{2}}\D s + c_{2}.
+\end{equation}
+\end{node} % step 2
+
+\begin{node}[Step 3]\label{pde:heat-000C}%
+We now have
+\begin{equation}
+W(x,t)=g(s)=c_{1}\int^{x/\sqrt{4kt}}_{0}\E^{-s^{2}}\D s + c_{2}.
+\end{equation}
+We determine the constants of integration by taking the limit as
+$t\to0^{+}$ from the right. If $x>0$, then
+\begin{equation*}
+1=\lim_{t\to0^{+}}W(x,t)=c_{1}\frac{\sqrt{\pi}}{2}+c_{2},
+\end{equation*}
+and if $x<0$ then
+\begin{equation*}
+0=\lim_{t\to0^{+}}W(x,t)=-c_{1}\frac{\sqrt{\pi}}{2}+c_{2},
+\end{equation*}
+which implies $c_{1}=1/\sqrt{\pi}$ and $c_{2}=1/2$. Therefore,
+\begin{equation}
+W(x,t) =
+\frac{1}{2}+\frac{1}{\sqrt{\pi}}\int^{x/\sqrt{4kt}}_{0}\E^{-s^{2}}\,\D s,
+\end{equation}
+for $t>0$.
+\end{node} % step 3
+
+\begin{node}[Step 4]\label{pde:heat-000D}%
+Now we define $S:=\partial_{x}W$, which will also be a solution to the
+heat equation on the line. For any integrable function $\phi$, we also
+have
+\begin{equation}
+u(x,t)=\int^{\infty}_{-\infty}S(x-y,t)\phi(y)\,\D y
+\end{equation}
+for $t>0$. Then $u$ is the unique solution to the initial value problem 
+Eq~\eqref{eq:pde:heat:diffusion-on-real-line}.
+
+We have explicitly,
+\begin{equation}
+S(x,t) = \frac{1}{(4\pi kt)^{1/2}}\exp\left(\frac{-x^{2}}{4kt}\right)
+\end{equation}
+for $t>0$. This is the \define{Heat Kernel}. Further, in $\RR^{n}$, the
+heat equation has its corresponding heat kernel
+\begin{equation}
+S(\vec{x},t) = \frac{1}{(4\pi kt)^{n/2}}\exp\left(\frac{-\|\vec{x}\|^{2}}{4kt}\right)
+\end{equation}
+and can be used similarly to find solutions to the initial value problem
+for the Heat equation in $\RR^{n}$.
+\end{node} % step 4
+
+\begin{definition}\label{pde:heat-000E}%
+Let $n\in\NN$, let $k>0$ be a constant.
+We define the \define{Heat Kernel} for $\RR^{n}$ to be
+\begin{equation*}
+S(\vec{x},t) = \frac{1}{(4\pi kt)^{n/2}}\exp\left(\frac{-\|\vec{x}\|^{2}}{4kt}\right).
+\end{equation*}
+\end{definition}
+\end{node} % solution
+
+\begin{node}[Solution with sources]\label{pde:heat-000F}%
+When we have
+\begin{equation*}
+\partial_{t}u = k\partial_{x}^{2}u+f(x,t)
+\end{equation*}
+on $x\in\RR$, $t>0$ with initial condition $u(x,0)=\phi(x)$, we find its
+solution: 
+\begin{equation}
+\begin{split}
+u(x,t) &=\int^{\infty}_{-\infty}S(x-y,t)\phi(y)\,\D y\\
+&\qquad+\int^{t}_{0}\int^{\infty}_{-\infty}S(x-y,t-s)f(y,s)\,\D y\,\D s.
+\end{split}
+\end{equation}
+
+\begin{proof}
+We have \textbf{assuming} $\phi=0$ for simplicity,
+\begin{calculation}
+  \partial_{t}u
+\step{differentiating under the integral sign \zref{calculus:integral-000G}}
+  \lim_{s\to t}\int^{\infty}_{-\infty}S(x-y,t-s)f(y,s)\,\D y
+  + \int^{t}_{0}\int^{\infty}_{-\infty}\partial_{t}S(x-y,t-s)f(y,s)\,\D y\,\D s
+\step{since $S$ satisfies the heat equation}
+  \lim_{\varepsilon\to 0}\int^{\infty}_{-\infty}S(x-y,\varepsilon)f(y,t)\,\D y
+  + \int^{t}_{0}\int^{\infty}_{-\infty}k\partial_{x}^{2}S(x-y,t-s)f(y,s)\,\D y\,\D s
+\step{using initial condition of $S$}
+  f(x,t)
+  + \int^{t}_{0}\int^{\infty}_{-\infty}k\partial_{x}^{2}S(x-y,t-s)f(y,s)\,\D y\,\D s
+\step{pulling out the derivatives}
+  f(x,t)
+  + k\partial_{x}^{2}\int^{t}_{0}\int^{\infty}_{-\infty}S(x-y,t-s)f(y,s)\,\D y\,\D s
+\step{folding back the definition $u=\iint S(x-y,t-s)f(y,s)\,\D y\,\D s$}
+  f(x,t)
+  + k\partial_{x}^{2}u(x,t)
+\end{calculation}
+Then by the superposition principle \zref{pde-000J}, the result follows.
+\end{proof}
+\end{node} % Solution with sources
+\end{node} % Diffusion on real line
+
+\begin{node}[Diffusion on the half-line]\label{pde:heat-000G}%
+Consider now the problem in $0<x<\infty$ and $0<t<\infty$ with
+\begin{equation*}
+\partial_{t}u = k\partial_{x}^{2}u
+\end{equation*}
+
+\begin{node}[Solution to Dirichlet problem]\label{pde:heat-000H}%
+Consider the initial conditions:
+\begin{subequations}
+\begin{align}
+u(x,0) &= \phi(x)\\
+u(0,t) &= 0.
+\end{align}
+\end{subequations}
+The trick is to extend this to the real line by taking as initial data
+on the real line
+$\phi_{\text{odd}}(-x)=-\phi(x)$ and $\phi_{\text{odd}}(x)=\phi(x)$ for $x>0$
+and $\phi_{\text{odd}}(0)=0$. Taking the solution for this extended problem,
+\begin{subequations}
+\begin{align}
+  u_{\text{ext}}(x,t)
+  &=\int^{\infty}_{-\infty}S(x-y,t)\phi_{\text{odd}}(y)\,\D y\\
+  &=\int^{\infty}_{0}S(x-y,t)\phi(y)\,\D y
+  -\int^{0}_{-\infty}S(x-y,t)\phi(-y)\,\D y\\
+  &=\int^{\infty}_{0}[S(x-y,t) - S(x+y,t)]\phi(y)\,\D y
+\end{align}
+Then we see the solution to our problem on the half-line is:
+\begin{equation}
+\boxed{u(x,t) = \frac{1}{\sqrt{4\pi kt}}\int^{\infty}_{0}[\E^{-(x-y)^{2}/4kt}-\E^{-(x+y)^{2}/4kt}]\phi(y)\,\D y.}
+\end{equation}
+\end{subequations}
+\end{node} % Solution to Dirichlet problem
+
+\begin{node}[Solution with Neumann boundary conditions]\label{pde:heat-000I}%
+Now consider the Neumann boundary conditions
+\begin{subequations}
+\begin{align}
+u(x,0) &= \phi(x)\\
+\partial_{x}u(0,t) &= 0.
+\end{align}
+The trick in this case is to work with the even extension of $\phi(x)$,
+\begin{equation}
+\phi_{\text{even}}(x) = \begin{cases}\phi(x) &\mbox{for }x\geq0\\
++\phi(-x) &\mbox{for }x\leq0.
+\end{cases}
+\end{equation}
+Now using similar reasoning as for the Dirichlet problem on the
+half-line, we find the solution for the Neumann boundary condition:
+\begin{equation}
+\boxed{u(x,t) = \frac{1}{\sqrt{4\pi kt}}\int^{\infty}_{0}[\E^{-(x-y)^{2}/4kt}+\E^{-(x+y)^{2}/4kt}]\phi(y)\,\D y.}
+\end{equation}
+\end{subequations}
+\end{node} % Solution with Neumann boundary conditions
+
+\begin{node}[Homogeneous Dirichlet boundary condition with source]\label{pde:heat-000J}%
+Consider now the partial differential equation, with $0<x<\infty$ and $0<t<\infty$,
+\begin{subequations}
+\begin{align}
+\partial_{t}u &= k\partial_{x}^{2}u + f(x,t)\\
+u(x,0) &= 0\\
+u(0,t) &= 0,
+\end{align}
+\end{subequations}
+Then we have the odd extension $f_{\text{odd}}(-x,t)=-f(x,t)$ and
+$f_{\text{odd}}(x,t)=f(x,t)$ for $x>0$, and $f_{\text{odd}}(0,t)=0$,
+which can be used to find the solution for the entire real line. This is
+used to obtain a solution on the half-line as
+\begin{equation}
+\boxed{u(x,t) = \int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)-S(x+y,t-s))f(y,s)\,\D y\,\D s.}
+\end{equation}
+If we want to add some initial condition $u(x,0)=\phi(x)$, then we just
+need to add to our result the solution for the Dirichlet problem with no
+source and initial condition \zref{pde:heat-000H}, which would be
+\begin{equation}
+\begin{split}
+u(x,t) &= \int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)-S(x+y,t-s))f(y,s)\,\D y\,\D s\\
+&\phantom{=}\quad+\int^{\infty}_{0}[S(x-y,t)-S(x+y,t)]\phi(y)\,\D y.
+\end{split}
+\end{equation}
+\end{node} % Homogeneous Dirichlet boundary condition with source
+
+\begin{node}[General solution for Dirichlet boundary condition]\label{pde:heat-000L}%
+If we have an inhomogeneous Dirichlet condition, a source term, and
+initial data:
+\begin{subequations}
+\begin{align}
+\partial_{t}u &= k\partial_{x}^{2}u + f(x,t)\\
+u(x,0) &= \phi(x)\\
+u(0,t) &= h(t).
+\end{align}
+\end{subequations}
+We can solve this by considering $v(x,t)=u(x,t)-h(t)$ with a source $f(x,t)+h'(t)$ and
+Dirichlet condition $v(0,t)=0$ and initial condition $v(x,0)=\phi(x)-h(0)$.
+Explicitly, this is:
+\begin{equation}
+\begin{split}
+u(x,t) &= \int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)-S(x+y,t-s))(f(y,s)-h'(s))\,\D y\,\D s\\
+&\phantom{=}\quad+\int^{\infty}_{0}[S(x-y,t)-S(x+y,t)]\phi(y)\,\D y+h(t).
+\end{split}
+\end{equation}
+\end{node} % General solution for Dirichlet boundary condition
+
+\begin{node}[Homogeneous Neumann boundary condition with source]\label{pde:heat-000K}%
+Consider now the partial differential equation, with $0<x<\infty$ and $0<t<\infty$,
+\begin{subequations}
+\begin{align}
+\partial_{t}u &= k\partial_{x}^{2}u + f(x,t)\\
+u(x,0) &= 0\\
+\partial_{x}u(0,t) &= 0,
+\end{align}
+\end{subequations}
+Then by considering the even extension of $f$, we obtain a solution to
+diffusion on the full real line, and recover a solution for the
+homogeneous Neumann problem with source as:
+\begin{equation}
+\boxed{u(x,t) = \int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)+S(x+y,t-s))f(y,s)\,\D y\,\D s.}
+\end{equation}
+If we have some initial data $u(x,0)$, then we can add to this the
+solution for the source-free Neumann heat equation on the half-line
+\zref{pde:heat-000I}.
+\end{node} % Homogeneous Neumann boundary condition with source
+
+\begin{node}[Inhomogeneous Neumann boundary condition with source]\label{pde:heat-000M}%
+If we have an inhomogeneous Neumann boundary condition
+$\partial_{x}u(0,t)=h(t)$ for the heat equation on the half-line with no
+initial data $u(x,0)=0$ and a source term $f(x,t)$, then we consider
+$v(x,t)=u(x,t)-xh(t)$ and the problem expressed using $v(x,t)$ is
+equivalent to the homogeneous Neumann boundary condition for $v$ with
+its source term being $xh'(t)$. This would give us 
+\begin{equation}
+\begin{split}
+u(x,t) &= \int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)+S(x+y,t-s))(f(y,s)+yh'(s))\,\D y\,\D s\\
+&\phantom{=}\quad+xh(t).
+\end{split}
+\end{equation}
+If we wanted to add some nonzero initial data $u(x,0)=\phi(x)$, then we add
+the solution for the homogeneous source-free Neumann boundary conditions
+for the heat equation on the half-line \zref{pde:heat-000I}.
+\end{node} % Inhomogeneous Neumann boundary condition with source
+
+\begin{node}[General solution for Neumann boundary condition]\label{pde:heat-000N}%
+Combining all these considerations, we have the Neumann boundary
+conditions for the heat equation on the half-line with source and
+initial data
+\begin{subequations}
+\begin{align}
+\partial_{t}u &= k\partial_{x}^{2}u + f(x,t)\\
+u(x,0) &= \phi(x)\\
+\partial_{x}u(0,t) &= h(t),
+\end{align}
+\end{subequations}
+This has its general solution look like
+\begin{equation}
+\begin{split}
+u(x,t) &= \int^{\infty}_{0}(S(x-y,t-s)+S(x+y,t-s))\phi(y)\,\D y\\
+&\phantom{=}\quad+\int^{t}_{0}\int^{\infty}_{0}(S(x-y,t-s)+S(x+y,t-s))(f(y,s)+yh'(s))\,\D y\,\D s\\
+&\phantom{=}\quad+xh(t)
+\end{split}
+\end{equation}
+which combines the homogeneous Neumann boundary condition with initial data \zref{pde:heat-000I}
+with the inhomogeneous Neumann boundary condition with source but no
+initial data \zref{pde:heat-000M}.
+\end{node} % General solution for Neumann boundary condition
+
+\end{node} % Diffusion on the half-line
+
+
+\begin{node}[Navier--Stokes and heat equation]\label{pde:heat-000O}%
+We can note that the Navier--Stokes equation describing a fluid with
+viscosity (``friction'' between fluid parcels) looks like the heat
+equation plus some convective term
+\begin{equation*}
+\partial_{t}\vec{u}+(\vec{u}\cdot\grad)\vec{u}=\nu\laplacian\vec{u}-\frac{1}{\rho}\grad p.
+\end{equation*}
+The Stokes system discards the convective term $(\vec{u}\cdot\grad)\vec{u}\to0$
+and we obtain a system of heat equations with source terms. For this
+reason, the heat equation is especially important in fluids, and is why
+I spent so much time analyzing different boundary conditions for the
+heat equation.
+\end{node} % Navier--Stokes and heat equation

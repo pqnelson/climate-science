@@ -353,11 +353,11 @@ u(\vec{x},0)=\phi(\vec{x}),\quad\mbox{and}\quad\partial_{t}u(\vec{x},0)=\psi(\ve
 \end{equation}
 has its solution look like
 \begin{equation}
-u(\vec{x},t) = \frac{1}{4\pi c^{2}t}\oint_{\bdry B_{ct}(\vec{x})}\psi(\vec{y})\,\D A
-+\frac{\partial}{\partial t}\left(\frac{1}{4\pi c^{2}t}\oint_{\bdry B_{ct}(\vec{x})}\phi(\vec{y})\,\D A\right)
+u(\vec{x},t) = \frac{1}{4\pi c^{2}t}\oint_{\bdry\ball{ct}{\vec{x}}}\psi(\vec{y})\,\D A
++\frac{\partial}{\partial t}\left(\frac{1}{4\pi c^{2}t}\oint_{\bdry\ball{ct}{\vec{x}}}\phi(\vec{y})\,\D A\right)
 \end{equation}
-where $B_{r}(\vec{x})$ is the ball of radius $r>0$ centered at $\vec{x}$
-(so $\bdry B_{r}(\vec{x})$ is the sphere of radius $r$ centered at $\vec{x}$),
+where $\ball{r}{\vec{x}}$ is the ball of radius $r>0$ centered at $\vec{x}$
+(so $\bdry\ball{r}{\vec{x}}$ is the sphere of radius $r$ centered at $\vec{x}$),
 which is known as \define{Kirchoff's Formula} (despite Poisson finding
 it first).
 \end{subequations}

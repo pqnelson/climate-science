@@ -1,13 +1,62 @@
-% 1
+% 4
 \chapter{Vector Calculus}
+
+% I'm going to organize this when needed, but right now I'm just "adding
+% results as needed".
 
 \begin{theorem}[Divergence]\label{vector-calc-0000}%
 Let $V\subset\RR^{n}$ be compact with piecewise smooth boundary $\bdry V$.
-Let $\widehat{\vec{n}}$ be the \emph{outward}-facing normal unit vector
+Let $\unitnormal$ be the \emph{outward}-facing normal unit vector
 on $\bdry V$.
 If $\vec{F}$ is a continuously differentiable vector field defined on a
 neighborhood of $V$, then
 \begin{equation*}
-\int_{V}\divergence\vec{F}\,\D^{n}x=\oint_{\bdry V}\vec{F}\cdot\widehat{\vec{n}}\,\D A.
+\int_{V}\divergence\vec{F}\,\D^{n}x=\oint_{\bdry V}\vec{F}\cdot\unitnormal\,\D A.
 \end{equation*}
 \end{theorem}
+
+\begin{node}[Spherical coordinates]\label{vector-calc-0001}%
+We can define spherical coordinates (or ``polar coordinates'') in
+$\RR^{n}\setminus\{0\}$ by $\vec{x}=r\vec{y}$ where $r=\|\vec{x}\|>0$
+and $\vec{y}\in\bdry\ball{1}{\vec{0}}$ is a point on the unit sphere. In
+these coordinates, the Lebesgue measure has the representation
+\begin{equation*}
+\D^{n}x=r^{n-1}\,\D r\,\D S(\vec{y}),
+\end{equation*}
+where $\D S(\vec{y})$ is the surface area measure on the unit sphere.
+\end{node}
+
+\begin{definition}\label{vector-calc-0002}%
+Let $\Omega\subset\RR^{n}$ be a domain, let $r>0$, let $f\colon\Omega\to\RR$ be
+continuous at $\vec{x}\in\ball{r}{\vec{x}}\subset\Omega$. We define the
+\define{Spherical Mean} of $f$ to be
+\begin{equation*}
+\frac{1}{n\alpha_{n-1}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}f(\vec{y})\,\D S(\vec{y})
+\end{equation*}
+where $\D S$ is the spherical measure, $\alpha_{n}$ is the volume of the
+$n$-sphere. 
+\end{definition}
+
+\begin{theorem}\label{vector-calc-0003}%
+Let $\alpha_{n}$ be the volume of the unit ball in $\RR^{n}$. Let
+$\vec{u}$ be continuous at $\vec{x}$. Then we have
+\begin{equation*}
+\lim_{r\to0^{+}}\frac{1}{n\alpha_{n}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}u\,\D S=u(\vec{x}).
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+By direct calculation, let $\varepsilon>0$, then there exists a
+$\delta>0$ such that $|u(\vec{x})-u(\vec{y})|<\varepsilon$ for all
+$\vec{y}\in\ball{\delta}{\vec{x}}$. So for $0<r<\delta$,
+\begin{calculation}
+\left|u(\vec{x})-\frac{1}{n\alpha_{n}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}u\,\D S\right|
+\step{bringing $u(\vec{x})$ inside the integral}
+\left|\frac{1}{n\alpha_{n}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}u(\vec{x})-u\,\D S\right|
+\step[\leq]{since $|\int f(x)\,\D x|\leq\int|f(x)|\,\D x$}
+\frac{1}{n\alpha_{n}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}\left|u(\vec{x})-u\right|\,\D S
+\step[<]{integrand is less than $\varepsilon$}
+\frac{1}{n\alpha_{n}r^{n-1}}\int_{\bdry\ball{r}{\vec{x}}}\varepsilon\,\D S=\varepsilon,
+\end{calculation}
+which proves the result.
+\end{proof}

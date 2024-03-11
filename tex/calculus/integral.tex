@@ -1,4 +1,4 @@
-% 16
+% 17
 \section{Integral Calculus}
 
 \begin{definition}\label{calculus:integral-0000}%
@@ -126,3 +126,12 @@ Hence the result.
 \end{example}
 
 \end{node} % integration by parts
+
+
+\begin{node}[Leibniz rule]\label{calculus:integral-000G}%
+Differentiating under the integral sign means
+\begin{equation*}
+\frac{\D}{\D x}\left(\int^{b(x)}_{a(x)}f(x,t)\,\D t\right)
+=f(x,b(x))b'(x) - f(x,a(x))a'(x)+\int^{b(x)}_{a(x)}\partial_{x}f(x,t)\,\D t.
+\end{equation*}
+\end{node}

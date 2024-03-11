@@ -4,20 +4,38 @@
 
 \RequirePackage{bm}
 
+\let\oldvec\vec
+\let\vec\bm
+
 % calculus
 \newcommand\D{\mathrm{d}}
 \newcommand\E{\mathrm{e}}
 \newcommand\I{\mathrm{i}}
 \DeclareMathOperator{\atan2}{atan2}
 
-
-\let\oldvec\vec
-\let\vec\bm
+\newcommand\unitnormal{\widehat{\vec{n}}}
 
 \newcommand\bdry{\partial}
 \newcommand\grad{\vec{\nabla}}
 \newcommand\divergence{\grad\cdot}
 \newcommand\laplacian{\nabla^{2}}
+
+\newcommand\ball[2]{B_{#1}(#2)}
+
+% Vivi's solution https://tex.stackexchange.com/a/760/14751
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% average integral
+\def\avgint{\dashint}
 
 % linear algebra
 \DeclareMathOperator\diag{diag}
@@ -28,7 +46,10 @@
 % matrix transpose, so who am I to argue?
 \newcommand\transpose[1]{#1^{\mathsf{T}}}
 
+% PDEs
+\newcommand\compactlycontains{\Subset}
 
+% thermodynamics
 \newcommand\temperature{T}
 
 % Fluid Mechanics

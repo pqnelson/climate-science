@@ -1,4 +1,4 @@
-% 16
+% 25
 \chapter{Partial Differential Equations}
 
 \begin{node}\label{pde-0000}%
@@ -81,6 +81,90 @@ us only so far in life.
 \end{node}
 \end{node}
 
+\begin{node}[Differential Operators]\label{pde-000G}%
+\begin{definition}\label{pde-000K}%
+Let $\mathcal{F}$ be a function space (usually $C^{k}(\Omega)$ for some
+domain $\Omega$). Let $m\in\NN$.
+We define a \define{Differential Operator of order $m$}
+$P=\sum_{|\alpha|\leq m}a_{\alpha}(x)D^{\alpha}$ where
+$\alpha=(\alpha_{1},\dots,\alpha_{m})$ is a multi-index of non-negative
+integers $|\alpha|=\alpha_{1}+\dots+\alpha_{m}$, and for each $\alpha$
+the coefficients $a_{\alpha}(x)$ is a function on $\Omega$. We interpret
+$D^{\alpha}$ as
+\begin{equation*}
+D^{\alpha} = \frac{\partial^{|\alpha|}}{\partial x_{1}^{\alpha_{1}}\cdots\partial x_{m}^{\alpha_{m}}}
+\end{equation*}
+\end{definition}
+
+\begin{definition}\label{pde-000L}%
+Let $P$ be a differential operator of degree $m$ on $\mathcal{F}$ over
+domain $\Omega$. We call $P$ \define{Linear} if for all functions
+$f_{1},f_{2}\in\mathcal{F}$ and all scalar constants [numbers]
+$c_{1},c_{2}\in\RR$ (or $\CC$), we have
+\begin{equation*}
+P(c_{1}f_{1}+c_{2}f_{2})=c_{1}P(f_{1})+c_{2}P(f_{2}).
+\end{equation*}
+
+\begin{example}\label{pde-000H}%
+We can see that $x^{n}\partial_{x}$ is a linear differential operator,
+since $x^{n}\partial_{x}(c_{1}f_{1}+c_{2}f_{2})=c_{1}x^{n}\partial_{x}f_{1}+ c_{2}x^{n}\partial_{x}f_{2}$.
+\end{example}
+
+\begin{node}[Non-example]\label{pde-000I}%
+Consider $P(f)=\partial_{x}(f(x)^{2})$. Then $P$ is not a linear
+differential operator:
+\begin{calculation}
+  P(c_{1}f_{1}+c_{2}f_{2})
+\step{unfold definition of $P$}
+  \partial_{x}((c_{1}f_{1}+c_{2}f_{2})^{2})
+\step{expanding square}
+  \partial_{x}(c_{1}^{2}f_{1}^{2}+2c_{1}c_{2}f_{1}f_{2}+c_{2}^{2}f_{2}^{2})
+\step{linearity of derivative}
+  \partial_{x}(c_{1}^{2}f_{1}^{2})+\partial_{x}(2c_{1}c_{2}f_{1}f_{2})+\partial_{x}(c_{2}^{2}f_{2}^{2})
+\step{folding definition of $P$}
+  P(c_{1}f_{1}) + \partial_{x}(2c_{1}c_{2}f_{1}f_{2}) + P(c_{2}f_{2})
+\end{calculation}
+and since $\partial_{x}(2c_{1}c_{2}f_{1}f_{2})\neq0$ in general, we
+cannot conclude that $P$ is linear.
+\end{node}
+\end{definition}
+
+\begin{theorem}[Superposition principle]\label{pde-000J}%
+Let $P$ be a linear differential operator of degree $m$ on $\mathcal{F}$
+over $\Omega$.
+\begin{enumerate}
+\item If $f_{1},f_{2}\in\mathcal{F}$ satisfy $P(f_{1})=0$ and
+$P(f_{2})=g$, then for any $c_{1},c_{2}\in\RR$ we have
+$P(c_{1}f_{1}+c_{2}f_{2})=g$.
+\item More generally, if we have $n\in\NN$
+functions $f_{1}$, \dots, $f_{n}\in\mathcal{F}$ satisfying $P(f_{j})=0$,
+then their linear combination $P(c_{1}f_{1}+\cdots+c_{n}f_{n})=0$.
+\item If we have $P(f_{j})=g_{j}$ for $j=1,\dots,n$, then
+$P(c_{1}f_{1}+\cdots+c_{n}f_{n})=g$ where $g=c_{1}g_{1}+\cdots+c_{n}g_{n}$.
+\end{enumerate}
+\end{theorem}
+\end{node}
+
+\begin{node}[Some terminology]\label{pde-000M}%
+\begin{definition}\label{pde-000N}%
+Let $\Omega$ be a domain which includes a time dimension.
+Let $P$ be a differential operator of spatial variables over $\Omega$.
+Let $n\in\NN$ be a constant positive integer (usually $n=1$ or $n=2$).
+A partial differential equation of the form
+\begin{equation*}
+\partial_{t}^{n}u=P(u)
+\end{equation*}
+is called a \define{Time-evolution problem}.
+\end{definition}
+
+\begin{definition}\label{pde-000O}%
+Let $\partial_{t}^{n}u=P(u)$ be a time-evolution problem. The
+\define{Steady-state problem} associated with it is the homogeneous
+differential equation $P(u)=0$ (intuitively corresponding to the
+solution with $\partial_{t}u=0$).
+\end{definition}
+\end{node}
+
 \transclude{pde/first-order}
-\transclude{pde/heat}
 \transclude{pde/wave}
+\transclude{pde/heat}
