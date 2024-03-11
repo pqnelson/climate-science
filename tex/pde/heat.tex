@@ -1,4 +1,4 @@
-% 25
+% 26
 \section{Heat Equation}
 
 \begin{node}[Derivation]\label{pde:heat-0000}%
@@ -501,3 +501,38 @@ reason, the heat equation is especially important in fluids, and is why
 I spent so much time analyzing different boundary conditions for the
 heat equation.
 \end{node} % Navier--Stokes and heat equation
+
+\begin{node}[Causality]\label{pde:heat-000P}%
+We can illustrate problems the heat equation experiences with causality
+by examining the situation on the real line
+when we have a source term $f(x,t)=0$ for $t<t_{0}$ and $f(x,t)\neq0$
+for $t>t_{0}$ and $|x|<R$. Then we know the solution \zref{pde:heat-000F}
+looks like
+\begin{equation*}
+\begin{split}
+u(x,t) &=\int^{\infty}_{-\infty}S(x-y,t)\phi(y)\,\D y\\
+&\qquad+\int^{t}_{0}\int^{\infty}_{-\infty}S(x-y,t-s)f(y,s)\,\D y\,\D s.
+\end{split}
+\end{equation*}
+The instant that $t>t_{0}$, all of $u(x,t)$ will be impacted by it, due
+to the term involving integrating over the source term. In some $\Delta t>0$
+after $t_{0}$, every point in space will be affected by a contribution of
+\begin{equation*}
+\begin{split}
+\Delta u(x,t_{0}+\Delta t)
+&=\int^{t_{0}+\Delta t}_{t_{0}}\int^{\infty}_{-\infty}S(x-y,t-s)f(y,s)\,\D y\,\D s\\
+&\approx\Delta t\int^{\infty}_{-\infty}S(x-y,\Delta t)f(y,t_{0})\,\D y\neq0.
+\end{split}
+\end{equation*}
+This means that the heat equation does not respect causality:
+information has transmitted instantaneously to every point of the real
+line.
+\end{node}
+
+\begin{puzzle}[Heat equation respecting causality]
+Is there a version of the heat equation which respects causality? I am
+aware of a relativistic version of the heat equation, but it appears to
+be a ``minimally modified'' heat equation and has difficulties matching
+empirical results (I suspect because it is ``minimally modified'' rather
+than something coherently derived from first principles).
+\end{puzzle}

@@ -134,4 +134,39 @@ Differentiating under the integral sign means
 \frac{\D}{\D x}\left(\int^{b(x)}_{a(x)}f(x,t)\,\D t\right)
 =f(x,b(x))b'(x) - f(x,a(x))a'(x)+\int^{b(x)}_{a(x)}\partial_{x}f(x,t)\,\D t.
 \end{equation*}
+\begin{proof}
+We see that for $|h|\ll1$,
+\begin{multline}
+\int^{b(x+h)}_{a(x+h)}f(x+h,t)\,\D t\\
+=\int^{b(x+h)}_{b(x)}f(x+h,t)\,\D t
++\int^{b(x)}_{a(x)}f(x+h,t)\,\D t
++\int^{a(x)}_{a(x+h)}f(x+h,t)\,\D t
+\end{multline}
+so subtracting from both sides the original integral,
+\begin{multline}
+\int^{b(x+h)}_{a(x+h)}f(x+h,t)\,\D t-\int^{b(x)}_{a(x)}f(x,t)\,\D t\\
+=\int^{b(x+h)}_{b(x)}f(x+h,t)\,\D t
++\int^{b(x)}_{a(x)}\bigl(f(x+h,t)-f(x,t)\bigr)\D t
++\int^{a(x)}_{a(x+h)}f(x+h,t)\,\D t
+\end{multline}
+and dividing through by $h$
+\begin{multline}
+\frac{\int^{b(x+h)}_{a(x+h)}f(x+h,t)\,\D t-\int^{b(x)}_{a(x)}f(x,t)\,\D t}{h}\\
+=\int^{b(x+h)}_{b(x)}\frac{f(x+h,t)}{h}\,\D t
++\int^{b(x)}_{a(x)}\frac{f(x+h,t)-f(x,t)}{h}\D t
++\int^{a(x)}_{a(x+h)}\frac{f(x+h,t)}{h}\D t
+\end{multline}
+then taking the limit $h\to 0$, which allows us to approximate the
+integrals $\int^{b(x+h)}_{b(x)}f(x+h,t)\,\D t\approx f(x,b(x))(b(x+h)-b(x))$
+(and equality on the nose when taking $h\to0$ limit thanks to the mean
+value theorem for integrals)
+and similarly for the integral from $a(x)$ to $a(x+h)$,
+\begin{multline}
+\lim_{h\to0}\frac{\int^{b(x+h)}_{a(x+h)}f(x+h,t)\,\D t-\int^{b(x)}_{a(x)}f(x,t)\,\D t}{h}\\
+=\lim_{h\to0}\left(f(x+h,b(x))\frac{b(x+h)-b(x)}{h}\right.\\
++\int^{b(x)}_{a(x)}\frac{f(x+h,t)-f(x,t)}{h}\D t\\
+\left.-f(x+h,a(x))\frac{a(x+h)-a(x)}{h}\right)
+\end{multline}
+and the result immediately follows.
+\end{proof}
 \end{node}

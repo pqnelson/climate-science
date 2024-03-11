@@ -24,7 +24,7 @@ rule and recalling how to relate Euler and Lagrange pictures \zref{fluids:descri
 \step{using the chain rule with fixed $\vec{a}$}
   \frac{\partial f(\vec{x},t)}{\partial t} +
   \left.\frac{\partial\phi_{t}(\vec{a})}{\partial t}
-  \frac{\partial f(\phi_{t}(\vec{a}),t)}{\partial t}\right|_{\vec{a}}
+  \frac{\partial f(\phi_{t}(\vec{a}),t)}{\partial\phi_{t}(\vec{a})}\right|_{\vec{a}}
 \step{rewriting using Euler description}
   \partial_{t}f(\vec{x},t)+(\vec{u}(\vec{x},t)\cdot\grad) f(\vec{x},t).
 \end{calculation}
@@ -36,6 +36,13 @@ for the \define{Material Derivative} with respect to the fluid. This
 describes the flow of some quantity with respect to time in the Eulerian
 picture. 
 \end{node}
+
+\begin{puzzle}[Cohomology and material derivative]
+Is there some natural description of the material derivative using
+differential forms? If so, what is the cohomology of the resulting
+material derivative operator? Does it tell us anything useful or
+interesting? 
+\end{puzzle}
 
 \begin{node}[Incompressible fluids]\label{fluids:euler-flow-0003}%
 When the fluid parcel's volume is preserved (i.e., constant with respect
@@ -126,7 +133,7 @@ of the force density. This is literally $\nabla p$. Really, we are
 sweeping subtleties under the rug here, because we should write the
 force $\vec{F}$ as
 \begin{equation*}
-\vec{F}=\int_{\mathcal{B}_{t}}\vec{f}_{\text{body}}\,\D^{n}x+\oint_{\partial\mathcal{B}_{t}}\sigma\cdot\mathcal{N}\,\D\Sigma
+\vec{F}=\int_{\mathcal{B}_{t}}\vec{f}_{\text{body}}\,\D^{n}x+\oint_{\partial\mathcal{B}_{t}}\sigma\cdot\unitnormal\,\D\Sigma
 \end{equation*}
 where $\sigma$ is the stress tensor, and describes surface force
 interactions. For most fluids, $\sigma=\diag(-p,-p,-p)$ where $p$ is pressure.
@@ -181,22 +188,22 @@ equilibrium and thermal equilibrium, then the temperature is the same at
 every point. We may use the familiar thermodynamics relation
 \begin{subequations}
 \begin{equation}
-\D G=-s\,\D T + V\,\D p 
+\D\GibbsFreeEnergy=-s\,\D T + V\,\D p 
 \end{equation}
-where $G$ is the Gibbs free energy function, $V$ is the specific
+where $\GibbsFreeEnergy$ is the Gibbs free energy function, $V$ is the specific
 volume, $s$ is the entropy per unit mass. For constant temperature, this
 becomes
 \begin{equation}
-\D G=V\,\D p=\D p/\rho.
+\D\GibbsFreeEnergy=V\,\D p=\D p/\rho.
 \end{equation}
-Then $(\grad p)/\rho$ in this particular case is equal to $\grad G$, so
+Then $(\grad p)/\rho$ in this particular case is equal to $\grad\GibbsFreeEnergy$, so
 the equation becomes
 \begin{equation}
-\grad G=\vec{g}\implies\grad(G+gz)=0,
+\grad\GibbsFreeEnergy=\vec{g}\implies\grad(\GibbsFreeEnergy+gz)=0,
 \end{equation}
 hence
 \begin{equation}
-G+gz=\mbox{constant}.
+\GibbsFreeEnergy+gz=\mbox{constant}.
 \end{equation}
 \end{subequations}
 \end{node}
@@ -216,26 +223,28 @@ the temperature (which is a function of $z$ only).
 
 Using the ideal gas law, we can write
 \begin{equation*}
-\rho = \frac{Mp}{RT}
+\rho = \frac{Mp}{R\temperature}
 \end{equation*}
 where $M$ is the mean molecular mass of the gas, $R$ is the gas constant.
 When we plug this into Eq~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere},
 separation of variables gives us
 \begin{equation}\label{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq}
-\frac{\D p}{p}=\frac{-\D z}{RT/(Mg)}=\frac{-\D z}{k_{B}T/(mg)}.
+\frac{\D p}{p} = \frac{-\D z}{R\temperature/(Mg)}
+               = \frac{-\D z}{k_{B}\temperature/(mg)}.
 \end{equation}
-If $T$ is constant, then $H=k_{B}T/(mg)$ is constant, and the general
-solution looks like
+If $\temperature$ is constant, then $H=k_{B}\temperature/(mg)$ is
+constant, and the general solution looks like
 \begin{equation}
 p=p_{0}\exp(-z/H)
 \end{equation}
 where $p_{0}$ is the pressure at height $z=0$. For Earth's atmosphere
 $p_{0}=\qty{1.01e5}{\pascal}$, the mean molecular mass of dry air has
-$m=\qty{4.808e-26}{\kilo\gram}$. Therefore $H/T=\qty{29.26}{\meter\per\kelvin}$.
-For $T=\qty{290}{\kelvin}$, we have $H=\qty{8500}{\meter}$.
+$m=\qty{4.808e-26}{\kilo\gram}$. Therefore
+$H/\temperature=\qty{29.26}{\meter\per\kelvin}$. 
+For $\temperature=\qty{290}{\kelvin}$, we have $H=\qty{8500}{\meter}$.
 
 \begin{node}[Linear temperature]\label{fluids:euler-flow-000B}%
-When $T(z)=T_{0}+T_{1}z$, we solve the differential Equation~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq},
+When $\temperature(z)=T_{0}+T_{1}z$, we solve the differential Equation~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq},
 \begin{equation}
 p(z) = p_{0}\left(1 - \frac{z T_{1}}{T_{0}}\right)^{gm/k_{B}T_{1}}.
 \end{equation}
@@ -273,7 +282,7 @@ then $H_{\text{lin}}\approx\qty{8535.25}{\meter}$.
 \end{node}
 
 \begin{node}[Quadratic temperature]\label{fluids:euler-flow-000C}%
-When the temperature is quadratic in the altitude $T(z)=T_{0}+T_{1}z+T_{2}z^{2}$,
+When the temperature is quadratic in the altitude $\temperature(z)=T_{0}+T_{1}z+T_{2}z^{2}$,
 we solve the differential Equation~\eqref{eq:fluids:euler-flow:hydrostatic:atmosphere:diff-eq}
 with initial condition $p(0)=p_{0}$ for
 \begin{equation}
