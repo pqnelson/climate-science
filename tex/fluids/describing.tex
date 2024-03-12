@@ -1,4 +1,4 @@
-% 18
+% 23
 \section{Describing Fluids}
 
 \begin{node}\label{fluids:describing-0000}%
@@ -311,3 +311,122 @@ relating the Hill--Mandel condition to the continuum hypothesis for
 fluid mechanics.
 \end{node}
 \end{node}
+
+\begin{node}[Kinematics]\label{fluids:describing-000I}%
+Kinematics means we are assuming knowledge of fluid motion, i.e., we are
+given an explicit Eulerian velocity field $\vec{u}(\vec{x},t)$ or we are
+given explicit Lagrangian coordinates $\vec{x}=\vec{X}(\vec{a},t)$.
+
+\begin{node}[Pathline]\label{fluids:describing-000K}%
+The pathline for a fluid element is simply the path of that element as a
+function of time. These are simply $\vec{x}$ obtained either by fiat (if
+we are working in the Lagrangian coordinates) or by solving a system of
+ordinary differential equations
+\begin{equation*}
+\frac{\D\vec{x}(t)}{\D t}=\vec{u}(\vec{x}(t),t)
+\end{equation*}
+if working in the Eulerian coordinates.
+\end{node} % pathline
+
+\begin{node}[Streamlines]\label{fluids:describing-000J}%
+A kinematical characterization of fluids are through streamlines, which
+are the particle paths for steady flow. In unsteady flow, we ned to
+consider \emph{instantaneous} steamlines (at a specific instant of time
+$t$).
+In three dimensions the instantaneous streamlines are the orbits of
+$\vec{u}(\vec{x},t)=\bigl(u(x,y,z,t),v(x,y,z,t),w(x,y,z,t)\bigr)$
+at time $t$. These are the integral curves satisfying
+\begin{equation*}
+\frac{\D x}{u}=\frac{\D y}{v}=\frac{\D z}{w}.
+\end{equation*}
+This is shorthand for stating
+\begin{equation}
+(w\,\D y-v\,\D z)\widehat{\vec{x}}+(u\,\D z-w\,\D x)\widehat{\vec{y}}
++(v\,\D x-u\,\D y)\widehat{\vec{z}}=0,
+\end{equation}
+which has each component set to zero, giving rise to three differential
+equations defining the streamline:
+\begin{subequations}
+\begin{align}
+\frac{\D y}{\D z} & =\frac{v}{w} \\
+\frac{\D z}{\D x} & =\frac{w}{u} \\
+\frac{\D y}{\D x} & =\frac{v}{u}.
+\end{align}
+\end{subequations}
+\end{node} % streamline
+
+\begin{node}[Streakline]\label{fluids:describing-000L}%
+A streakline associated with a particular point $P$ in space which has
+the fluid moving past it. All points which pass through $P$ are said to
+form the streakline of point $P$. (Smoke emitted from a chimney is an
+example of a streakline.)
+
+Childress~\cite[\S1.1.1]{childress2009introduction} introduces a notion
+of \emph{generalized Lagrangian coordinates} $\vec{x}=\vec{X}(\vec{a},t,t_{\vec{a}})$
+which is the position at time $t$ of the particle which was located at $\vec{a}$
+at time $t_{\vec{a}}$ (when $t_{\vec{a}}=t_{0}$, this is just the usual
+Lagrangian coordinates). A streakline observed at time $t>0$ which was
+started at time $t=0$ is given by
+$\vec{x}=\vec{X}(\vec{a},t,t_{\vec{a}})$ for $0<t_{\vec{a}}<t$.
+\end{node}
+
+\begin{example}[{Childress~\cite[1.4]{childress2009introduction}}]\label{fluids:describing-000M}%
+Consider the velocity vector field $(u,v)=(y,-x+\varepsilon\cos(\omega t))$.
+What are the streamlines? What are the streaklines?
+
+We know the streamlines satisfy
+\begin{equation}
+\frac{\D x}{y}=\frac{\D y}{-x+\varepsilon\cos(\omega t)}\implies\frac{-x+\varepsilon\cos(\omega t)}{y(x)}=\frac{\D y(x)}{\D x}.
+\end{equation}
+This has a solution
+\begin{equation}
+\bigl(x-\varepsilon\cos(\omega t)\bigr)^{2} + y^{2}=\mbox{constant}.
+\end{equation}
+Observe this is not a constant with respect to time.
+
+The streaklines require moving from the first-order differential
+equations
+\begin{align*}
+\frac{\D x}{\D t} &= y(t)\\
+\frac{\D y}{\D t} &= -x(t)+\varepsilon\cos(\omega t)
+\end{align*}
+to a second-order system of differential equations
+\begin{align*}
+\frac{\D^{2} x}{\D t^{2}} &= -x(t)+\varepsilon\cos(\omega t)\\
+\frac{\D^{2} y}{\D t^{2}} &= -y(t)-\varepsilon\omega\sin(\omega t)
+\end{align*}
+This has the general solution
+\begin{subequations}
+\begin{align}
+x(t) &= -\frac{\varepsilon}{\omega^{2}-1}\cos(\omega t) + C_{1}\cos(t)+C_{2}\sin(t)\\
+y(t) &= \frac{\varepsilon\omega}{\omega^{2}-1}\sin(\omega t)+C_{3}\cos(t)+C_{4}\sin(t),
+\end{align}
+where we use the initial condition $x(t_{a})=a$ and $y(t_{a})=b$, as
+well as $x'(t_{a})=b$ and $y'(t_{a})=-a+\varepsilon\cos(\omega t_{a})$:
+\begin{align}
+a &= -\frac{\varepsilon}{\omega^{2}-1}\cos(\omega t_{a}) + C_{1}\cos(t_{a})+C_{2}\sin(t_{a})\\
+b &= \frac{\varepsilon\omega}{\omega^{2}-1}\sin(\omega t_{a})+C_{3}\cos(t_{a})+C_{4}\sin(t_{a})\\
+b &= C_{2}\cos(t_{a})-C_{1}\sin(t_{a})-\frac{\varepsilon\omega}{1-\omega^{2}}\sin(t_{a}\omega)\\
+-a+\varepsilon\cos(\omega t_{a}) &= C_{4}\cos(t_{a})-C_{3}\sin(t_{a})
+-\frac{\varepsilon\omega^{2}}{1-\omega^{2}}\cos(t_{a}\omega)
+\end{align}
+\end{subequations}
+We see that $C_{2}=C_{3}=:B$ and $C_{1}=-C_{4}=:A$, so we can solve for these
+and find
+\begin{subequations}
+\begin{align}
+x(t) &= -\frac{\varepsilon}{\omega^{2}-1}\cos(\omega t) + A\cos(t)+B\sin(t)\\
+y(t) &= \frac{\varepsilon\omega}{\omega^{2}-1}\sin(\omega t)+B\cos(t)-A\sin(t)
+\end{align}
+where (and Childress errs in Eq (1.6) of their book! Childress's value
+of $B$ is wrong, note the signs of the terms involving $\varepsilon$!):
+\begin{align*}
+A &= -b\sin(t_{a})+\frac{\varepsilon\omega}{\omega^{2}-1}\sin(t_{a})\sin(t_{a}\omega)+a\cos(t_{a}) \frac{\varepsilon}{\omega^{2}-1}\cos(t_{a})\cos(t_{a}\omega)\\
+B &= a\sin(t_{a}) + b\cos(t_{a}) +\frac{\varepsilon}{\omega^{2}-1}\cos(t_{a}\omega)\sin(t_{a})-\frac{\varepsilon\omega}{\omega^{2}-1}\cos(t_{a})\sin(t_{a}\omega)
+\end{align*}
+\end{subequations}
+We see that upon evaluation (and a lot of simplification) $x(t_{a})=a$,
+$y(t_{a})=b$, $x'(t_{a})=b$, and
+$y'(t_{a})=-a+\varepsilon\cos(t_{a}\omega)$, as desired.
+\end{example}
+\end{node} % kinematics
