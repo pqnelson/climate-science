@@ -1,4 +1,4 @@
-% 15
+% 16
 \section{Euler Fluids}
 
 \begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
@@ -279,7 +279,7 @@ then $H_{\text{lin}}\approx\qty{8598.11}{\meter}$.
 If we match the temperature at the stratopause,
 $T_{1}=\qty{-4e-4}{\kelvin\per\meter}$,
 then $H_{\text{lin}}\approx\qty{8535.25}{\meter}$. 
-\end{node}
+\end{node} % Linear temperature
 
 \begin{node}[Quadratic temperature]\label{fluids:euler-flow-000C}%
 When the temperature is quadratic in the altitude $\temperature(z)=T_{0}+T_{1}z+T_{2}z^{2}$,
@@ -313,11 +313,48 @@ H_{\text{quad},\text{Earth}}'&= \qty{2}{\kilo\meter}\sqrt{\frac{5}{129}}(\sqrt{6
 \end{equation}
 As a quick sanity check, we see that this is the same order-of-magnitude
 as the constant temperature scenario.
-\end{node}
-\end{node}
+\end{node} % Quadratic temperature
+
+\begin{node}[Quartic temperature]\label{fluids:euler-flow-000F}%
+If we tried doing the same thing with quartic temperature, 
+\begin{equation*}
+T(z) = T_{0} - T_{1}z + \frac{1}{2!}T_{2}z^{2} - \frac{1}{3!}T_{3}z^{3}
++ \frac{1}{4!}T_{4}z^{4},
+\end{equation*}
+then we would need to solve $T(\lambda_{j})=0$ for $j=1,2,3,4$. The
+general solution would look like
+\begin{equation}
+p_{\text{quart}}(z) = C_{1}\exp\left(\frac{-1}{h}\sum_{j=1}^{4}\frac{\ln(z-\lambda_{j})}{T'(\lambda_{j})}\right).
+\end{equation}
+The most general form of this is not terribly enlightening, and requires
+quite a bit of space to write. If we match the 1962 US Standard
+Atmosphere estimates with $T(\qty{0}{\kilo\meter})=\qty{290}{\kelvin}$,
+$T(\qty{15}{\kilo\meter})=\qty{213}{\kelvin}$,
+$T(\qty{50}{\kilo\meter})=\qty{270}{\kelvin}$,
+$T(\qty{85}{\kilo\meter})=\qty{190}{\kelvin}$,
+and $T(\qty{100}{\kilo\meter})=\qty{201}{\kelvin}$, then we'd have
+\begin{equation}
+\begin{split}
+T(z)&=290-\frac{2787509}{249900}z+\frac{6352349}{12495000} z^{2}-\frac{47947}{6247500} z^{3} +\frac{11299}{312375000} z^{4}\\
+&\approx 290 - 11.1545 z + 0.508391 z^{2} - 0.00767459 z^{3} + 0.0000361713 z^{4}
+\end{split}
+\end{equation}
+By comparison, the quadratic approximation had (converting units to make
+the comparison simple)
+$T_{\text{quad}}(z)\approx 290 - 15 z + 0.75z^{2}$, so we're at least
+consistent with what we had with the quadratic temperature. The
+approximate roots for the quartic situation is
+$\lambda_{1\pm}\approx 7.52101\pm26.8494\I$ and
+$\lambda_{2\pm}\approx98.5658\pm24.4373\I$. There is a great deal of
+complication here, but numerically grinding through these difficulties
+we find the scale atmospheric height to be
+$H\approx\qty{7.48704}{\kilo\meter}$ which is on the same
+order-of-magnitude as the quadratic case.
+\end{node} % Quartic temperature
+\end{node} % Atmosphere
 
 \begin{node}[Steady flow]\label{fluids:euler-flow-000D}%
-The notion of a steady flow is specifically when
+The notion of a steady~\zref{pde-000O} flow is specifically when
 $\partial_{t}\vec{u}=\vec{0}$ in the Eulerian description.
 
 \begin{theorem}[Bernoulli]\label{fluids:euler-flow-000E}%
