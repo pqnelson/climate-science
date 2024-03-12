@@ -1,0 +1,109 @@
+
+\section{Definition and basic properties}
+
+\begin{definition}\label{calculus-0006}%
+Let $f\colon\RR\to\RR$ be a function, let $|\Delta x|\ll1$ be a small
+real value. We define the \define{Derivative} of $f$ at $x_{0}\in\RR$ as
+the real number $f'(x_{0})$ satisfying
+\[f(x_{0}+\Delta x)=f(x_{0})+f'(x_{0})\cdot\Delta x+\bigO\bigl((\Delta x)^{2}\bigr).\]
+When $f$ is differentiable on all of $\RR$ (or whatever its domain is),
+we can define its derivative $f'(x)$ to be the obvious function
+satisfying $f(x+\Delta x)=f(x)+f'(x)\cdot\Delta x+\bigO\bigl((\Delta x)^{2}\bigr)$.
+This is the Newtonian notation, the Leibnizian notation is
+\begin{equation}
+\left.\frac{\D f(x)}{\D x}\right|_{x=a}=f'(a),\quad\mbox{and}\quad\frac{\D f(x)}{\D x}=f'(x).
+\end{equation}
+\end{definition}
+
+\begin{node}[Notation]\label{calculus-000W}%
+We write $\Delta x$ for ``a small but finite change in $x$''. We could
+write $\Delta f(x)$ for ``a small but finite change in $f(x)$'' and this
+would be
+\[\Delta f(x) = f(x+\Delta x)-f(x).\]
+Then we see that
+\[\frac{\Delta f(x)}{\Delta x} = \frac{\D f(x)}{\D x}+\bigO(\Delta x).\]
+This gives the intuition that the derivative describes the change in $f$
+at $x$. We intuitively imagine $\D$ refers to ``an infinitesimal change in''
+[some quantity].
+\end{node} % notation
+
+\begin{theorem}[Linearity]\label{calculus-0007}%
+Let $f$, $g$ be two real-valued functions defined at a point $x_{0}$,
+let $c_{1}$, $c_{2}$ be arbitrary real numbers. Then we have
+\[\left.\frac{\D}{\D x}(c_{1}f(x)+c_{2}g(x))\right|_{x=x_{0}}=c_{1}f'(x_{0})+c_{2}g'(x_{0}).\]
+\end{theorem} % linearity
+
+\begin{theorem}[Product rule]\label{calculus-0008}%
+Let $f$, $g$ be two real-valued functions defined at a point $x_{0}$,
+then
+\[\left.\frac{\D}{\D x}(f(x)g(x))\right|_{x=x_{0}}=f'(x_{0})g(x_{0})+f(x_{0})g'(x_{0}).\]
+\end{theorem}
+
+\begin{node}[Power rule]\label{calculus-0009}%
+As an immediate corollary, for any $k\in\RR$, we have
+\[\frac{\D}{\D x}x^{k}=kx^{k-1}.\]
+\end{node} % power rule
+
+\begin{node}\label{calculus-000A}%
+The product rule and linearity are arguably \emph{the} defining
+properties of the derivative. If we were to generalize the notion of a
+derivative to other settings, we would want to begin with a linear
+operator which obeys the product rule.
+\end{node}
+
+\begin{node}[Chain-rule]\label{calculus-000U}%
+We have
+\[\frac{\D}{\D x}g(f(x))=g'(f(x))f'(x)\]
+when $g(f(x))$ is defined.
+\end{node} % chain rule
+
+\begin{corollary}[Quotient rule]\label{calculus-000V}%
+We have
+\[\frac{\D}{\D x}\frac{f(x)}{g(x)}=\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^{2}}.\]
+\end{corollary} % quotient rule
+
+\begin{proof}
+This follows from 
+\begin{equation*}
+\frac{\D}{\D x}[g(x)]^{-1}=\frac{-g'(x)}{[g(x)]^{2}}
+\end{equation*}
+and the product rule.
+\end{proof}
+
+\begin{example}\label{calculus-000C}%
+We see that any polynomial
+$f(x)=a_{0}+a_{1}x+a_{2}x^{2}+\dots+a_{n}x^{n}$ has its derivative be
+\begin{equation*}
+f'(x) = a_{1} + 2a_{2}x+\dots+na_{n}x^{n-1}.
+\end{equation*}
+This follows from linearity and the power rule.
+\end{example}
+
+\begin{node}[Inverse function theorem]\label{calculus-001A}%
+Let $f\colon(a,b)\to\RR$ be a function with an inverse function
+$f^{-1}\colon f((a,b))\to(a,b)$. So if $y=f(x)$, then $f^{-1}(y)=x$.
+Then we have
+\begin{calculation}
+  \frac{\D x}{\D x} = 1
+\step{since $x=f^{-1}(y)$}
+  \frac{\D}{\D x}f^{-1}(y)
+\step{chain rule}
+  \frac{\D f^{-1}(y)}{\D y}\frac{\D y}{\D x}
+\step{since $y=f(x)$}
+  \frac{\D f^{-1}(y)}{\D y}\frac{\D f(x)}{\D x}
+\end{calculation}
+we can divide through by $f'(x)$ to obtain
+\[\frac{\D f^{-1}(y)}{\D y}=\frac{1}{f'(x)}=\frac{1}{f'(f^{-1}(y))}.\]
+This is the inverse function theorem, relating the derivative of the
+inverse function $f^{-1}$ to the derivative of $f(x)$.
+
+\begin{example}\label{calculus-001B}%
+Consider $f(x)=x^{2}$ as defined on the positive real numbers. Then
+$f^{-1}(y)=\sqrt{y}$. Further we find
+\[\frac{\D\sqrt{y}}{\D y}=\frac{1}{2}y^{-1/2}.\]
+This follows from direct calculation $f'(x)=2x$ and so
+\[\frac{1}{f'(f^{-1}(y))}=\frac{1}{2\sqrt{y}}.\]
+This is a good consistency check since the power rule suggests
+this result.
+\end{example}
+\end{node} % inverse function theorem

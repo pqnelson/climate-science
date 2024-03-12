@@ -1,0 +1,271 @@
+
+\section{Exponential and Logarithm}
+
+\begin{definition}\label{calculus-000D}%
+We define the \define{Exponential Function} $\exp\colon\RR\to\RR$ by the
+power series
+\[\exp(x)=\sum^{\infty}_{n=0}\frac{x^{n}}{n!}\]
+for any $x\in\RR$. We similarly define \define{Euler's constant} to be
+the real number
+\[\E=\exp(1).\]
+Note that this means
+\[\exp(x)=\E^{x},\]
+the exponential of $x$ is $\E$ raised to the power of $x$.
+
+\begin{node}\label{calculus-000H}%
+Empirically, we find the first $n$ terms of the truncated $\exp(1)$
+series to be
+\begin{center}
+  \begin{tabular}{c|c}
+    $n$ & $S_{n}$\\\hline
+    $1$ & $2$\\
+    $2$ & $2.5$\\
+    $3$ & $2.666667$\\
+    $5$ & $2.716667$\\
+    $8$ & $2.718279$\\
+    $9$ & $2.718282$\\
+  \end{tabular}
+\end{center}
+The first seven digits stabilize after $n=9$.
+\end{node}
+\end{definition}
+
+\begin{theorem}\label{calculus-000E}%
+For any $x$, $y\in\RR$, we have $\exp(x)\exp(y)=\exp(x+y)$.
+\end{theorem}
+\begin{proof}
+Let $a_{n}=x^{n}/n!$ and $b_{k}=y^{k}/k!$, then we have by Cauchy's
+product
+\[\left(\sum^{\infty}_{n=0}a_{n}\right)\left(\sum^{\infty}_{k=0}b_{k}\right)=\sum^{\infty}_{n=0}c_{n}\]
+where
+\[c_{n}=\sum^{n}_{\ell=0}\frac{x^{\ell}}{\ell!}\frac{y^{n-\ell}}{(n-\ell)!}.\]
+We see
+\begin{calculation}
+c_{n}
+\step{unfold definition of $c_{n}$}
+\sum^{n}_{\ell=0}\frac{z^{\ell}}{\ell!}\frac{w^{n-\ell}}{(n-\ell)!}
+\step{multiply each summand by $1=n!/n!$}
+\sum^{n}_{\ell=0}\frac{n!}{n!}\frac{z^{\ell}}{\ell!}\frac{w^{n-\ell}}{(n-\ell)!}
+\step{commutativity of multiplication}
+\sum^{n}_{\ell=0}\frac{1}{n!}\frac{n!}{\ell!(n-\ell)!} z^{\ell}w^{n-\ell}
+\step{folding the definition of binomial coefficients}
+\sum^{n}_{\ell=0}\frac{1}{n!}\binom{n}{\ell} z^{\ell}w^{n-\ell}
+\step{distributivity}
+\frac{1}{n!}\sum^{n}_{\ell=0}\binom{n}{\ell} z^{\ell}w^{n-\ell}
+\step{by binomial theorem}
+\frac{1}{n!}(z + w)^{n}.
+\end{calculation}
+Hence the result.
+\end{proof}
+
+\begin{theorem}\label{calculus-000F}
+The derivative of the exponential function is the exponential function
+\[\frac{\D}{\D x}\exp(x)=\exp(x).\]
+\end{theorem}
+\begin{proof}
+There are multiple ways to prove this. We could use linearity and
+compute term-wise derivatives of the power series, to find that we
+recover the power series again.
+
+We could also observe that
+\begin{calculation}
+  \exp(x+\Delta x)
+\step{by previous theorem}
+  \exp(x)\exp(\Delta x)
+\step{unfolding $\exp(\Delta x)$ as power series}
+  \exp(x)\left(1 + \Delta x + \bigO\bigl((\Delta x)^{2}\bigr)\right)
+\step{distributivity}
+  \exp(x)+\exp(x)\,\Delta x+\bigO\bigl((\Delta x)^{2}\bigr),
+\end{calculation}
+and the result follows by inspecting the coefficient of $\Delta x$.
+\end{proof}
+
+\begin{node}[Logarithm]\label{calculus-000G}%
+There are multiple ways to approach the logarithm. We could define it as
+the inverse function for the exponential, i.e.,
+\[y=\exp(x)\iff \ln(y)=x.\]
+
+\begin{node}\label{calculus-000J}%
+Let $b>1$ be some fixed real number. The function $\log_{b}(x)$ can be
+specified uniquely by the conditions:
+\begin{enumerate}
+\item $\log_{b}$ is an increasing function;
+\item $\log_{b}$ is defined on the positive reals, and produces positive
+  reals as its values;
+\item $\log_{b}(b)=1$; and
+\item for any $x$, $y\in\RR$ both positive, $\log_{b}(xy)=\log_{b}(x)+\log_{b}(y)$.
+\end{enumerate}
+Dieudonn\'e proves this in \textit{Foundations of Analysis} (1969) \S4.3.1.
+\end{node}
+
+\begin{node}[Notation]\label{calculus-000R}%
+When $b=\E$ is the base of the logarithm, then we write $\ln(x):=\log_{\E}(x)$.
+In this particular case, we call $\ln(x)$ the \define{Natural Logarithm}.
+\end{node}
+
+\begin{lemma}\label{calculus-000L}
+For $b>1$ we have $\log_{b}(1)=0$.
+\end{lemma}
+
+\begin{proof}
+This follows from $\log_{b}(1)=\log_{b}(1\cdot 1)=2\log_{b}(1)$.
+\end{proof}
+
+\begin{lemma}\label{calculus-000K}
+For $b>1$ and $n\in\QQ$, we have $\log_{b}(b^{n})=n$.
+\end{lemma}
+
+\begin{proof}
+For $n\in\NN_{0}$, this is obvious. We see that
+$\log_{b}(b^{n}b^{-n})=0$ and the product rule for logarithms gives us
+$\log_{b}(b^{-n})+n=0$, hence we have the result for $n\in\ZZ$.
+
+For $1=\log_{b}(b)=\log_{b}((b^{1/n})^{n})=n\log_{b}(b^{1/n})$, we
+obtain the result for the rationals.
+\end{proof}
+
+\begin{theorem}\label{calculus-000M}
+For any $x\in\RR$ and $b>1$, we have $\log_{b}(b^{x})=x$.
+\end{theorem}
+
+\begin{proof}
+Suppose $x\notin\QQ$, since the $x\in\QQ$ case has already been proven
+as a lemma.
+Consider two sequences of rational numbers $q_{n}$ which is strictly
+increasing and $q_{n}<x$, and $r_{n}>x$ is strictly decreasing. Then
+since $\log_{b}$ is increasing we must have
+$\log_{b}(b^{q_{n}})=q_{n}<\log_{b}(b^{x})<r_{n}=\log_{b}(b^{r_{n}})$. The sandwich
+theorem gives the result.
+\end{proof}
+
+\begin{proposition}\label{calculus-000Q}
+Let $b>1$, $k>1$, and $x\in\RR$ be positive. Then
+\[\log_{b}(x)=\frac{\log_{k}(x)}{\log_{k}(b)}.\]
+\end{proposition}
+
+\begin{proof}
+  We have
+\begin{calculation}
+\log_{k}(x)
+\step{since $x=b^{\log_{b}(x)}$}
+\log_{k}(b^{\log_{b}(x)})
+\step{law of logarithms $\log_{k}(b^{m})=m\log_{k}(b)$ with $m=\log_{b}(x)$}
+\log_{b}(x)\log_{k}(b)
+\end{calculation}
+Therefore dividing through by $\log_{k}(b)$ gives us the result.
+\end{proof}
+
+\begin{proposition}\label{calculus-000N}
+Let $b>1$. Then
+\[\log_{b}(x+\Delta x)=\log_{b}\left(1 + \frac{\Delta x}{x}\right)+\log_{b}(x)\]
+\end{proposition}
+This follows by $x(1+(\Delta x)/x)=x+\Delta x$ and the law of logarithms.
+
+\begin{lemma}\label{calculus-000O}
+Let $b>1$. Then since $\exp(x^{-1}\Delta x)\approx 1 + x^{-1}\Delta x$,
+we would have (discarding quadratic corrections),
+\[\log_{b}\left(1 + \frac{\Delta x}{x}\right)=\log_{b}(\exp(x^{-1}\Delta x))=\frac{\Delta x}{x}\log_{b}(\E)\]
+\end{lemma}
+
+\begin{theorem}\label{calculus-000P}
+Let $b>1$. Then we have
+\[\frac{\D}{\D x}\log_{b}(x) = \frac{\log_{b}(e)}{x} = \frac{1}{x\ln(b)}.\]
+In particular, this means
+\[\frac{\D}{\D x}\ln(x)=\frac{1}{x}.\]
+\end{theorem}
+
+This follows from the previous propositions and lemma.
+
+\begin{node}[Logarithmic derivative]\label{calculus-0016}%
+We can define a notion of a logarithmic derivative of a function $f(x)$
+by
+\[\frac{\D}{\D x}\ln f(x)=\frac{1}{f(x)}\frac{\D f(x)}{\D x}.\]
+This follows by the chain rule and the derivative of the logarithm.
+
+We also note that
+\[\frac{\D f(x)}{\D\ln(x)}=\frac{1}{\D\ln(x)/\D x}\frac{\D f(x)}{\D x}\]
+by similar reasoning, plus the inverse function theorem. Really? Let
+$y=\ln(x)$, so $x=\exp(y)$, then we'd have:
+\[\frac{\D f(\exp(y))}{\D y}=\exp(y)f'(\exp(y))=xf'(x)=\frac{1}{1/x}f'(x),\]
+as promised.
+\end{node}
+
+\begin{node}\label{calculus-000I}%
+We could also begin by consider ``small'' nonzero $\Delta x\neq 0$, i.e., $0<|\Delta x|\ll 1$.
+Now take any positive number $a\in\RR$, $a>0$. Compute $a^{\Delta x}$,
+what is it? Well, we should expect it to be close to 1, since $a^{0}=1$.
+A reasonable hypothesis is that
+\begin{equation}
+a^{\Delta x} = 1 + m\,\Delta x + \bigO\bigl((\Delta x)^{2}\bigr)
+\end{equation}
+for some positive constant $m>0$. Rearranging terms, we would find
+\begin{equation}
+m = \frac{a^{\Delta x}-1}{\Delta x} + \bigO(\Delta x).
+\end{equation}
+Some empirical examples:
+\begin{center}
+  \begin{tabular}{c|c|c|c}
+    $a$ & $\Delta x$ & $a^{\Delta x}$ & $m$\\\hline
+    $2$ & $0.1$ & $1.071773$ & $0.71773$\\
+    $2$ & $0.01$ & $1.0069556$ & $0.69556$\\
+    $2$ & $10^{-7}$ & $1.0000000693147204$ & $0.693147204$\\\hline
+    $3$ & $0.1$ & $1.116123$ & $1.16123$\\
+    $3$ & $0.01$ & $1.0110467$ & $1.10467$\\
+    $3$ & $10^{-7}$ & $1.000000109861235$ & $1.09861235$\\
+  \end{tabular}
+\end{center}
+So $m$ is ostensibly a function of $a$ and $\Delta x$, i.e., we would
+have $m=m(a,\Delta x)$.
+We see the values of $m$ seem to stabilize as $\Delta x\to0$.
+How does $m$ vary when we change $a$? Well,
+\begin{calculation}
+  (a+\Delta a)^{\Delta x}
+\step{distributivity to factor out $a$}
+  a^{\Delta x}\left(1+\frac{\Delta a}{a}\right)^{\Delta x}
+\step{binomial series expansion}
+  a^{\Delta x}\left(1+\frac{\Delta a}{a}\Delta x + \bigO\bigl((\Delta a)^{2}(\Delta x)\bigr)\right)
+\end{calculation}
+Then $(a+\Delta a)^{\Delta x}=1+(m + a^{-1}\,\Delta a)\Delta x + \bigO\bigl((\Delta a)^{2}(\Delta x)\bigr)$,
+and we can conclude
+\begin{equation}
+\frac{\D}{\D a}m(a,\Delta x) = \frac{1}{a},
+\end{equation}
+which is independent of $\Delta x$.
+
+We can also surmise that if $a=1$ we should expect $m(1,\Delta x)=0$. 
+This is reasonable since $1^{x}=1$ for all $x\in\RR$, so $1^{\Delta x}=1+0\cdot\Delta x$.
+
+Suppose we have $x=N\,\Delta x$ where $N\gg 1$ is ``big'' and $|\Delta
+x|\ll1$ is ``small'', then
+\begin{calculation}
+  a^{x}
+\step{since $x=N\,\Delta x$}
+  a^{N\Delta x}
+\step{rules of powers}
+  (a^{\Delta x})^{N}
+\step{defining property of $m$}
+  (1 + m\,\Delta x)^{N}
+\step{since $\Delta x = x/N$}
+  \left(1 + \frac{mx}{N}\right)^{N}
+\step{binomial series expansion}
+  1 + N\frac{mx}{N} + \frac{N(N-1)}{2}\frac{(mx)^{2}}{N^{2}}
+    + \frac{N(N-1)(N-2)}{3!}\frac{(mx)^{3}}{N^{3}} + \dots
+\step{arithmetic}
+  1 + mx + \frac{N}{N}\frac{(N-1)}{N}\frac{(mx)^{2}}{2!}
+    + \frac{N}{N}\frac{(N-1)}{N}\frac{(N-2)}{N}\frac{(mx)^{3}}{3!} + \dots
+\step{simplify fractions}
+  1 + mx + (1 - N^{-1})\frac{(mx)^{2}}{2!}
+    + (1 - N^{-1})(1 - 2\cdot N^{-1})\frac{(mx)^{3}}{3!} + \dots
+\step{since $N$ is huge, $N^{-1}\approx0$}
+  1 + mx + (1 - 0)\frac{(mx)^{2}}{2!}
+    + (1 - 0)(1 - 0)\frac{(mx)^{3}}{3!} + \dots
+\end{calculation}
+Hence we would infer
+\begin{equation}
+a^{x} = \sum^{\infty}_{n=0}\frac{(mx)^{n}}{n!} +(\Delta
+x)(\mbox{something}) = \exp(m(a,\Delta x)x).
+\end{equation}
+Taking the $\Delta x\to 0$ limit now gives us $a^{x}=\exp(m(a,0)x)$ and
+in particular when $a=\exp(1)$ we would have $m(a,0)=1$.
+\end{node}
+\end{node}

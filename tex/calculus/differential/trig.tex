@@ -1,0 +1,117 @@
+
+\section{Trigonometry}
+
+\begin{node}[Trigonometry]\label{calculus-000S}%
+Now, we can use the exponential function \zref{calculus-000D} to
+introduce two new functions $\sin(x)$ and $\cos(x)$ defined by
+\[\exp(\I x)=\cos(x)+\I\sin(x),\]
+where $\I^{2}=-1$.
+
+\begin{node}[Conventions]\label{calculus-000X}%
+Sadly, the convention is to write $\sin^{2}(x)=\bigl(\sin(x)\bigr)^{2}$,
+and similarly for other positive integer powers of $\sin(x)$, and
+likewise for $\cos(x)$. It gets confusing for negative powers, because
+$\sin^{-1}(x)$ may refer to the inverse function, or it may refer to
+$1/\sin(x)$. I will write $\arcsin(x)$ for the inverse function of
+$\sin(x)$ (the convention: ``arc'' prefixes the inverse function for
+trigonometric functions) and I will have to write
+$\bigl(\sin(x)\bigr)^{-n}=1/\sin^{n}(x)$ for $n\in\NN$.
+\end{node}
+
+\end{node} % trig functions
+
+\begin{lemma}\label{calculus-000T}
+We have $\cos(x+y)=\cos(x)\cos(y)-\sin(x)\sin(y)$ and $\sin(x+y)=\cos(x)\sin(y)+\sin(x)\cos(y)$.
+\end{lemma}
+
+This follows from $\exp(\I x)\exp(\I y)=\exp(\I(x+y))$.
+
+\begin{lemma}\label{calculus-000Y}%
+We have $\sin(-x)=-\sin(x)$ and $\cos(-x)=\cos(x)$.
+\end{lemma}
+
+This follows by definition of sine and cosine.
+
+\begin{theorem}\label{calculus-000Z}%
+  We have
+  \[\frac{\D}{\D x}\cos(x)=-\sin(x)\]
+  and
+  \[\frac{\D}{\D x}\sin(x)=\cos(x).\]
+\end{theorem}
+This follows from the definition of the sine and cosine, as well as the
+derivative of the exponential function.
+
+\begin{definition}\label{calculus-0010}%
+We define \define{Secant} $\sec(x)=1/\cos(x)$, \emph{Cosecant}
+$\csc(x)=1/\sin(x)$, \emph{Tangent} $\tan(x)=\sin(x)/\cos(x)$, and
+\emph{Cotangent} $\cot(x)=\cos(x)/\sin(x)=1/\tan(x)$.
+\end{definition}
+
+\begin{theorem}\label{calculus-0011}%
+  We have
+  \[\frac{\D}{\D x}\tan(x)=\sec^{2}(x)\]
+\end{theorem}
+
+This follows from the quotient rule Theorem~\zref{calculus-000V} and the
+derivatives of sine and cosine.
+
+\begin{node}\label{calculus-0012}%
+  We have
+  \[\frac{\D}{\D x}\sec(x)=\frac{\sin(x)}{\cos^{2}(x)}.\]
+\end{node}
+
+Again, the quotient rule and the derivative of cosine gives us this result.
+
+\begin{node}\label{calculus-0013}%
+  We have
+  \[\frac{\D}{\D x}\csc(x)=\frac{-\cos(x)}{\sin^{2}(x)}.\]
+\end{node}
+
+\begin{node}\label{calculus-0014}%
+  We have
+  \[\frac{\D}{\D x}\ln(\cos(x))=-\tan(x).\]
+\end{node}
+
+\begin{proof}
+By direct calculation,
+\begin{calculation}
+  \frac{\D}{\D x}\ln(\cos(x))
+  \step{chain rule, derivative of logarithm}
+  \frac{1}{\cos(x)}\frac{\D}{\D x}\cos(x)
+  \step{derivative of cosine is negative sine}
+  \frac{-\sin(x)}{\cos(x)}
+\end{calculation}
+The result follows by definition of tangent.
+\end{proof}
+
+\begin{node}\label{calculus-0015}%
+We have
+\[\frac{\D}{\D x}\ln(\sin(x))=\cot(x).\]
+\end{node}
+
+\begin{proof}
+By direct calculation
+\begin{calculation}
+  \frac{\D}{\D x}\ln(\sin(x))
+  \step{chain rule, derivative of logarithm}
+  \frac{1}{\sin(x)}\frac{\D}{\D x}\sin(x)
+  \step{derivative of sine is cosine}
+  \frac{\cos(x)}{\sin(x)}
+\end{calculation}
+The result follows by definition of tangent and cotangent.
+\end{proof}
+
+\begin{definition}\label{calculus-0017}%
+We define the 2-argument arctangent function
+\begin{equation}
+\atan2(y, x) =
+\begin{cases}
+ \arctan\left(y/x\right) &\mbox{if } x > 0, \\
+ \arctan\left(y/x\right) + \pi &\mbox{if } x < 0 \mbox{ and } y \geq 0, \\
+ \arctan\left(y/x\right) - \pi &\mbox{if } x < 0 \mbox{ and } y < 0, \\
+ +\pi/2 &\mbox{if } x = 0 \mbox{ and } y > 0, \\
+ -\pi/2 &\mbox{if } x = 0 \mbox{ and } y < 0, \\
+ \mbox{undefined} &\mbox{if } x = 0 \mbox{ and } y = 0.
+\end{cases}
+\end{equation}
+\end{definition}
