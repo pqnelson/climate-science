@@ -1,4 +1,4 @@
-% 26
+% 27
 \chapter{Partial Differential Equations}
 
 \begin{node}\label{pde-0000}%
@@ -25,7 +25,8 @@ A \define{Partial Differential Equation} consists of
   $\Omega_{0}\subset\Omega$ (for the initial data);
 \item a degree $k$ differential operator $P\colon C^{k}(\Omega)\to C^{0}(\Omega)$;
 \item some initial data $u_{0},u_{1},\dots,u_{k-1}\in C^{j}(\Omega_{0})$ for some suitable
-  $j\in\NN_{0}\cup\{\infty,\omega\}$.
+  $j\in\NN_{0}\cup\{\infty,\omega\}$ (without initial data, we will have
+  families of solutions parametrized by constants of integration).
 \end{enumerate}
 A \define{classical solution} to such a PDE consists of a function $u\in C^{k}(\Omega)$
 such that $P(u)=0$ and $u|_{\Omega_{0}}=u_{0}$, $\partial_{t}u|_{\Omega_{0}}=u_{1}$,
@@ -104,10 +105,12 @@ $c_{1},c_{2}\in\RR$ (or $\CC$), we have
 \begin{equation*}
 P(c_{1}f_{1}+c_{2}f_{2})=c_{1}P(f_{1})+c_{2}P(f_{2}).
 \end{equation*}
+When $P$ is not linear, we call it a \define{Nonlinear} differential operator.
 
 \begin{example}\label{pde-000H}%
-We can see that $x^{n}\partial_{x}$ is a linear differential operator,
-since $x^{n}\partial_{x}(c_{1}f_{1}+c_{2}f_{2})=c_{1}x^{n}\partial_{x}f_{1}+ c_{2}x^{n}\partial_{x}f_{2}$.
+We can see for any constant $n\in\ZZ$ that $x^{n}\partial_{x}$ is a
+linear differential operator, since
+$x^{n}\partial_{x}(c_{1}f_{1}+c_{2}f_{2}) = c_{1}x^{n}\partial_{x}f_{1} + c_{2}x^{n}\partial_{x}f_{2}$.
 \end{example}
 
 \begin{node}[Non-example]\label{pde-000I}%
@@ -149,16 +152,21 @@ $P(c_{1}f_{1}+\cdots+c_{n}f_{n})=g$ where $g=c_{1}g_{1}+\cdots+c_{n}g_{n}$.
 \begin{definition}\label{pde-000N}%
 Let $\Omega$ be a domain which includes a time dimension.
 Let $P$ be a differential operator of spatial variables over $\Omega$.
-Let $n\in\NN$ be a constant positive integer (usually $n=1$ or $n=2$).
 A partial differential equation of the form
 \begin{equation*}
-\partial_{t}^{n}u=P(u)
+\partial_{t}u=P(u)
 \end{equation*}
 is called a \define{Time-evolution problem}.
+
+\begin{node}[Remark]\label{pde-000Q}%
+Note that in principle we could generalize this notion to allow an order
+$n\geq1$ time derivative on the left-hand side of the evolution
+equations, i.e., $\partial_{t}^{n}u=P(u,\partial_{t}u,\dots,\partial_{t}^{n-1}u)$.
+\end{node}
 \end{definition}
 
 \begin{definition}\label{pde-000O}%
-Let $\partial_{t}^{n}u=P(u)$ be a time-evolution problem. The
+Let $\partial_{t}u=P(u)$ be a time-evolution problem. The
 \define{Steady-state problem} associated with it is the homogeneous
 differential equation $P(u)=0$ (intuitively corresponding to the
 solution with $\partial_{t}u=0$).
