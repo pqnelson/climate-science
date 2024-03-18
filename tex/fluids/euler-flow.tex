@@ -1,5 +1,5 @@
 % 16
-\section{Euler Fluids}
+\section{Euler Flow Equations}
 
 \begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
 Suppose we have some physical quantity $f$ of the fluid which can be
@@ -35,7 +35,7 @@ which must vanish (since it's conserved). Stokes introduced the notation
 for the \define{Material Derivative} with respect to the fluid. This
 describes the flow of some quantity with respect to time in the Eulerian
 picture. 
-\end{node}
+\end{node} % Material Derivative
 
 \begin{puzzle}[Cohomology and material derivative]
 Is there some natural description of the material derivative using
@@ -75,7 +75,7 @@ We can prove by induction on the number of spatial dimensions $n$ that
 But this means either $\det(J)=0$ or $\divergence\vec{u}=0$. Since
 $\det{J}\neq0$, this gives us the result.
 \end{proof}
-\end{node}
+\end{node} % Incompressible fluids
 
 
 \begin{node}[Continuity equation]\label{fluids:euler-flow-0002}%
@@ -91,7 +91,7 @@ This is the \define{Continuity Equation}. We can rewrite it as
 \end{subequations}
 For incompressible fluids, Theorem~\ref{fluids:euler-flow-0004} gives us 
 $\materialD\rho/\materialD t=0$.
-\end{node}
+\end{node} % Continuity equation
 
 \begin{node}[Equations of motion]\label{fluids:euler-flow-0001}%
 We can recall that Newton's equations of motion are precisely
@@ -136,13 +136,15 @@ force $\vec{F}$ as
 \vec{F}=\int_{\mathcal{B}_{t}}\vec{f}_{\text{body}}\,\D^{n}x+\oint_{\partial\mathcal{B}_{t}}\sigma\cdot\unitnormal\,\D\Sigma
 \end{equation*}
 where $\sigma$ is the stress tensor, and describes surface force
-interactions. For most fluids, $\sigma=\diag(-p,-p,-p)$ where $p$ is pressure.
+interactions. Making any statement about $\sigma$ requires thinking
+about the  For an inviscous fluid (i.e., fluids obeying the Euler
+flow equations), $\sigma=\diag(-p,-p,-p)$ where $p$ is [static] pressure.
 In this case, the Euler flow equations become
 \begin{equation}
 \rho\frac{\materialD\vec{u}}{\materialD t}=\vec{f}-\grad p,
 \end{equation}
 where $\vec{f}$ are the body forces acting on the fluid.
-\end{node}
+\end{node} % Pressure gradient force
 
 \begin{node}[Lagrangian description]\label{fluids:euler-flow-0006}%
 Using Lagrangian description of fluids, we would have the Euler
@@ -154,8 +156,8 @@ equations become
 where $J^{-1}$ is the inverse of the Jacobian matrix,
 $\grad_{\vec{x}}p=J^{-1}\grad_{\vec{a}}p$, and $\vec{f}$ are the body
 forces acting on the fluid.
-\end{node}
-\end{node}
+\end{node} % Lagrangian description
+\end{node} % Equations of motion
 
 \begin{node}[Hydrostatics]\label{fluids:euler-flow-0007}%
 Hydrostatics is concerned with fluids at rest (specifically $\vec{u}=\vec{0}$),
@@ -206,7 +208,7 @@ hence
 \GibbsFreeEnergy+gz=\mbox{constant}.
 \end{equation}
 \end{subequations}
-\end{node}
+\end{node} % For large bodies
 
 \begin{node}[Atmosphere]\label{fluids:euler-flow-0009}%
 Another consequence of Eq~\eqref{eq:fluids:euler-flow:hydrostatic},
@@ -378,7 +380,7 @@ applied to $\vec{A}=\vec{B}=\vec{u}$ gives us
 \end{equation*}
 so
 \begin{equation*}
-\vec{u}\cdot\grad\vec{u}=\frac{1}{2}\vec\|\vec{u}\|^{2}-\vec{u}\times(\grad\times\vec{u}).
+\vec{u}\cdot\grad\vec{u}=\grad\left(\frac{1}{2}\vec\|\vec{u}\|^{2}\right)-\vec{u}\times(\grad\times\vec{u}).
 \end{equation*}
 Then the Euler flow becomes
 \begin{equation}
@@ -396,10 +398,10 @@ Consequently
 \end{equation}
 Hence the result.
 \end{proof}
-\end{node}
+\end{node} % Steady flow
 
 \begin{node}[References]\label{fluids:euler-flow-000A}%
 See Landau and Lifshitz~\cite[\S3]{landau1987fluids}, Chapter 2 of
 Childress~\cite{childress2009introduction}. 
-\end{node}
+\end{node} % References
 \end{node}

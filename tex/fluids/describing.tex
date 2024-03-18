@@ -1,4 +1,4 @@
-% 24
+% 25
 \section{Describing Fluids}
 
 \begin{node}\label{fluids:describing-0000}%
@@ -31,20 +31,23 @@ position $\vec{a}$. That is to say, $\vec{X}(\vec{a},t)$ is the position
 at time $t$ of a \emph{particular fluid parcel} described by the
 parameter $\vec{a}$.
 
-\begin{node}\label{fluids:describing-0003}%
+\begin{node}[Parametrization]\label{fluids:describing-0003}%
 We could actually choose any arbitrary parametrization of the
 particle. That is to say, we don't need $\vec{a}$ to be the initial
 position of the fluid. We could have chosen $\vec{a}$ to be the position
 at some other particular moment, or we could choose a completely
-different scheme (provided the labeling was unique).
+different scheme (provided the labeling was
+unique). Bennett~\cite[pg.5]{bennett2006lagrangian} points out, we could
+even use thermodynamic properties at some initial time to identify fluid
+parcels.
 
-But in praactice, it's usually the case that $\vec{a}$ is the initial
+But in practice, it's usually the case that $\vec{a}$ is the initial
 position of a fluid particle. Take care when reading the literature,
 because someone may have a brilliant new idea which requires a
 particularly idiosyncratic choice for $\vec{a}$.
-\end{node}
+\end{node} % Parametrization
 
-\begin{node}\label{fluids:describing-0004}%
+\begin{node}[In Hamiltonian fluid mechanics]\label{fluids:describing-0004}%
 The Lagrangian picture resembles that in analytical mechanics: we care
 about the history of each particle. (It's also coincidentally the
 starting point for the Hamiltonian/``Canonical'' formalism in fluid
@@ -53,8 +56,8 @@ in analytical mechanics.) Although mathematically and physically
 intuitive, elegant, and appealing\dots it has the disadvantage that, when
 we do measurements in the lab, it's at a specific point in time (not
 over the history of the particle). 
-\end{node}
-\end{node}
+\end{node} % Hamiltonian fluid mechanics
+\end{node} % Lagrangian coordinates
 
 \begin{node}[Eulerian description]\label{fluids:describing-0005}%
 We could take the opposite point of view, starting with a fixed point
@@ -65,7 +68,7 @@ examine the velocity vector field $\vec{u}(\vec{x},t)$ at each point in
 the fluid\dots although there's nothing to stop us from extending
 $\vec{u}$ to $\RR^{n}$ in general, provided we demand $\vec{u}=\vec{0}$
 outside the fluid.
-\end{node}
+\end{node} % Eulerian description
 
 \begin{node}[Relating the two pictures]\label{fluids:describing-0006}%
 The velocity vector field relates to the Lagrangian description by
@@ -122,13 +125,13 @@ that's handled by the total derivative with respect to time:
 \end{equation}
 This notation has been ``grandfathered in'', and there's nothing we can
 do to change it. I'm so, so sorry.
-\end{node}
+\end{node} % Caution with Notation
 \begin{node}\label{fluids:describing-0008}%
 Also note, if we wanted to be ``completely general'', we would need to
 consider derivatives with respect to the Lagrange parameter
 $\vec{a}$---the curious reader may consult with pleasure Lamb's \textit{Hydrodynamics}~\cite[\S\S13--14]{lamb1945hydrodynamics}
 \end{node}
-\end{node}
+\end{node} % Relating the two pictures
 
 \begin{example}[{Acheson~\cite{acheson1990elementary}}]
 Consider a 2-dimensional fluid with
@@ -219,6 +222,57 @@ called a ``fluid parcel''), rather freely.
 We could meaningfully ask about the validity of describing fluids as a
 continuum of point-particles.
 
+\begin{node}[Fluid parcels]\label{fluids:describing-000O}%
+When Euler and friends began describing fluids in the 1700s, they
+imagined a literal continuum of point-particles as their ``microscopic
+molecular mental model'' for a fluid. This was interchangeable with a
+fluid parcel, which is [usually] taken to be an ``infinitesimal volume''
+of the fluid. As Batchelor~\cite[pg.71]{batchelor1967introduction}
+notes, the position of a fluid parcel is its center-of-mass position
+(which makes some crude sense to me, drawing in analogy to Euler's laws
+of motion for a rigid body --- this is wrong, but appealing).
+
+In practice, the fluid parcel --- this infinitesimal volume of fluid ---
+describes the fundamental constituent of a fluid. This suggests thinking
+of a fluid parcel as a Parallelepiped. Its volume can change (this is
+the determinant of the Jacobian matrix
+$\D^{3}x=\det(J)\,\D^{3}a=\det(\partial\vec{x}/\partial\vec{a})\,\D^{3}a$,
+after all) as can its density $\rho$. But it is indivisible, we cannot
+``split'' one parcel into two or more.
+
+This topic is usually quickly brushed over, discussion omitted from any
+real consideration. Pozrikidis~\cite[\S1.4]{pozrikidis2009fluid}
+discusses fluid parcels from a rigorous statistical mechanical approach,
+and why the continuum hypothesis is needed for a well-defined limit of
+the volume $V$ of a finite fluid parcel going to an infinitesimal volume
+element. After all, the velocity for a finite volume element would be
+the mean value of velocities for its constituent particles
+\begin{equation}
+\langle\vec{u}\rangle=\frac{1}{N}\sum^{N}_{j=1}\vec{u}_{j},
+\end{equation}
+which tends to be ill-defined when working in a spheric
+$V=\frac{4}{3}\pi\varepsilon^{3}$ in the $\varepsilon\to0$ limit.
+The continuum hypothesis prescribes: as the volume of a fluid parcel
+tends to zero, the limit of the average molecular velocity is computed
+before the discrete nature of the fluid becomes apparent.
+
+\begin{puzzle}[Fluids described by tensor densities]
+If we take seriously the mental model proposed by fluid parcels, then we
+should think of $\vec{u}$ as a vector density (i.e., a rank-1 tensor density). 
+But it doesn't: it transforms like a vector (i.e., a rank-1 tensor).
+What's going on here? Is there a sensible formulation of the idealized
+mental model for fluids using tensor densities? 
+\end{puzzle}
+
+\begin{puzzle}[Molecular description of fluids, Boltzmann equation]
+It is equally clear that this mental model of fluid parcels is a very
+distinct idealization than what we normally think of (with molecules).
+As I understand it, the attempt to describe fluids using a more
+molecular approach is precisely the Boltzmann equation. How applicable
+is this to studying fluids?
+\end{puzzle}
+\end{node} % Fluid parcels
+
 \begin{node}[Continuum Hypothesis]\label{fluids:describing-000A}%
 A fluid parcel may be described like a point-particle, and has the
 physical characteristics of the bulk (e.g., velocity, pressure, density,
@@ -231,7 +285,7 @@ parcel is constant (which means its volume can vary, otherwise density
 is constant). I'm not sure if this is standard or not? If so, I suppose
 we could conceptually think of the number of molecules in a parcel is
 fixed\dots but this may be ``chalk and cheese''.
-\end{node}
+\end{node} % Remark
 
 \begin{node}[Empirical considerations]\label{fluids:describing-000H}%
 Howard Brenner~\cite{brenner2005kinematics,brenner2005navier,brenner2006fluid} has proposed a modification to this classical picture of
@@ -247,8 +301,8 @@ Further, Greenshields and Reese~\cite{greenshields2007structure} have
 shown that Brenner's model gives good predictions for shock waves in
 argon in the range Mach $1.0$--$12.0$ (whereas convention Navier--Stokes
 equations fail beyond Mach $2.0$).
-\end{node}
-\end{node}
+\end{node} % Empirical considerations
+\end{node} % Continuum Hypothesis
 
 \begin{definition}\label{fluids:describing-000C}%
 The \define{Knudsen number} for a body is
@@ -283,14 +337,14 @@ Fluid mechanics describes a cup of water very well, as we would expect.
 \end{example}
 \end{definition}
 
-\begin{node}\label{fluids:describing-000D}%
+\begin{node}[Applicability of fluid mechanics]\label{fluids:describing-000D}%
 The heuristic is: we may apply fluid mechanics if $\Kn\ll1$. If
 $\Kn<0.01$, there's no problem. If $0.01<\Kn<0.1$, then it's
 doable but slipping occurs. For $0.1<\Kn<10$ things gets dicey. The
 cutoff is rather fuzzy, but larger values require resorting to
 statistical mechanics. In the cases we normally think of with fluid
 mechanics, we find $\Kn\ll0.01$ (as demonstrated by the examples above).
-\end{node}
+\end{node} % Applicability of fluid mechanics
 
 \begin{node}[Hill--Mandel principle]\label{fluids:describing-000F}%
 More generally, in the field of continuum mechanics (which describes
@@ -309,8 +363,8 @@ For more about the Hill--Mandel condition, see, e.g., Liu and
 Reina~\cite{liu2016discrete}. I have not, however, seen any discussion
 relating the Hill--Mandel condition to the continuum hypothesis for
 fluid mechanics.
-\end{node}
-\end{node}
+\end{node} % Hill--Mandel principle
+\end{node} % Continuum Hypothesis
 
 \begin{node}[Kinematics]\label{fluids:describing-000I}%
 Kinematics means we are assuming knowledge of fluid motion, i.e., we are
