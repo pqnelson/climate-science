@@ -1,4 +1,4 @@
-% 16
+% 23
 \section{Euler Flow Equations}
 
 \begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
@@ -210,6 +210,14 @@ hence
 \end{subequations}
 \end{node} % For large bodies
 
+\begin{definition}\label{fluids:euler-flow-000L}%
+We say a fluid is in \define{Mechanical Equilibrium} if it exhibits no
+macroscopic motion.
+
+I take this term from Landau and Lifshitz~\cite[\S4]{landau1987fluids},
+even though they don't clearly define it anywhere in their 10-volume series.
+\end{definition}
+
 \begin{node}[Atmosphere]\label{fluids:euler-flow-0009}%
 Another consequence of Eq~\eqref{eq:fluids:euler-flow:hydrostatic},
 if a fluid (like the atmosphere) is in mechanical equilibrium in a
@@ -405,3 +413,60 @@ See Landau and Lifshitz~\cite[\S3]{landau1987fluids}, Chapter 2 of
 Childress~\cite{childress2009introduction}. 
 \end{node} % References
 \end{node}
+
+\begin{node}[Thermodynamics of ideal fluids]\label{fluids:euler-flow-000M}%
+Landau and Lifshitz~\cite[\S3]{landau1987fluids} begins by observing how
+idealized fluids enjoy simplifications thanks to thermodynamics. This is
+a summary of their results.
+
+\begin{node}[Adiabatic motion]\label{fluids:euler-flow-000G}%
+In the absence of heat exchange between fluid parcels (and between the
+fluid and its environment) implies motion is adiabatic throughout the
+fluid.  As a consequence, the motion of an ideal fluid must necessarily
+be adiabatic.
+
+\begin{corollary}\label{fluids:euler-flow-000H}%
+The entropy of any fluid parcel remains constant as that parcel moves
+around in space. If $s$ denotes the entropy per unit mass, the adiabatic
+condition is then:
+\begin{equation*}
+\frac{\materialD s}{\materialD t}=\partial_{t}s+(\vec{u}\cdot\grad)s=0.
+\end{equation*}
+\end{corollary} % conservation of entropy density
+
+\begin{definition}\label{fluids:euler-flow-000I}%
+The quantity $\rho s\vec{u}$ is sometimes called the
+\define{Entropy Flux Density} since we have the ``continuity equation''
+for entropy written in terms of it:
+\begin{equation*}
+\partial_{t}(\rho s)+\divergence(\rho s\vec{u})=0.
+\end{equation*}
+When there is non-adiabatic motion, the right-hand side of this equation
+is nonzero.
+\end{definition}
+\end{node} % adiabatic motion
+
+\begin{node}[Isentropic fluids]\label{fluids:euler-flow-000J}%
+Landau and Lifshitz observe the standard situation for fluids is that
+the entropy is constant throughout the volume at some initial
+instant. If this is the case, then the entropy everywhere has the same
+constant value at all times and for any subsequent motion of the
+fluid. In this case, the adiabatic condition may be written as:
+\begin{equation*}
+s=\mbox{constant}.
+\end{equation*}
+In this case, such motion is said to be \define{Isentropic}. When will
+this occur? NASA\footnote{\url{https://www.grc.nasa.gov/www/BGH/isentrop.html}} points out this occurs when the change
+in flow variables is small and gradual (e.g., the ideal fluid).
+\end{node} % isentropic motion
+
+\begin{theorem}\label{fluids:euler-flow-000K}%
+The Euler equations of motion for an isentropic fluid may be rewritten
+as
+\begin{equation*}
+\partial_{t}(\curl\vec{u})=\curl(\vec{u}\times(\curl\vec{u})).
+\end{equation*}
+Observe this involves only velocity, not pressure or density.
+\end{theorem} % Euler equations for isentropic motion
+\end{node} % Thermodynamics of ideal fluids
+
