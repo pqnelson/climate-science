@@ -22,6 +22,11 @@
     breaklinks
 }
 
+% proof steps, using attributes from https://tex.stackexchange.com/a/400845
+\newlist{pf}{enumerate}{1}
+\setlist[pf]{label=$\langle$\arabic*$\rangle$, wide=0pt, leftmargin=*}
+
+
 % Example of iso2145 theorem environments:
 \newtheorem{theorem}{Theorem}{\it}
 \newtheorem{lemma}{Lemma}{\it}
@@ -60,6 +65,9 @@
 \else
 \numberwithin{equation}{section}
 \fi
+
+% avoid needless whitespace, since this isn't going to be printed "properly"
+\@ifclassloaded{amsbook}{\let\cleardoublepage\clearpage}{}
 
 \@ifclassloaded{amsbook}{\setcounter{tocdepth}{3}}{}
 

@@ -1,4 +1,4 @@
-% 23
+% 41
 \section{Euler Flow Equations}
 
 \begin{node}[Material Derivative]\label{fluids:euler-flow-0000}%
@@ -414,6 +414,149 @@ Childress~\cite{childress2009introduction}.
 \end{node} % References
 \end{node}
 
+\begin{node}[Rotation: Vorticity and Circulation]\label{fluids:euler-flow-000S}%
+There are two ways to discuss ``angular momentum''-type quantities for a
+fluid: vorticity and circulation.
+Conceptually, the vorticity is a ``microscopic'' quantity roughly
+corresponding to the average angular momentum of the molecules in a
+fluid parcel about the parcel's center of mass. This is a
+\emph{local quantity}.
+
+\begin{definition}\label{fluids:euler-flow-000T}%
+The \define{Vorticity} $\vec{\omega}$ is the curl of the fluid velocity
+\begin{equation*}
+\vec{\omega}:=\curl\vec{u}.
+\end{equation*}
+\end{definition}
+
+\begin{node}[Local analysis of velocity vector field]\label{fluids:euler-flow-000U}%
+Observe that vorticity is natural in the Eulerian description for a
+fluid, since we're taking the curl of the Eulerian velocity field. Now,
+we can examine the structure of the velocity vector field by Taylor
+expanding it to first-order about some point $\vec{x}$,
+\begin{subequations}
+\begin{equation}
+u_{i}(\vec{x}+\vec{h},t)=u_{i}(\vec{x},t)+h_{j}\frac{\partial u_{i}}{\partial x_{j}}(\vec{x},t)+\bigO(\|\vec{h}\|^{2}).
+\end{equation}
+We recall that any matrix $A$ may be written as the sum of a symmetric
+matrix $(A+\transpose{A})/2$ and an antisymmetric matrix 
+$(A-\transpose{A})/2$, which we apply to the linear coefficient of
+$h_{j}$ in the Taylor expansion:
+\begin{equation}
+\frac{\partial u_{i}}{\partial x_{j}}=\underbrace{\frac{1}{2}\left(\frac{\partial u_{i}}{\partial x_{j}}+\frac{\partial u_{j}}{\partial x_{i}}\right)}_{=\strainrate_{ij}}
++ \underbrace{\frac{1}{2}\left(\frac{\partial u_{i}}{\partial x_{j}}-\frac{\partial u_{j}}{\partial x_{i}}\right)}_{=\Omega_{ij}}
+\end{equation}
+We identify the first term as the \define{Strain-Rate Tensor}
+$\strainratetens$ with components $\strainrate_{ij}$, and the second
+term we identify with $\Omega_{ij}=\omega_{ij}/2$. We can recall from
+our notes on Lie groups and Lie algebras that $\Omega_{ij}$ describes
+an infinitesimal rotation.
+\end{subequations}
+\end{node} % Local analysis of velocity vector field
+
+\begin{definition}\label{fluids:euler-flow-000V}%
+Let $C$ be a smooth, oriented, simple closed contour (usually the
+deformation of a circle). We define the \define{Fluid Circulation} on $C$
+to be the line integral~\zref{vector-calc-0004},
+\begin{equation*}
+\Gamma_{C} := \oint_{C}\vec{u}\cdot\D\vec{x}.
+\end{equation*}
+This is a macroscopic measurement of rotation for a fluid.
+\end{definition}
+
+\begin{node}[Kelvin's Theorem]\label{fluids:euler-flow-000W}%
+We can consider a ``fluid contour'', i.e., a closed contour consisting
+of the fluid parcels lying on it at some initial time $t_{0}$. Then as 
+the fluid parcels move, the contour moves with them. A natural question
+we may ask: how does the circulation along a fluid contour change over
+time? That is to say, what is:
+\begin{equation*}
+\frac{\materialD}{\materialD t}\oint\vec{u}\cdot\D\vec{x}=\mbox{??}
+\end{equation*}
+
+\begin{lemma}\label{fluids:euler-flow-0012}%
+Let $C(t)$ be a curve smoothly depending on time, let
+$\vec{x}(\lambda,t)$ be a parametrization of $C(t)$ with $\lambda\in[0,L]$.
+Then
+\begin{equation*}
+\frac{\materialD}{\materialD t}\oint_{C(t)}\vec{u}\cdot\D\vec{x}
+=\int^{L}_{0}\left(\left.\frac{\partial\vec{u}}{\partial t}\cdot\partial_{\lambda}\vec{x}\right|_{\lambda}+\vec{u}\cdot\partial_{\lambda}\partial_{t}\vec{x}\right)\D\lambda.
+\end{equation*}
+Moreover, if $C(t)$ is a fluid contour and $\lambda$ is a Lagrangian
+coordinate, then
+\begin{equation*}
+\frac{\materialD}{\materialD t}\oint_{C(t)}\vec{u}\cdot\D\vec{x}
+=\int^{L}_{0}\left(\left.\frac{\materialD\vec{u}}{\materialD t}\cdot\partial_{\lambda}\vec{x}\right|_{\lambda}+\vec{u}\cdot\partial_{\lambda}\partial_{t}\vec{x}\right)\D\lambda=\oint_{C(t)}\frac{\materialD\vec{u}}{\materialD t}\cdot\D\vec{x}.
+\end{equation*}
+\end{lemma}
+
+\begin{theorem}[Kelvin]\label{fluids:euler-flow-0013}%
+Let $C(t)$ be a fluid contour. For an inviscid fluid experiencing
+conservative forces only, if either (a) the fluid is barotropic~\zref{fluids:euler-flow-000X}
+$\rho=\rho(p)$ or (b) the density is constant, then the circulation
+along the fluid contour $\Gamma_{C(t)}$ is a constant of motion, i.e.,
+\begin{equation*}
+\frac{\materialD}{\materialD t}\oint_{C(t)}\vec{u}\cdot\D\vec{x}=0.
+\end{equation*}
+\end{theorem}
+
+\begin{proof}[Proof sketch 1 (Landau and Lifshitz \S8)]
+The argument is that
+\begin{equation*}
+\frac{\materialD}{\materialD t}\oint_{C(t)}\vec{u}\cdot\D\vec{x}
+=\oint_{C(t)}\frac{\materialD\vec{u}}{\materialD t}\cdot\D\vec{x}
++\oint_{C(t)}\vec{u}\cdot\frac{\materialD\D\vec{x}}{\materialD t}
+\end{equation*}
+and both terms vanish.
+
+Regarding the second term vanishing, this is because
+\begin{calculation}
+  \vec{u}\cdot\frac{\materialD\D\vec{x}}{\materialD t}
+\step{swap differential and derivative}
+  \vec{u}\cdot\D\frac{\materialD\vec{x}}{\materialD t}
+\step{definition of velocity}
+  \vec{u}\cdot\D\vec{u}
+\step{vector identity}
+  \D(\vec{u}\cdot\vec{u}/2),
+\end{calculation}
+which is a total differential. Therefore
+\begin{equation}
+\oint_{C(t)}\vec{u}\cdot\frac{\materialD\D\vec{x}}{\materialD t}=
+\oint_{C(t)}\D(\vec{u}\cdot\vec{u}/2)=0,
+\end{equation}
+as desired.
+
+Now the first term, we see Euler's equations look like
+\begin{subequations}
+\begin{equation}\label{eq:fluid:euler-flow:kelvin-theorem:pf1:grad}
+\frac{\materialD\vec{u}}{\materialD t}=-\grad\varphi
+\end{equation}
+for some suitable function $\varphi$. This is justified by the
+hypothesis that the fluid is barotropic or $\rho$ is constant.
+Now we can use Stokes's theorem,
+\begin{equation}
+\oint_{C(t)}\frac{\materialD\vec{u}}{\materialD t}\cdot\D\vec{x}
+=\iint_{D(t)}\left(\curl\frac{\materialD\vec{u}}{\materialD t}\right)\cdot\D\vec{A}
+\end{equation}
+where $D(t)$ is the disc with boundary $\bdry D(t)=C(t)$. Then using Eq~\eqref{eq:fluid:euler-flow:kelvin-theorem:pf1:grad}
+gives us
+\begin{equation}
+\iint_{D(t)}\left(\curl\frac{\materialD\vec{u}}{\materialD t}\right)\cdot\D\vec{A}=0,
+\end{equation}
+\end{subequations}
+which implies the first term vanishes.
+\end{proof}
+
+\begin{node}[Significance]\label{fluids:euler-flow-0014}%
+We should remark and stress that Kelvin's theorem expresses a global
+property of vorticity: the flux through a surface is an invariant of the
+flow. 
+\end{node} % Significance
+
+\end{node} % Kelvin's Theorem
+
+\end{node} % Rotation: Vorticity and Circulation
+
 \begin{node}[Thermodynamics of ideal fluids]\label{fluids:euler-flow-000M}%
 Landau and Lifshitz~\cite[\S3]{landau1987fluids} begins by observing how
 idealized fluids enjoy simplifications thanks to thermodynamics. This is
@@ -468,5 +611,101 @@ as
 \end{equation*}
 Observe this involves only velocity, not pressure or density.
 \end{theorem} % Euler equations for isentropic motion
+
+\begin{definition}\label{fluids:euler-flow-000X}%
+A \define{Barotropic Fluid} is a fluid with its pressure is a function of
+of its density only $p=p(\rho)$ and vice-versa $\rho=\rho(p)$.
+
+\begin{node}[Caution]\label{fluids:euler-flow-0011}%
+There seems to be some disagreement in the literature, with certain
+sources asserting barotropic fluids have $p=p(\rho)$, while others say
+$\rho=\rho(p)$; some say it is exactly one of these conditions, others
+say it is exactly both of these conditions.
+
+In thermodynamics, a polytropic process is one where $pV^{n}=C$ where
+$n$ is the ``polytropic index'', $V$ is the volume, and $C$ is a
+constant. This can be viewed as a special case of barotropic situations.
+\end{node}
+
+\begin{example}\label{fluids:euler-flow-000Y}%
+An isentropic fluid~\zref{fluids:euler-flow-000J} is barotropic.
+\end{example}
+
+\begin{example}\label{fluids:euler-flow-0010}%
+An isothermal ideal gas has $p=A\rho$ where $A=k_{B}\temperature/(\mu m_{p})$ is constant.
+Similarly adiabatic ideal gases has $p=K\rho^{\gamma}$ where $K$ and
+$\gamma$ are constants.
+\end{example}
+
+\begin{example}[Electron degeneracy pressure]\label{fluids:euler-flow-000Z}%
+Systems with free electrons which are (relatively) cold and dense has
+its degeneracy pressure describe a barotropic fluid: 
+\begin{equation*}
+p = \frac{\pi^{2}\hbar^{2}}{5m_{e}m_{\text{ion}}^{5/3}}\left(\frac{3}{\pi}\right)^{2/3}\rho^{5/3}
++\begin{pmatrix}\mbox{relativistic}\\\mbox{corrections}\\
+\mbox{of order }\rho^{4/3}\end{pmatrix},
+\end{equation*}
+which is the nonrelativistic approximation which occurs in the interior
+of white dwarfs (see, e.g., \arXiv{astro-ph/0702351} or the two volumes
+of Padmanabhan's \textit{Theoretical Astrophysics} [CUP, 2001]), iron core in
+massive stars (when we can use the free electron model), and the deep
+interior of Jupiter. 
+\end{example}
+\end{definition}
 \end{node} % Thermodynamics of ideal fluids
 
+\begin{node}[D'Alembert's Paradox]\label{fluids:euler-flow-000N}%
+
+\begin{lemma}\label{fluids:euler-flow-000O}%
+An infinitesimal change in energy $E$ and momentum $\vec{P}$
+are related by
+\begin{equation*}
+\D E=\vec{u}\cdot\D\vec{P}.
+\end{equation*}
+\end{lemma}%
+%
+\begin{proof}%
+\begin{pf}
+\item Assume the body accelerated by some external force $\vec{F}$
+\item Then the momentum of the fluid will be increased by $\D\vec{P}$
+  during the period $\D t$.
+\item Then $\D\vec{P}=\vec{F}\,\D t$.
+\item Hence $\vec{u}\cdot\vec{P}=\vec{u}\cdot\vec{F}\,\D t$ by scalar
+  multiplication with $\vec{u}$ (i.e., the work done by the force
+  $\vec{F}$ acting through the distance $\vec{u}\,\D t$, which in turn
+  must be equal to the increase $\D E$ in the energy of the fluid).\qedhere
+\end{pf}
+\end{proof}
+
+\begin{theorem}[D'Alembert's Paradox]\label{fluids:euler-flow-000P}%
+In a steady flow for an incompressible, inviscid, and irrotational fluid,
+if there are no free surfaces for the fluid, then a body moving through
+the fluid will experience no drag and no lift.
+\end{theorem}
+
+\begin{proof}[{Proof sketch (Landau and Lifshitz~\cite{landau1987fluids})}] Energy conservation requires the drag force to
+  vanish.
+\begin{pf}
+\item The momentum $\vec{P}$ is constant.
+\item Then the velocity $\vec{u}$ is constant.
+\item Therefore by our Lemma~\ref{fluids:euler-flow-000O}, the force
+  must be zero $\vec{F}=\vec{0}$.\qedhere
+\end{pf}
+\end{proof}
+
+\begin{node}[Caveats]\label{fluids:euler-flow-000R}%
+A critical implicit premise to D'Alembert's paradox is that the fluid
+body is $\RR^{n}$, i.e., has no free surface. If there were a free
+surface, and if a body moved uniformly parallel to this surface, then
+that moving body would experience a drag force (called \emph{wave drag})
+due to the occurrence of a system of waves propagated on the free
+surface, which continuously remove energy to infinity.
+\end{node} % Caveats
+
+\begin{node}[References]\label{fluids:euler-flow-000Q}%
+Batchelor~\cite[\S6.4]{batchelor1967introduction} is exceptionally clear,
+Landau and Lifshitz~\cite[\S11]{landau1987fluids} is exceptionally elegant.
+Grimberg, Pauls, and Frisch~\cite{grimberg2008genesis} review the
+history behind D'Alembert's paradox.
+\end{node} % References
+\end{node} % D'Alembert's Paradox

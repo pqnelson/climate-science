@@ -7,11 +7,15 @@
 \let\oldvec\vec
 \let\vec\bm
 
-% calculus
+%% calculus
+\DeclareMathOperator{\atan2}{atan2}
+% borrowed from svmono.cls
 \newcommand\D{\mathrm{d}}
 \newcommand\E{\mathrm{e}}
 \newcommand\I{\mathrm{i}}
-\DeclareMathOperator{\atan2}{atan2}
+% tensor, from svmono.cls
+\def\tens#1{\relax\ifmmode\mathsf{#1}\else\textsf{#1}\fi}
+
 
 \newcommand\unitnormal{\widehat{\vec{n}}}
 
@@ -23,6 +27,7 @@
 
 \newcommand\ball[2]{B_{#1}(#2)}
 
+%% Average integral
 % Vivi's solution https://tex.stackexchange.com/a/760/14751
 \def\Xint#1{\mathchoice
 {\XXint\displaystyle\textstyle{#1}}%
@@ -56,6 +61,8 @@
 
 % Fluid Mechanics
 \newcommand\materialD{\mathrm{D}}
+\newcommand\strainratetens{\tens{E}}
+\newcommand\strainrate{e}
 % https://tex.stackexchange.com/q/129397
 \newcommand\Kn{\mathrm{Kn}} % Wikipedia
 
@@ -127,4 +134,6 @@
 \newcommand\sMfld{\cat{s}\Mfld}
 
 
+
+\input{logos}
 \endinput

@@ -1,4 +1,4 @@
-% 4
+% 5
 \chapter{Vector Calculus}
 
 % I'm going to organize this when needed, but right now I'm just "adding
@@ -60,3 +60,14 @@ $\vec{y}\in\ball{\delta}{\vec{x}}$. So for $0<r<\delta$,
 \end{calculation}
 which proves the result.
 \end{proof}
+
+\begin{definition}\label{vector-calc-0004}%
+Let $\vec{F}\colon U\subset\RR^{n}\to\RR^{n}$ be a vector field, let
+$C\subset U$ be a piecewise smooth cure. We define the \define{Line Integral}
+of $\vec{F}$ along $C$ to be
+\begin{equation*}
+\oint_{C}\vec{F}(\vec{x})\cdot\D\vec{x}=\int^{b}_{a}\vec{F}(\vec{r}(t))\cdot\vec{r}'(t)\,\D t,
+\end{equation*}
+where $\vec{r}\colon[a,b]\to C$ is a [sufficiently smooth]
+parametrization of $C$.
+\end{definition}
